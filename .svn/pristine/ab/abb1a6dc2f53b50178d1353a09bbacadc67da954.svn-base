@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\layout-v21\\notification_template_custom_big.xml"
+    }
+]

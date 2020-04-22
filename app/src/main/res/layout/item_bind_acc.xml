@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_f"
+    android:paddingBottom="@dimen/y40"
+    android:paddingLeft="@dimen/x40"
+    android:paddingRight="@dimen/x40"
+    android:paddingTop="@dimen/y40">
+    <ImageView
+        android:id="@+id/iv_alipay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_alipay_1"
+        />
+    <TextView
+        android:id="@+id/alipay_acc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_alipay"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/color_3"
+        android:textSize="16sp"
+        android:text="13800004518"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_more"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f2">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@color/color_f"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/refund_order"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/account_current_merchant"/>
+
+        <TextView
+            android:id="@+id/tv_refund_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="111111"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/color_9"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0.5"
+        android:background="@color/color_f2"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@color/color_f"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/order_amount"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/account_current_merchant"/>
+
+        <TextView
+            android:id="@+id/tv_order_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="1.0元"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/order_status_color_02"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:gravity="center_vertical"
+        android:background="@color/color_f"
+        android:layout_marginTop="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/refund_amount"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/account_current_merchant"/>
+
+        <EditText
+            android:id="@+id/et_refund_amount"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:background="@null"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12"
+            android:hint="@string/input_refund_amount"
+            android:inputType="number|numberDecimal"
+            android:textColorHint="@color/gray2"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/color_9"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/yuan"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/color_9"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_67"
+        android:layout_marginRight="@dimen/dp_60"
+        android:layout_marginLeft="@dimen/dp_60"
+        android:text="@string/sure"
+        android:textColor="@color/color_f"
+        android:background="@drawable/shape_btn_no_enable"/>
+
+</LinearLayout>

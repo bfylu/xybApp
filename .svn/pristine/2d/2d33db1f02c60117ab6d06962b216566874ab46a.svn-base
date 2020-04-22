@@ -1,0 +1,150 @@
+package cn.payadd.majia.activity;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.fdsj.credittreasure.R;
+import com.fdsj.credittreasure.activities.CalculationActivity;
+import com.fdsj.credittreasure.activities.MainActivity;
+import com.utils.Config;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.payadd.majia.config.EnvironmentConfig;
+import cn.payadd.majia.constant.SymbolConstant;
+import cn.payadd.majia.device.pos.IPosHelper;
+import cn.payadd.majia.device.pos.PosDeviceUtil;
+import cn.payadd.majia.device.pos.PrintFormat;
+import cn.payadd.majia.face.IActivity;
+import cn.payadd.majia.listener.NoDoubleClickListener;
+
+/**
+ * Created by df on 2018/2/6.
+ */
+
+public class AcquireSuccessActivity extends BaseActivity{
+    private TextView tvAcquireAmount,tvOrderNo,tvOrderTime;
+
+    private Button btnContinue,btnExit;
+    @Override
+    int getLayoutId() {
+        return R.layout.activity_acquire_succ;
+    }
+
+    @Override
+    void initView() {
+
+        setTitleCenterText("收款成功");
+        setTitleBackButton();
+        tvAcquireAmount = (TextView) findViewById(R.id.tv_acquire_amount);
+        tvOrderNo = (TextView) findViewById(R.id.tv_order_no);
+        tvOrderTime = (TextView) findViewById(R.id.tv_order_time);
+        btnExit = (Button) findViewById(R.id.btn_return_main);
+        btnContinue = (Button) findViewById(R.id.btn_continue);
+        btnExit.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                Intent intent = new Intent(AcquireSuccessActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btnContinue.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+//                Intent intent = new Intent(AcquireSuccessActivity.this, CalculationActivity.class);
+//                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    @Override
+    void initData() {
+
+
+
+        Bundle data = getIntent().getExtras();
+        if(data !=null){
+            final String orderAmt = data.getString("orderAmount");
+            final String orderDate = data.getString("orderDate");
+            final String orderDesc = data.getString("orderDesc");
+            final String merCode = data.getString("merCode");
+            final String merName = data.getString("merName");
+            final String merShortName = data.getString("merShortName");
+            final String payType = data.getString("payType");
+            final String address = data.getString("address");
+            final String orderNo = data.getString("orderNo");
+
+            tvAcquireAmount.setText(SymbolConstant.RMB + orderAmt);
+            tvOrderNo.setText(orderNo);
+            tvOrderTime.setText(orderDate);
+
+            String msg = "交易成功";
+
+            if (Config.isPos()) {
+                if ("unionpay".equals(payType)) {
+                    return;
+                }
+
+                IPosHelper helper = PosDeviceUtil.getPosHelper(EnvironmentConfig.getPosType(), AcquireSuccessActivity.this);
+                List<String> contentList = new ArrayList<>();
+                contentList.add(PrintFormat.transJson(3, "", 1).toString());
+                contentList.add(PrintFormat.transJson(3,"    " + merShortName, 0).toString());
+                contentList.add(PrintFormat.transJson(2, "", 1).toString());
+                contentList.add(PrintFormat.transJson(2, "商户编号："+merCode, 0).toString());
+                contentList.add(PrintFormat.transJson(2, "终端号："+ helper.getTerminalNo(), 0).toString());
+                contentList.add(PrintFormat.transJson(2, "订单号："+orderNo, 0).toString());
+                contentList.add(PrintFormat.transJson(2, "交易时间："+orderDate, 0).toString());
+                contentList.add(PrintFormat.transJson(2, "交易金额："+orderAmt+"元", 0).toString());
+                contentList.add(PrintFormat.transJson(2, "店铺地址："+address, 0).toString());
+                if(TextUtils.isEmpty(orderDesc)){
+                    contentList.add(PrintFormat.transJson(2, "备注：", 1).toString());
+                }else{
+                    contentList.add(PrintFormat.transJson(2, "备注："+ orderDesc, 1).toString());
+                }
+                contentList.add(PrintFormat.transJson(2, "————————————————————", 1).toString());
+                contentList.add(PrintFormat.transJson(2, "技术支持：PAY+支付", 0).toString());
+                contentList.add(PrintFormat.transJson(3, "", 1).toString());
+                boolean isSuccess = helper.printReceipt(contentList,AcquireSuccessActivity.this);
+//                if(!isSuccess){
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(AcquireSuccessActivity.this);
+//                    builder.setTitle("提示").setMessage("打印失败，请检查POS配置或是否缺纸？").setPositiveButton("是", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                    builder.create().show();
+//                }
+
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(AcquireSuccessActivity.this);
+                builder.setTitle("提示").setMessage(msg).setPositiveButton(msg, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+            }
+        }else{
+            tvAcquireAmount.setText(SymbolConstant.RMB + getIntent().getStringExtra("orderAmount"));
+            tvOrderNo.setText(getIntent().getStringExtra("orderNo"));
+            tvOrderTime.setText(getIntent().getStringExtra("orderTime"));
+        }
+
+    }
+
+    @Override
+    void initPermission() {
+
+    }
+}

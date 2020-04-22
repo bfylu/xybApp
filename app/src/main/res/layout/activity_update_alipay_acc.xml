@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:id="@+id/text_acc_current_mer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/acc_current_merchant"
+                android:textColor="@color/account_current_merchant"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tv_current_mer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/text_acc_current_mer"
+                android:textColor="@color/account_current_merchant"
+                android:textSize="16sp"
+                android:text="135648161843"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/iv_verify_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/icon_safecode" />
+
+            <EditText
+                android:id="@+id/edit_safe_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_verify_code"
+                android:layout_marginRight="16dp"
+                android:layout_toLeftOf="@+id/text_get_safe_code"
+                android:hint="@string/acc_hint_safe_code"
+                android:inputType="number"
+                android:maxLength="6" />
+
+            <Button
+                android:id="@+id/text_get_safe_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:background="@color/color_lucency"
+                android:text="@string/acc_btn_safe_code"
+                android:textColor="@color/account_safe_code"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/iv_alipay_pid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_pid"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:id="@+id/edit_alipay_pid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_toRightOf="@+id/iv_alipay_pid"
+                android:maxLength="16"
+                android:hint="@string/acc_hint_name" />
+            <ImageView
+                android:id="@+id/PIDhelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/icon_pid_help" />
+            <ImageView
+                android:id="@+id/iv_clear_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/PIDhelp"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/icon_clear"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/iv_alipay_Acc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_alipay_account" />
+
+            <EditText
+                android:id="@+id/edit_alipay_acc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/acc_hint_alipay_no"
+                android:layout_toRightOf="@+id/iv_alipay_Acc"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <ImageView
+                android:id="@+id/iv_clear_acc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/icon_clear"
+                android:visibility="invisible" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_imgcode_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
+            <EditText
+                android:id="@+id/et_img_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/iv_code"
+                android:hint="请输入验证码"/>
+            <ImageView
+                android:id="@+id/iv_code"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+        <Button
+            android:id="@+id/btn_bind"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="59dp"
+            android:background="@drawable/selector_btn_press"
+            android:text="@string/acc_btn_update"
+            android:textColor="@color/btn_text"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

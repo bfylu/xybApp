@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_up">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_15"
+            android:gravity="center_vertical">
+
+            <cn.payadd.majia.view.CircleImageView
+                android:id="@+id/iv_head"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="@string/call_phone"
+                android:textSize="@dimen/sp_18"
+                android:textColor="@color/color_0"/>
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="@dimen/dp_233"
+            android:layout_height="@dimen/dp_233"
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_30"/>
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_pic"-->
+            <!--android:layout_width="@dimen/dp_233"-->
+            <!--android:layout_height="@dimen/dp_233"-->
+            <!--android:layout_marginTop="@dimen/dp_40"-->
+            <!--android:layout_marginBottom="@dimen/dp_30" />-->
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_2"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/dotted"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="133dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_down">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="center">
+
+            <View
+                android:id="@+id/dot_1"
+                android:layout_width="@dimen/dp_5"
+                android:layout_height="@dimen/dp_5"
+                android:background="@drawable/shape_dot_green"/>
+
+            <View
+                android:id="@+id/dot_2"
+                android:layout_width="@dimen/dp_5"
+                android:layout_height="@dimen/dp_5"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:background="@drawable/shape_dot_green"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_save_local"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginLeft="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_40"
+            android:text="@string/save_local"
+            android:textColor="@color/color_f"
+            android:textSize="@dimen/sp_17"
+            android:background="@drawable/shape_btn_enable"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="@string/send_image_to_friend"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/color_9"/>
+
+    </LinearLayout>
+</LinearLayout>

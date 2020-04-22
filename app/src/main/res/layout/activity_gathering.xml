@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<include-->
+        <!--android:id="@+id/include_title"-->
+        <!--layout="@layout/include_title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/y150" />-->
+
+    <!--每个Tab对应的内容-->
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/gathering_bottom"
+        android:layout_below="@id/include_title"
+        android:background="@color/color_Home" />
+
+
+    <!--<View-->
+    <!--android:id="@+id/xian"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1px"-->
+    <!--android:layout_above="@+id/include_bottom"-->
+    <!--android:background="@color/color_ec" />-->
+
+    <!--<include-->
+        <!--android:id="@+id/gathering_bottom"-->
+        <!--layout="@layout/gathering_bottom"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true" />-->
+
+
+</RelativeLayout>

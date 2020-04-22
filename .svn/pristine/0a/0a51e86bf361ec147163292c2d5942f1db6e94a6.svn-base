@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_Home"
+    android:orientation="vertical">
+
+    <!--<com.flyco.tablayout.SlidingTabLayout-->
+    <!--android:id="@+id/slidingTabLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/y120"-->
+    <!--tl:tl_indicator_color="@color/color_c7c03b"-->
+    <!--tl:tl_tab_padding="@dimen/y30"-->
+    <!--tl:tl_tab_space_equal="true"-->
+    <!--tl:tl_textAllCaps="true"-->
+    <!--tl:tl_textSelectColor="@color/color_c7c03b"-->
+    <!--tl:tl_textUnselectColor="@color/color_f"-->
+    <!--tl:tl_textsize="14sp"-->
+    <!--tl:tl_underline_color="@color/color_Home"-->
+    <!--tl:tl_underline_gravity="BOTTOM"-->
+    <!--tl:tl_underline_height="2dp" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/y20"
+        android:paddingTop="@dimen/y20">
+
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/smart_sweep"
+            android:textColor="@color/color_f"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/weixin_pay"
+            android:textColor="@color/color_f"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/alipay"
+            android:textColor="@color/color_f"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/card"
+            android:textColor="@color/color_f"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="@dimen/y20">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_code"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/y100"-->
+    <!--android:gravity="center"-->
+    <!--android:text="@string/scan_code"-->
+    <!--android:textColor="@color/color_f" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/y100"-->
+    <!--android:layout_below="@+id/tv_code"-->
+    <!--android:gravity="center"-->
+    <!--android:text="500.00"-->
+    <!--android:textColor="@color/color_f"-->
+    <!--android:textSize="22sp" />-->
+    <!--</RelativeLayout>-->
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

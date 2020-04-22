@@ -1,0 +1,202 @@
+<resources>
+    <string name="app_name">信用商圈</string>
+    <!--<string name="home_string">码夹</string>-->
+    <!--登录 jiawq -->
+    <!--<string name="userName">test1227</string> test0114    qqqqqq-->
+    <!--<string name="passWord">111111</string> 4111611031731401-->
+    <string name="userName"></string>
+    <string name="passWord"></string>
+    <string name="downloadKey"></string>
+
+    <string name="endTitmNoStartTime">结束时间不能小于起始时间</string>
+
+    <string name="startTimeEndTitmNo">起始时间不能大于结束时间</string>
+
+    <string name="no_login">您还未登录</string>
+    <string name="ipt_name">请输入用户名</string>
+    <string name="ipt_psd">请输入密码</string>
+    <string name="ipt_checkcode">请输入验证码</string>
+    <string name="remeber_psd">记住密码</string>
+    <string name="down_key">下载密钥</string>
+    <string name="login">登录</string>
+    <string name="login_out">退出</string>
+
+    <!--标题-->
+    <string name="statistics">统计</string>
+    <string name="msg">消息</string>
+    <string name="manage">管理</string>
+    <string name="operate_msg_title">操作信息</string>
+    <string name="gathering_title">收款</string>
+    <string name="pay_info">支付详情</string>
+    <string name="scanner">扫一扫</string>
+    <string name="first">首页</string>
+    <string name="mine">我的</string>
+    <string name="fund_auth">预授权</string>
+    <!--<string name="test1227">test1227</string>-->
+    <!--流水界面-->
+    <string name="collection">已收款(元)</string>
+    <string name="total_amount">总笔数(笔)</string>
+    <string name="refund">退款(元)</string>
+    <string name="account_statement">流水</string>
+    <string name="all">全部</string>
+    <string name="already_collection">已收款</string>
+    <string name="agency_fund">待收款</string>
+    <string name="pay_method">支付方式：</string>
+    <string name="deal_time">交易时间：</string>
+    <string name="deal_money">金额：</string>
+    <string name="door_man">商家名称：</string>
+    <string name="pay_state">支付状态：</string>
+    <string name="pay_num">支付账号：</string>
+    <string name="pay_type">支付类型：</string>
+    <string name="pay_organize">收单机构：</string>
+    <string name="pay_logout">退款</string>
+
+    <!--筛选界面-->
+    <string name="number">操作员号</string>
+    <string name="deal_type">支付类型</string>
+    <string name="start_time">起始时间</string>
+    <string name="end_time">结束时间</string>
+    <string name="choose">筛选</string>
+    <string name="order_number">请输入订单号进行查询</string>
+    <string name="scanner_faile">扫码失败</string>
+
+    <!--结算-->
+    <string name="door">门    店：</string>
+    <string name="order">商户号：</string>
+    <string name="terminal">终端号：</string>
+    <string name="Operator">操  作  员：</string>
+    <string name="clearing_time">上次结算时间：</string>
+    <string name="start_settle_time">结算开始时间：</string>
+    <string name="end_settle_time">结算结束时间：</string>
+    <string name="total_recepits">实收总额：</string>
+    <string name="total_refund">退款总额：</string>
+    <string name="total_deal">交易总额：</string>
+    <string name="deal_with">结算</string>
+    <string name="time">时间：</string>
+    <string name="total">核销总额</string>
+
+
+    <!--密钥下载界面-->
+    <string name="download">下载</string>
+    <string name="PleaseM_Code">请输入您的商户号：</string>
+    <string name="ConfirmMerchantCode">请确认您的商户号</string>
+    <string name="code_suc">密钥下载成功</string>
+    <string name="ple_download">请先下载密钥</string>
+
+    <!--收款-->
+    <string name="smart_sweep">智能扫码</string>
+    <string name="weixin_pay">微信支付</string>
+    <string name="alipay">支付宝</string>
+    <string name="card">银联</string>
+    <string name="baidu_pay">百度支付</string>
+    <string name="scan_code">请顾客扫描二维码</string>
+    <string name="payment_status">获取支付状态</string>
+    <string name="inpt_money">请输入金额</string>
+    <string name="inpt_wrong">大人，小人出错了,您可以尝试清空</string>
+    <string name="count_0">收款金额必须大于0</string>
+    <string name="count_money">请计算收款金额</string>
+    <string name="freeze_money">请输入金额</string>
+    <string name="gather_info">收款信息</string>
+    <string name="gather_detail">收款详情</string>
+    <string name="gather_money">收款金额：</string>
+    <string name="weixinNotOk">请扫描微信支付收款码</string>
+    <string name="alipayNotOk">请扫描支付宝收款码</string>
+    <string name="unbindAlipay">使用预授权收款方式需要绑定收款人的支付宝账号。</string>
+    <string name="msg_to_fund_auth">预授权收款方式只支持支付宝支付，请让消费者打开支付宝付款码。</string>
+
+    <!--dialog-->
+    <string name="hint">提示</string>
+    <string name="inpt_msg">请先输入内容</string>
+    <string name="no_psd">密码不能为空</string>
+    <string name="no_verify_code">请输入验证码</string>
+    <string name="no_user">用户名不能为空</string>
+    <string name="once_again">再按一次退出程序</string>
+    <string name="no_function">此功能暂未开放</string>
+    <string name="no_order">暂未获取到订单</string>
+    <string name="select_type">请选择支付类型</string>
+    <string name="logout_psd">请输入退款密码</string>
+    <string name="dismiss">取消</string>
+    <string name="sure">确定</string>
+    <string name="to_bind">前往绑定</string>
+    <string name="title_bind_alipay">绑定支付宝账号</string>
+    <string name="btn_to_fund_auth">开始收款</string>
+    <string name="reject_update">本次更新包含了重要内容，取消更新将无法继续正常使用哦，是否继续操作？</string>
+
+
+    <!--我的固定码-->
+    <string name="fixcode_title">我的固定码</string>
+    <string name="fixcode_door_name">门店：</string>
+    <string name="fixcode_name">名字：</string>
+    <string name="saoma_pay">扫一扫下面二维码图案，开始付款</string>
+    <string name="fix_benefit">我的收益</string>
+    <string name="fix_manager">门店管理</string>
+
+    <!--支付-->
+    <string name="deal_order">交易单号:</string>
+
+    <!--结算详情-->
+    <string name="settle_info">结算详情</string>
+
+    <!--首页-->
+    <string name="deal_amount">交易笔数：</string>
+    <string name="home_money">营业额(元)</string>
+    <string name="home_total_money">实收总额(元)</string>
+    <string name="home_gain">暂无实收</string>
+    <string name="home_seven">七天实收(元)</string>
+    <string name="home_operate">收营员：</string>
+
+    <!--网络连接-->
+    <string name="net_wrong">网络连接失败</string>
+    <string name="try_net_wrong">网络连接失败,请稍后再试</string>
+
+
+    <!--收款详情-->
+    <string name="collect_time">收款时间</string>
+    <string name="money">金额(元)</string>
+    <string name="pay">支付方式</string>
+    <string name="pay_more">一码多付</string>
+
+    <!--操作信息-->
+    <string name="opt_time">时间</string>
+    <string name="opt_th">事件</string>
+    <string name="opt_man">操作员</string>
+
+    <!--消息界面-->
+    <string name="news_notice">活动通知</string>
+    <string name="news_product">新品上线通知</string>
+
+    <string name="scanOk">收款成功</string>
+    <string name="scanError">收款失败</string>
+
+    <!--收款账号-->
+    <string name="acc_title">收款账号</string>
+    <string name="acc_bind_info">绑定支付宝账号，开始使用预授权方式收款</string>
+    <string name="acc_current_merchant">当前商户：</string>
+    <string name="acc_hint_safe_code">请输入验证码</string>
+    <string name="acc_hint_name">请输入支付宝的商家PID</string>
+    <string name="acc_hint_alipay_no">请输入支付宝账号</string>
+    <string name="acc_btn_safe_code">获取验证码</string>
+    <string name="acc_btn_bind">绑定</string>
+    <string name="acc_btn_update">修改</string>
+    <!--预授权订单-->
+    <string name="title_fund_auth_order">预授权订单</string>
+    <!--我的银行卡-->
+    <string name="title_my_bankcard">我的银行卡</string>
+    <!--收款账号-->
+    <string name="title_account">收款账号</string>
+    <string name="bind_alipay_acc">绑定支付宝账号</string>
+    <string name="tv_receiver">收款商家支付宝uid：</string>
+    <string name="alipay_acc">支付宝账号：</string>
+    <string name="bind_acc_info">绑定成功后预授权收款的金额将自动转入该账号，确认是否无误？</string>
+    <string name="order_status">订单状态：</string>
+    <string name="title_pre_settle">预授权收款结算</string>
+    <string name="freeze_succ">预授权成功</string>
+
+    <!--预授权订单状态-->
+    <string name="title_setting">设置</string>
+
+
+    <string name="title_shop">店铺资料</string>
+    <string name="dredge_product">开通产品</string>
+
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/cet_left_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/cet_left_text"
+        />
+    <TextView
+        android:id="@+id/cet_left_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/color_6"
+        android:textSize="15sp"
+        />
+    <EditText
+        android:id="@+id/cet_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cet_left_text"
+        android:layout_toLeftOf="@+id/cet_right_image"
+        android:layout_centerVertical="true"
+        android:textSize="15sp"
+        android:textColorHint="@color/color_9"
+        android:textColor="@color/color_3"
+        android:maxLines="1"
+        android:background="@null"
+        />
+    <View
+        android:id="@+id/cet_bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="13dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray4"/>
+
+    <ImageView
+        android:id="@+id/cet_right_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>

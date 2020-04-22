@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_f"
+                android:paddingTop="16dp"
+                android:paddingBottom="18dp"
+               >
+    <TextView
+        android:id="@+id/tv_order_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="10dp">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="新的分期订单"
+        android:layout_marginLeft="20dp"
+        android:textSize="17sp"
+        android:maxLines="1"
+        android:textColor="@color/color_3"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ll_content"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@+id/ll_title"
+        android:textColor="@color/color_6"
+        android:textSize="14sp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="您有一笔新的分期订单。"
+        />
+    <TextView
+        android:id="@+id/tv_msg_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@+id/tv_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/color_9"
+        android:textSize="15sp"
+        android:text="2017-6-21 17:10:11"/>
+</RelativeLayout>

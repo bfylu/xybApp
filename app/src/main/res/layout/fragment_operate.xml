@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f2f2f2"
+            android:paddingBottom="@dimen/y20"
+            android:paddingLeft="@dimen/x20"
+            android:paddingRight="@dimen/x20"
+            android:paddingTop="@dimen/y20">
+
+            <ImageView
+                android:id="@+id/d_green"
+                android:layout_width="@dimen/x40"
+                android:layout_height="@dimen/y40"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/d_green" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_toRightOf="@id/d_green"
+                android:text="运营概况"
+                android:textColor="@color/color_9"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_f"
+            android:paddingBottom="@dimen/x20"
+            android:paddingLeft="@dimen/x20"
+            android:paddingRight="@dimen/x20"
+            android:paddingTop="@dimen/x20">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+
+                <TextView
+                    android:id="@+id/text_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:singleLine="true"
+                    android:textColor="@color/color_ff0000"
+                    android:textSize="14sp"
+                    tools:text="￥4535.07" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_all"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/y20"
+                    android:text="交易总额"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+
+                <TextView
+                    android:id="@+id/text_all_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:singleLine="true"
+                    android:textColor="@color/color_ff0000"
+                    android:textSize="14sp"
+                    tools:text="113" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_all_count"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_marginTop="@dimen/y40"
+                    android:text="交易笔数"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_f"
+            android:paddingBottom="@dimen/y20"
+            android:paddingLeft="@dimen/x20"
+            android:paddingRight="@dimen/x20">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/x20"
+                android:layout_weight="1"
+                android:background="@drawable/border_blue"
+                android:padding="@dimen/x40">
+
+                <ImageView
+                    android:id="@+id/image_zfb"
+                    android:layout_width="@dimen/x120"
+                    android:layout_height="@dimen/y120"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/zhifubao" />
+
+                <TextView
+                    android:id="@+id/text_title_zfb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_toRightOf="@id/image_zfb"
+                    android:text="支付宝"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/text_zfb_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_title_zfb"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_marginTop="@dimen/y20"
+                    android:layout_toRightOf="@id/image_zfb"
+                    android:singleLine="true"
+                    android:textColor="@color/color_ff0000"
+                    android:textSize="14sp"
+                    tools:text="￥210.00000000" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_weight="1"
+                android:background="@drawable/border_blue"
+                android:padding="@dimen/x40">
+
+                <ImageView
+                    android:id="@+id/image_wx"
+                    android:layout_width="@dimen/x120"
+                    android:layout_height="@dimen/y120"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/statistics_weixin" />
+
+                <TextView
+                    android:id="@+id/text_title_wx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_toRightOf="@id/image_wx"
+                    android:text="微信支付"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/text_wx_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_title_wx"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_marginTop="@dimen/y20"
+                    android:layout_toRightOf="@id/image_wx"
+                    android:singleLine="true"
+                    android:textColor="@color/color_ff0000"
+                    android:textSize="14sp"
+                    tools:text="￥210.00000000" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/x20"
+            android:paddingLeft="@dimen/x20"
+            android:paddingRight="@dimen/x20"
+            android:paddingTop="@dimen/x20"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/x20"
+                android:layout_weight="1"
+                android:background="@drawable/border_blue"
+                android:padding="@dimen/x40">
+
+                <ImageView
+                    android:id="@+id/image_baidu"
+                    android:layout_width="@dimen/x120"
+                    android:layout_height="@dimen/x120"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/baidu" />
+
+                <TextView
+                    android:id="@+id/text_title_baidu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_toRightOf="@id/image_baidu"
+                    android:text="百度支付"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/text_baidu_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_title_baidu"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_toRightOf="@id/image_baidu"
+                    android:singleLine="true"
+                    android:text="￥210.00000000"
+                    android:textColor="@color/color_ff0000"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_weight="1"
+                android:padding="@dimen/x40">
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#f2f2f2"-->
+        <!--android:paddingBottom="@dimen/y20"-->
+        <!--android:paddingLeft="@dimen/x20"-->
+        <!--android:paddingRight="@dimen/x20"-->
+        <!--android:paddingTop="@dimen/y20">-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/d_gray"-->
+        <!--android:layout_width="@dimen/x40"-->
+        <!--android:layout_height="@dimen/y40"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:src="@mipmap/d_gray" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginLeft="@dimen/x20"-->
+        <!--android:layout_toRightOf="@id/d_gray"-->
+        <!--android:text="当月流量统计"-->
+        <!--android:textColor="@color/color_9"-->
+        <!--android:textSize="14sp" />-->
+        <!--</RelativeLayout>-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f2f2f2"
+            android:paddingBottom="@dimen/y20"
+            android:paddingLeft="@dimen/x20"
+            android:paddingRight="@dimen/x20"
+            android:paddingTop="@dimen/y20">
+
+            <ImageView
+                android:id="@+id/d_gray"
+                android:layout_width="@dimen/x40"
+                android:layout_height="@dimen/y40"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/d_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_toRightOf="@id/d_gray"
+                android:text="当月流量统计"
+                android:textColor="@color/color_9"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_f"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/x40"
+            android:paddingRight="@dimen/x40">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/y20"
+                android:paddingTop="@dimen/y20"
+                android:weightSum="4">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="排名"
+                    android:textColor="@color/color_amount"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:text="支付类型"
+                    android:textColor="@color/color_amount"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="金额(元)"
+                    android:textColor="@color/color_amount"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="交易笔数"
+                    android:textColor="@color/color_amount"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y20"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/y20"
+                android:paddingTop="@dimen/y20"
+                android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/text_one"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/color_ff0000"
+                    android:textSize="16sp" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5">
+
+                    <ImageView
+                        android:id="@+id/image_one"
+                        android:layout_width="@dimen/x80"
+                        android:layout_height="@dimen/y80"
+                        android:layout_marginLeft="@dimen/x80"
+                        android:src="@mipmap/zhifubao" />
+
+                    <TextView
+                        android:id="@+id/text_name_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:layout_toRightOf="@id/image_one"
+                        android:singleLine="true"
+                        android:textColor="@color/color_6"
+                        android:textSize="14sp"
+                        tools:text="支付宝" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/text_money_one"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp"
+                    tools:text="210.00" />
+
+                <TextView
+                    android:id="@+id/text_count_one"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="6"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/color_ec" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/y20"
+                android:paddingTop="@dimen/y20"
+                android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/text_two"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textColor="@color/color_ffa126"
+                    android:textSize="16sp" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5">
+
+                    <ImageView
+                        android:id="@+id/image_two"
+                        android:layout_width="@dimen/x80"
+                        android:layout_height="@dimen/y80"
+                        android:layout_marginLeft="@dimen/x80"
+                        android:src="@mipmap/statistics_weixin" />
+
+                    <TextView
+                        android:id="@+id/text_name_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:layout_toRightOf="@id/image_two"
+                        android:singleLine="true"
+                        android:textColor="@color/color_6"
+                        android:textSize="14sp"
+                        tools:text="微信支付" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/text_money_two"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="210.00"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/text_count_two"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="6"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/color_ec" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

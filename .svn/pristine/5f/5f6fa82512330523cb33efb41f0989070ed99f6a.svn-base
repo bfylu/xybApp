@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_Home"
+    android:orientation="vertical">
+
+    <!--<RadioGroup-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/y120"-->
+    <!--android:layout_marginTop="@dimen/y20"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:weightSum="3">-->
+
+    <!--<RadioButton-->
+    <!--android:id="@+id/radio_scancode"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1"-->
+    <!--android:button="@null"-->
+    <!--android:checked="true"-->
+    <!--android:drawableTop="@drawable/tab_menu_scancode"-->
+    <!--android:gravity="center"-->
+    <!--android:onClick="onClick" />-->
+
+    <!--<RadioButton-->
+    <!--android:id="@+id/radio_erweima"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1"-->
+    <!--android:button="@null"-->
+    <!--android:drawableTop="@drawable/tab_menu_erweima"-->
+    <!--android:gravity="center"-->
+    <!--android:onClick="onClick" />-->
+
+
+    <!--<RadioButton-->
+    <!--android:id="@+id/radio_slotcard"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1"-->
+    <!--android:button="@null"-->
+    <!--android:drawableTop="@drawable/tab_menu_slotcard"-->
+    <!--android:gravity="center"-->
+    <!--android:onClick="onClick" />-->
+    <!--</RadioGroup>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x120"
+        android:layout_marginTop="@dimen/y20"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <ImageView
+            android:id="@+id/image_scan"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/scancode_un" />
+
+        <ImageView
+            android:id="@+id/image_qrcode"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/erweima_un" />
+
+        <ImageView
+            android:id="@+id/image_unionpay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:src="@mipmap/slotcard_un" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_gain_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y100"
+        android:layout_marginLeft="@dimen/x200"
+        android:layout_marginRight="@dimen/x200"
+        android:layout_marginTop="@dimen/y100"
+        android:background="@mipmap/butten"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="onClick"
+        android:text="@string/payment_status"
+        android:textSize="16sp" />
+
+</LinearLayout>

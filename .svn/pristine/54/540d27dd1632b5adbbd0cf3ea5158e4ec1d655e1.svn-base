@@ -1,0 +1,82 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="MyAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppSplash" parent="MyAppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@mipmap/startup</item>
+    </style>
+
+    <style name="tab_menu_item">
+        <item name="android:layout_width">0px</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/tab_menu_textcolor</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="tab_menu_image">
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_marginTop">@dimen/y20</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">@dimen/x80</item>
+        <item name="android:layout_height">@dimen/y80</item>
+    </style>
+
+    <style name="tab_menu_text">
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/y10</item>
+        <item name="android:textColor">@color/color_6</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="line">
+        <item name="android:background">@color/color_f</item>
+        <item name="android:paddingBottom">@dimen/y40</item>
+        <item name="android:paddingTop">@dimen/y40</item>
+        <item name="android:paddingLeft">@dimen/x40</item>
+        <item name="android:paddingRight">@dimen/x40</item>
+    </style>
+
+    <style name="MyAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="checkBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/selector_cb_print_type</item>
+        <item name="android:onClick">false</item>
+    </style>
+
+    <!-- dialog样式 -->
+    <style name="dialog_custom" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>    <!--是否浮在界面上-->
+        <item name="android:windowIsTranslucent">true</item> <!--是否半透明-->
+        <item name="android:windowNoTitle">false</item>       <!--是否有标题-->
+        <item name="android:windowBackground">@android:color/transparent</item> <!--窗口背景色透明-->
+        <item name="android:backgroundDimEnabled">true</item> <!--背景是否模糊显示-->
+    </style>
+
+    <style name="Widget"></style>
+    <style name="Widget.AoXinTong.Blue.ProgressBar" parent="Widget">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/temp_progress</item>
+        <item name="android:indeterminateDrawable">@drawable/temp_progress</item>
+        <item name="android:minHeight">5dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
+
+
+
+</resources>

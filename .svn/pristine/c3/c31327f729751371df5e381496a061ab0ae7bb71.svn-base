@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f5">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150" />
+
+    <RelativeLayout
+        android:id="@+id/rl_express"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:paddingLeft="@dimen/dp_45"
+        android:paddingRight="@dimen/dp_45"
+        android:gravity="center_vertical"
+        android:background="@color/color_f5">
+
+        <TextView
+            android:id="@+id/tv_need_express"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:drawableLeft="@mipmap/close"
+            android:drawablePadding="@dimen/dp_12"
+            android:text="需要物流"/>
+
+        <TextView
+            android:id="@+id/tv_no_need_express"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|right"
+            android:layout_alignParentRight="true"
+            android:drawableLeft="@mipmap/open"
+            android:drawablePadding="@dimen/dp_12"
+            android:text="无需物流"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_need_express"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/ll_express"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12"
+            android:gravity="center_vertical"
+            android:background="@color/color_f">
+
+            <EditText
+                android:id="@+id/et_input_express_num"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:singleLine="true"
+                android:inputType="number"
+                android:digits="@string/filter_vcode"
+                android:hint="@string/input_express_num"
+                android:textColorHint="@color/color_9"
+                android:textColor="@color/account_current_merchant"
+                android:textSize="@dimen/sp_15"/>
+
+            <ImageView
+                android:id="@+id/iv_scan"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/dp_12"
+                android:src="@mipmap/icon_scan"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0.5"
+            android:layout_below="@+id/ll_express"
+            android:background="@color/color_f2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12"
+            android:layout_below="@+id/view_line"
+            android:gravity="center_vertical"
+            android:background="@color/color_f">
+
+            <EditText
+                android:id="@+id/et_input_express"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:maxLines="1"
+                android:inputType="text"
+                android:background="@null"
+                android:hint="@string/choose_express_company"
+                android:textColorHint="@color/color_9"
+                android:textColor="@color/account_current_merchant"
+                android:textSize="@dimen/sp_15"/>
+
+            <TextView
+                android:id="@+id/tv_choose_express"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_48"
+                android:paddingLeft="@dimen/dp_12"
+                android:background="@color/color_f"
+                android:gravity="center_vertical"
+                android:text="@string/choice"
+                android:textColor="@color/btn_clickable"
+                android:textSize="@dimen/sp_15"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_no_need_express"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_need_no_write"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/color_9"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+</LinearLayout>

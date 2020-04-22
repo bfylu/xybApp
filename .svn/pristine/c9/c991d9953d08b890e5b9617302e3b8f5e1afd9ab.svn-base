@@ -1,0 +1,251 @@
+package cn.payadd.majia.activity;
+
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fdsj.credittreasure.R;
+import com.fdsj.credittreasure.widgtes.TimeCount;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import cn.payadd.majia.adapter.BankCardAdapter;
+import cn.payadd.majia.constant.AppService;
+import cn.payadd.majia.constant.SymbolConstant;
+import cn.payadd.majia.face.IActivity;
+import cn.payadd.majia.presenter.BankCardPresenter;
+import cn.payadd.majia.presenter.WithdrawPresenter;
+import cn.payadd.majia.view.CommonDialog;
+import cn.payadd.majia.view.CommonEditText;
+import cn.payadd.majia.view.DrawableTextView;
+
+/**
+ * Created by df on 2017/9/28.
+ */
+
+public class WithdrawActivity extends BaseActivity implements View.OnClickListener, IActivity {
+    private RelativeLayout rlCardAccount;
+    private CommonEditText cetAmount;
+    private TextView tvCanWithdrawAmount;
+    private TextView tvAllWithdraw, tvBankCardNo;
+    private Button btnWithdraw;
+    private String mCanWithdrawAmount;
+
+    private boolean mHasBankCard;
+
+    private List<Map<String, Object>> mBankCardList;
+
+    private BankCardPresenter presenter;
+    private WithdrawPresenter withdrawPresenter;
+    private BankCardAdapter bankCardAdapter;
+    private View dialogView;
+    private CommonDialog dialog;
+    private ProgressDialog pDialog;
+    private Map<String, Object> mSelectBankCard;
+
+    public final static int REQUEST = 1;
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_withdraw;
+    }
+
+    @Override
+    public void initView() {
+        setTitleBackButton();
+        setTitleCenterText("提现");
+        rlCardAccount = (RelativeLayout) findViewById(R.id.rl_card_account);
+        cetAmount = (CommonEditText) findViewById(R.id.cet_amount);
+        tvCanWithdrawAmount = (TextView) findViewById(R.id.tv_can_withdraw_amount);
+        tvAllWithdraw = (TextView) findViewById(R.id.tv_all_withdraw);
+        btnWithdraw = (Button) findViewById(R.id.btn_withdraw);
+        tvBankCardNo = (TextView) findViewById(R.id.tv_card_no);
+        tvAllWithdraw.setOnClickListener(this);
+        btnWithdraw.setOnClickListener(this);
+        rlCardAccount.setOnClickListener(this);
+        tvBankCardNo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        cetAmount.getCetEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String inputAmountStr = cetAmount.getCetEditText().getText().toString();
+                if (TextUtils.isEmpty(inputAmountStr)) {
+                    return;
+                }
+                BigDecimal amount = new BigDecimal(mCanWithdrawAmount);
+                BigDecimal inputAmount = new BigDecimal(inputAmountStr);
+                if (amount.compareTo(inputAmount) == -1) {
+                    btnWithdraw.setEnabled(false);
+                    Toast.makeText(WithdrawActivity.this, "可提现金额不足，请重新输入", Toast.LENGTH_SHORT)
+                            .show();
+                } else {
+                    btnWithdraw.setEnabled(true);
+                }
+                if (inputAmount.compareTo(new BigDecimal(100)) == -1) {
+                    btnWithdraw.setEnabled(false);
+                } else {
+                    btnWithdraw.setEnabled(true);
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public void initData() {
+        mCanWithdrawAmount = getIntent().getStringExtra("canWithdrawAmount");
+        tvCanWithdrawAmount.setText(SymbolConstant.RMB + mCanWithdrawAmount);
+        withdrawPresenter = new WithdrawPresenter(this);
+
+    }
+
+    @Override
+    protected void initPermission() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_all_withdraw:
+                cetAmount.getCetEditText().setText(mCanWithdrawAmount);
+                break;
+            case R.id.btn_withdraw:
+                if (TextUtils.isEmpty(tvBankCardNo.getText().toString())) {
+                    Toast.makeText(this,"请选择到账银行卡",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(cetAmount.getCetEditText().getText().toString())){
+                    Toast.makeText(this,"请输入提现金额",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                pDialog = ProgressDialog.show(this, null, "请稍等...", true, false, new
+                        DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                    }
+                });
+                pDialog.setCanceledOnTouchOutside(false);
+                withdrawPresenter.withdraw((String) mSelectBankCard.get("id"), cetAmount
+                        .getCetEditText().getText().toString());
+                break;
+            case R.id.rl_card_account:
+                Intent intent = new Intent(this,MyBankCardActivity.class);
+                intent.putExtra("type","bind");
+                startActivityForResult(intent, REQUEST);
+                break;
+        }
+    }
+
+    @Override
+    public void updateModel(String key, Object data) {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.dismiss();
+        }
+        if (key.equals(AppService.QUERY_BANK_CARD)) {
+
+            Map<String, String> respData = (Map<String, String>) data;
+            String list = respData.get("list");
+            try {
+                JSONArray jsonArray = new JSONArray(list);
+                if (jsonArray.length() <= 0) {
+                    mHasBankCard = false;
+                } else {
+                    mHasBankCard = true;
+                    mBankCardList = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        Map<String, Object> bank = new HashMap<>();
+                        JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                        Iterator<String> it = jsonObject.keys();
+                        while (it.hasNext()) {
+                            String paramKey = it.next();
+                            bank.put(paramKey, jsonObject.getString(paramKey));
+                        }
+                        mBankCardList.add(bank);
+                        bankCardAdapter.updateData(mBankCardList, false);
+                    }
+                }
+                if (mHasBankCard) {
+                    dialogView.findViewById(R.id.layout_bankcard).setVisibility(View.VISIBLE);
+                    dialogView.findViewById(R.id.layout_bankcard_none).setVisibility(View.GONE);
+
+                } else {
+                    dialogView.findViewById(R.id.layout_bankcard).setVisibility(View.GONE);
+                    dialogView.findViewById(R.id.layout_bankcard_none).setVisibility(View.VISIBLE);
+                }
+                dialog.showDialog();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else if (key.equals(AppService.WITHDRAW)) {
+            Map<String, String> respData = (Map<String, String>) data;
+            String respCode = respData.get("respCode");
+            if (respCode.equals("000000")) {
+                Toast.makeText(this, "提现发起成功", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, IncomeManagerActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(this, "提现发起失败，请稍后重试", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == REQUEST){
+            mSelectBankCard = (Map<String, Object>) data.getSerializableExtra("bankcard");
+            String bankcardNo = (String) mSelectBankCard.get("bankCardNo");
+            tvBankCardNo.setText(bankcardNo);
+        }
+
+    }
+}

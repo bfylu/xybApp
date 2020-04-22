@@ -1,0 +1,35 @@
+package cn.payadd.majia.fragment.aistore;
+
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.MapView;
+import com.fdsj.credittreasure.R;
+import com.fdsj.credittreasure.fragment.BaseFragment;
+
+import butterknife.BindView;
+
+/**
+ * Created by lang on 2018/6/15.
+ */
+
+public class RadarFragment extends BaseFragment {
+
+    @BindView(R.id.mapView)
+    MapView mapView;
+
+    private AMap aMap;
+
+    @Override
+    protected int getLayoutView() {
+        return R.layout.fragment_radar;
+    }
+
+    @Override
+    protected void initView() {
+        aMap = mapView.getMap();
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+}

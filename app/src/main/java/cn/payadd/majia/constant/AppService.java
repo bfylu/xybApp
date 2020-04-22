@@ -1,0 +1,124 @@
+package cn.payadd.majia.constant;
+
+/**
+ * Created by zhengzhen.wang on 2017/6/12.
+ */
+
+public final class AppService {
+
+    /**
+     * 检查升级
+     */
+    public static final String CHECK_UPDATE = "000003";
+
+    /**
+     * 提交订单
+     */
+    public static final String ORDER_SUBMIT = "000007";
+
+    /**
+     * 订单查询
+     */
+    public static final String ORDER_QUERY = "000014";
+
+    /**
+     * 订单退款
+     */
+    public static final String ORDER_REFUND = "000018";
+    /**
+     * 统计查询
+     */
+    public static final String NEW_STATISTICS = "000024";
+
+    /**
+     * 请求分期
+     */
+    public static final String APPLY_INSTALLMENT = "000025";
+
+    /**
+     * 分期订单列表
+     */
+    public static final String INSTALLMENT_ORDER_LIST = "000026";
+
+    /**
+     * 分期订单详情
+     */
+    public static final String INSTALLMENT_ORDER_DETAIL = "000027";
+
+    /**
+     * 分期月供明细
+     */
+    public static final String INSTALLMENT_REPAY_OF_MONTH = "000028";
+
+    /**
+     * 获取验证码
+     */
+    public static final String GET_AUTH_CODE = "000016";
+    /**
+     * 绑定支付宝账号
+     */
+    public static final String BIND_ALIPAY_ACC = "000017";
+    /**
+     * 预授权冻结
+     */
+    public static final String FUND_AUTH_FREEZE = "000019";
+    /**
+     * 预授权订单
+     */
+    public static final String FUND_AUTH_ORDER = "000020";
+
+    /**
+     * 预授权订单详情
+     */
+    public static final String FUND_AUTH_ORDER_DETAIL = "000021";
+    /**
+     * 结算
+     */
+    public static final String ORDER_SETTLE = "000022";
+    /**
+     * 查询绑定信息
+     */
+    public static final String QUERY_BIND_INFO = "000023";
+
+    public static final String QUERY_EXPRESS_COMPANY = "000029";
+
+    public static final String QUERY_COLLECT_FORM = "000030";
+
+    public static final String QUERY_BANK_CARD = "000031";
+
+    public static final String BIND_CARD = "000032";
+
+    public static final String UNBIND = "000033";
+
+    public static final String PROFIT_MANAGE = "000034";
+
+    public static final String WITHDRAW_DETAIL = "000035";
+
+    public static final String WITHDRAW = "000036";
+
+    public static final String GET_AGENT_URL = "000037";
+
+    public static final String SHARE_CONTRACT = "";
+
+    public static final String AUTH = "000038";
+
+    public static final String QUERY_NOTICE_MSG = "000039";
+
+    public static final String SIGN_MSG_READ = "000040";
+
+    public static final String GET_GOOD_MANAGER_URL = "000041";
+
+    public static final String GET_ISMT_NOTICE_COUNT = "000042";
+
+    public static final String UPDATE_APP = "000043";
+
+    public static final String REFUND_UPDATE = "000044";
+
+
+    /**
+     * 我的固定码
+     */
+    public static final String FIXED_CODE = "000013";
+
+
+}

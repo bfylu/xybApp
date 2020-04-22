@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f2"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_f"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/y50"
+            android:layout_marginTop="@dimen/y50"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/collection"
+                android:textColor="@color/color_3"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_collection_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv1"
+                android:layout_marginTop="@dimen/y40"
+                android:gravity="center_horizontal"
+                android:singleLine="true"
+                android:text="0.00"
+                android:textColor="@color/color_amount"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/y50"
+            android:layout_marginTop="@dimen/y50"
+            android:layout_weight="1">
+
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/total_amount"
+                android:textColor="@color/color_3"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_total_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/y40"
+                android:singleLine="true"
+                android:text="0"
+                android:textColor="@color/color_amount"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/y50"
+            android:layout_marginTop="@dimen/y50"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/refund"
+                android:textColor="@color/color_3"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_refund"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/x40"
+                android:singleLine="true"
+                android:text="0.00"
+                android:textColor="@color/color_amount"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/slidingTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y120"
+        android:layout_marginTop="@dimen/y30"
+        android:background="@color/color_f"
+        tl:tl_indicator_color="@color/color_Home"
+        tl:tl_tab_padding="@dimen/y30"
+        tl:tl_tab_space_equal="true"
+        tl:tl_textAllCaps="true"
+        tl:tl_textSelectColor="@color/color_Home"
+        tl:tl_textUnselectColor="@color/color_9"
+        tl:tl_textsize="14sp"
+        tl:tl_underline_color="@color/color_ec"
+        tl:tl_underline_gravity="BOTTOM"
+        tl:tl_underline_height="2dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

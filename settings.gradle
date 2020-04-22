@@ -1,0 +1,1 @@
+include ':app', ':easyrecyclerview', ':Utils', ':FlycoTabLayout_Lib', ':okhttputils', ':lib-zxing', ':voiceannouncementlibrary'

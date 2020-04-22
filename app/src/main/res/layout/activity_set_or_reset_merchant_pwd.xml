@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f2">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@color/color_f"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/current_user"
+            android:textColor="@color/account_current_merchant"
+            android:textSize="@dimen/sp_17"/>
+
+        <TextView
+            android:id="@+id/tv_current_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:textColor="@color/account_current_merchant"
+            android:textSize="@dimen/sp_17" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@color/color_f"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_sms"/>
+
+        <EditText
+            android:id="@+id/et_code"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:paddingLeft="@dimen/dp_10"
+            android:hint="@string/ipt_checkcode"
+            android:inputType="number"
+            android:textColorHint="@color/color_9"
+            android:textColor="@color/account_current_merchant"
+            android:maxLength="6"
+            android:textSize="@dimen/sp_17"/>
+
+        <TextView
+            android:id="@+id/tv_get_code"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingRight="@dimen/dp_25"
+            android:paddingLeft="@dimen/dp_25"
+            android:text="@string/acc_btn_safe_code"
+            android:textColor="@color/btn_clickable"
+            android:textSize="@dimen/sp_15"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_img_code"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@color/color_f"
+        android:gravity="center_vertical"
+        android:visibility="invisible"
+        android:paddingLeft="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:src="@mipmap/icon_sms"/>
+
+        <EditText
+            android:id="@+id/et_img_code"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:paddingLeft="@dimen/dp_10"
+            android:hint="@string/ipt_checkcode"
+            android:inputType="number"
+            android:textColorHint="@color/color_9"
+            android:textColor="@color/account_current_merchant"
+            android:textSize="@dimen/sp_17"/>
+
+        <ImageView
+            android:id="@+id/iv_img_code"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_40"
+            android:scaleType="fitXY"
+            android:layout_marginRight="@dimen/dp_25"
+            android:layout_marginLeft="@dimen/dp_10"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_60"
+        android:layout_marginRight="@dimen/dp_60"
+        android:layout_marginLeft="@dimen/dp_60"
+        android:text="@string/sure"
+        android:textColor="@color/color_f"
+        android:background="@drawable/shape_btn_no_enable"/>
+
+</LinearLayout>

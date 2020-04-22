@@ -1,0 +1,757 @@
+package com.fdsj.credittreasure.activities;
+
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.fdsj.credittreasure.R;
+import com.fdsj.credittreasure.adapter.CalculationAdapter;
+import com.fdsj.credittreasure.broadcast.PayPushBroadcastReceiver;
+import com.fdsj.credittreasure.utils.DialogFactory;
+import com.utils.Config;
+import com.utils.LogUtil;
+import com.utils.ToastUtils;
+import com.utils.Utilities;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+import cn.payadd.majia.activity.AccountActivity;
+import cn.payadd.majia.activity.AcquireActivity;
+import cn.payadd.majia.activity.AcquireSuccessActivity;
+import cn.payadd.majia.activity.FundAuthAcquireActivity;
+import cn.payadd.majia.config.EnvironmentConfig;
+import cn.payadd.majia.constant.PayMethod;
+import cn.payadd.majia.device.pos.IPosHelper;
+import cn.payadd.majia.device.pos.PosDeviceUtil;
+import cn.payadd.majia.device.pos.PosScanListener;
+import cn.payadd.majia.face.IActivity;
+import cn.payadd.majia.face.ICallback;
+import cn.payadd.majia.presenter.AcquirePresenter;
+import cn.payadd.majia.presenter.FundAuthPresenter;
+import cn.payadd.majia.util.StringUtil;
+
+/**
+ * Created by BXND on 2017-01-04.
+ * 计算收款页面
+ */
+
+public class CalculationActivity extends BaseActivity implements IActivity, View.OnClickListener {
+    private static final String LOG_TAG = "CalculationActivity";
+    @BindView(R.id.btn7)
+    Button btn7;
+    @BindView(R.id.btn8)
+    Button btn8;
+    @BindView(R.id.btn9)
+    Button btn9;
+    @BindView(R.id.btn_delete)
+    LinearLayout btnDelete;
+    @BindView(R.id.btn4)
+    Button btn4;
+    @BindView(R.id.btn5)
+    Button btn5;
+    @BindView(R.id.btn6)
+    Button btn6;
+    @BindView(R.id.btn_add)
+    Button btnAdd;
+    @BindView(R.id.btn1)
+    Button btn1;
+    @BindView(R.id.btn2)
+    Button btn2;
+    @BindView(R.id.btn3)
+    Button btn3;
+    @BindView(R.id.btn_reduce)
+    Button btnReduce;
+    //    @BindView(R.id.btn_clear)
+//    Button btnClear;
+    @BindView(R.id.btn0)
+    Button btn0;
+    @BindView(R.id.btn_spot)
+    Button btnSpot;
+    @BindView(R.id.btn_submit)
+    Button btnSubmit;
+    @BindView(R.id.btn_fund_auth)
+    Button btnFundAuth;
+    @BindView(R.id.recycler_view)
+    RecyclerView recycler_view;
+
+    private String tradeAmt, payMethod, payType, authCode;
+
+    private ProgressDialog pDialog;
+
+    private String currentOrderNo;
+
+    private PayPushBroadcastReceiver receiver;
+
+    CalculationAdapter adapter;
+    String text = "";
+    int status = 0;//记录+/-号出现的次数
+    List<String> stringList = new ArrayList<>();
+    private FundAuthPresenter fundAuthPresenter;
+    private AcquirePresenter acquirePresenter;
+
+    private boolean isInside;
+
+    @Override
+    protected int getLayoutView() {
+        return R.layout.activity_receivables;
+    }
+
+    @Override
+    protected void initView() {
+        super.setCenterText("计算器");
+        super.setBackOnclick();
+        adapter = new CalculationAdapter(this, stringList);
+        recycler_view.setLayoutManager(new LinearLayoutManager(this));
+        recycler_view.setAdapter(adapter);
+        if(EnvironmentConfig.isPos() && PosDeviceUtil.NEWLAND_POS_NAME.equals(EnvironmentConfig.getPosType())){
+            btnFundAuth.setText("收款");
+            btnSubmit.setText("快速收款");
+        }
+
+        preventRepeatedClick(btnSubmit, this);
+        preventRepeatedClick(btnFundAuth, this);
+    }
+
+    @Override
+    protected void initData() {
+        stringList.clear();
+        this.text = "";
+        this.status = 0;
+        stringList.add("");
+        stringList.add("");
+        stringList.add(getResources().getString(R.string.inpt_money));
+        adapter.notifyDataSetChanged();
+        fundAuthPresenter = new FundAuthPresenter(this);
+        acquirePresenter = new AcquirePresenter(this);
+
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(PayPushBroadcastReceiver.PAY_RESULT_PUSH_BROADCAST_NAME);
+        receiver = new PayPushBroadcastReceiver(new PayPushBroadcastReceiver.Callback() {
+
+            @Override
+            public void exec(Bundle data) {
+                if(pDialog != null){
+                    pDialog.hide();
+                }
+                final String orderStatus = data.getString("orderStatus");
+
+                final String orderNo = data.getString("orderNo");
+                if (!orderNo.equals(currentOrderNo)) {
+                    return;
+                }
+
+                if (!"pay_succ".equals(orderStatus)) {
+                    return;
+                }
+                if (!isInside) {
+                    Intent intent = new Intent(CalculationActivity.this,AcquireSuccessActivity.class);
+                    intent.putExtras(data);
+                    startActivity(intent);
+                }
+
+            }
+        });
+        registerReceiver(receiver, filter);
+    }
+
+    public void addText(String text) {
+        if (!TextUtils.isEmpty(this.text)) {
+            if (this.text.length() < 20) {//不让位数大于10
+                if ((text.equals("+") || text.equals("-"))) {
+                    if (this.text.endsWith("+") || this.text.endsWith("-")) {
+                        return;
+                    }
+                    status = status + 1;
+                }
+
+                List<String> nums = null;
+                if (Character.isDigit(text.charAt(0))){
+                    if(this.text.contains("+")){
+                        String[] array = this.text.split("[+]");
+                        nums = new ArrayList<>(Arrays.asList(array));
+                        if(nums.size() < 2){
+                            nums.add("0");
+                        }
+                    }
+                    if(this.text.contains("-")){
+                        String[] array = this.text.split("[-]");
+                        nums = new ArrayList<>(Arrays.asList(array));
+                        if(nums.size() < 2){
+                            nums.add("0");
+                        }
+                    }
+                    if(nums == null){
+                        nums = new ArrayList();
+                        nums.add(this.text);
+                    }
+                    if(nums != null) {
+                        if(nums.size() > 1){
+                            if(!TextUtils.isEmpty(nums.get(1))) {
+                                if (!StringUtil.isAmount(nums.get(1) + text)) {
+                                    return;
+                                }
+                            }
+                        }else{
+                            if (!StringUtil.isAmount(nums.get(0) + text)) {
+                                return;
+                            }
+                        }
+                    }
+                }
+                //判断是否换行,做运算
+                if (status > 1) {
+                    //不换行
+                    String c = "+";
+                    boolean negative = this.text.startsWith("-");//是否为负数
+                    if (negative) {
+                        this.text = this.text.substring(1, this.text.length());
+                    }
+                    if (!this.text.contains(c)) {
+                        c = "-";
+                    }
+
+                    int info = this.text.indexOf(c);
+                    double a = Double.parseDouble(this.text.substring(0, info));
+                    a = negative ? 0 - a : a;
+                    double b = Double.parseDouble(this.text.substring(this.text.indexOf(c) + 1, this.text.length()));
+                    String sum = getSum(a, b, c);
+                    stringList.add(sum);
+                    stringList.add(sum + text);
+                    this.text = sum + text;
+                    this.status = 1;
+                } else {
+                    if (this.text.equals("0")) {
+                        this.text = text;
+                    } else {
+                        this.text = this.text + text;
+                    }
+                    stringList.set(stringList.size() - 1, this.text);
+                }
+            }
+        } else {
+            this.text = text;
+            stringList.add(text);
+        }
+        LogUtil.info("text", text);
+        adapter.notifyDataSetChanged();
+        recycler_view.smoothScrollToPosition(stringList.size());
+    }
+
+    public void addText(String symbol, boolean isAdd) {
+        if (!TextUtils.isEmpty(this.text)) {
+            if (this.text.length() < 20) {//不让位数大于10
+                if ((symbol.equals("+") || symbol.equals("-"))) {
+                    if (this.text.endsWith("+") || this.text.endsWith("-")) {
+                        this.status = 0;
+                        return;
+                    }
+                    status = status + 1;
+                }
+                String[] nums = null;
+                if (Character.isDigit(symbol.charAt(0))){
+                    if(this.text.contains("+")){
+                        nums = this.text.split("[+]");
+                    }
+                    if(this.text.contains("-")){
+                        nums = this.text.split("[-]");
+                    }
+                    for (int i = 0;i<nums.length;i++){
+                        if(!StringUtil.isAmount(nums[i])){
+                            return;
+                        }
+                    }
+                }
+                //判断是否换行,做运算
+                if (status > 1) {
+                    //不换行
+                    String c = "+";
+                    boolean negative = this.text.startsWith("-");//是否为负数
+                    if (negative) {
+                        this.text = this.text.substring(1, this.text.length());
+                    }
+                    if (!this.text.contains(c)) {
+                        c = "-";
+                    }
+
+                    int info = this.text.indexOf(c);
+                    double a = Double.parseDouble(this.text.substring(0, info));
+                    a = negative ? 0 - a : a;
+                    double b = Double.parseDouble(this.text.substring(this.text.indexOf(c) + 1, this.text.length()));
+                    String sum = getSum(a, b, c);
+                    stringList.add(sum);
+                    this.text = sum;
+                } else {
+                    if (this.text.equals("0")) {
+//                        this.text = symbol;
+                    }
+                    stringList.set(stringList.size() - 1, this.text);
+                }
+            }
+        } else {
+//            this.text = symbol;
+            stringList.add(text);
+        }
+        this.status = 0;
+        LogUtil.info("text", text);
+        adapter.notifyDataSetChanged();
+        recycler_view.smoothScrollToPosition(stringList.size());
+    }
+
+    /**
+     * 判断符号出现次数，用来换行
+     *
+     * @param c_text
+     * @return
+     */
+    public int getTextCount(char c_text) {
+        int i = 0;
+        char[] c = this.text.toCharArray();
+        for (char t : c) {
+            if (c_text == t) {
+                i++;
+            }
+        }
+        return i;
+    }
+
+
+    DecimalFormat df = new DecimalFormat("#########0.00");
+
+    /**
+     * 执行运算
+     *
+     * @param a
+     * @param b
+     * @param c
+     * @return
+     */
+    public String getSum(double a, double b, String c) {
+        LogUtil.info("运算", c);
+        if (c.equals("+")) {
+            LogUtil.info("运算", "加法");
+            return df.format((a + b));
+        } else if (c.equals("-")) {
+            LogUtil.info("运算", "减法");
+            double d = a - b;
+            LogUtil.info("运算", a + "");
+            LogUtil.info("运算", b + "");
+            LogUtil.info("运算", d + "");
+            return df.format(d);
+        } else {
+            return getResources().getString(R.string.inpt_wrong);
+        }
+    }
+
+    /**
+     * 回退
+     */
+    public void backClear() {
+        if (!TextUtils.isEmpty(this.text)) {
+            String t = this.text.substring(this.text.length() - 1, this.text.length());
+            LogUtil.info("text", t);
+            if (t.equals("+") || t.equals("-")) {
+                status = status - 1;
+            }
+            this.text = text.substring(0, this.text.length() - 1);
+            if (TextUtils.isEmpty(this.text) || this.text.equals("-") || this.text.equals("+")) {
+                this.text = "0";
+            }
+            stringList.set(stringList.size() - 1, this.text);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @OnClick({R.id.btn7, R.id.btn8, R.id.btn9, R.id.btn_delete, R.id.btn4
+            , R.id.btn5, R.id.btn6, R.id.btn_add, R.id.btn1, R.id.btn2
+            , R.id.btn3, R.id.btn_reduce, R.id.btn0, R.id.btn_spot
+            /*, R.id.btn_submit, R.id.btn_fund_auth*/})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn0:
+                addText(((Button) view).getText().toString());
+                break;
+            case R.id.btn1:
+                addText(((Button) view).getText().toString());
+                break;
+            case R.id.btn2:
+                addText(((Button) view).getText().toString());
+                break;
+            case R.id.btn3:
+                addText(((Button) view).getText().toString());
+                break;
+            case R.id.btn4:
+                addText(((Button) view).getText().toString());
+                break;
+            case R.id.btn5:
+                addText(((Button) view).getText().toString());
+                break;
+            case R.id.btn6:
+                addText(((Button) view).getText().toString());
+                break;
+            case R.id.btn7:
+                addText(((Button) view).getText().toString());
+                break;
+            case R.id.btn8:
+                addText(((Button) view).getText().toString());
+                break;
+            case R.id.btn9:
+                addText(((Button) view).getText().toString());
+                break;
+            case R.id.btn_delete://删除
+                backClear();
+                break;
+            case R.id.btn_add://加法
+                if (!TextUtils.isEmpty(this.text) && !this.text.equals("0")) {
+                    addText(((Button) view).getText().toString());
+                }
+                break;
+            case R.id.btn_reduce://减法
+                if (!TextUtils.isEmpty(this.text) && !this.text.equals("0")) {
+                    addText(((Button) view).getText().toString());
+                }
+                break;
+//            case R.id.btn_clear://清空
+//                initData();
+//                break;
+            case R.id.btn_fund_auth:
+//                //1.判断该商户是否绑定支付宝账号付宝账号
+                if(EnvironmentConfig.isPos() && PosDeviceUtil.NEWLAND_POS_NAME.equals(EnvironmentConfig.getPosType())){
+                    if (StringUtil.isNotEmpty(text)) {
+
+                        addText("+", false);
+                        String str = text;
+                        str = Utilities.replaceStrEnd(str, "\\+");
+                        str = Utilities.replaceStrEnd(str, "-");
+
+                        if (TextUtils.isEmpty(str)) {
+                            ToastUtils.showToast(CalculationActivity.this, getResources().getString(R.string.count_money));
+                            return;
+                        }
+
+                        BigDecimal sum = new BigDecimal(str);
+                        if (Config.isRelease()) {
+                            if (sum.compareTo(new BigDecimal(0.009)) < 0) {
+                                Toast.makeText(this, "收款金额不能小于0.01元", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        } else {
+                            if (sum.compareTo(new BigDecimal(0)) < 1) {
+                                Toast.makeText(this, "收款金额不能小于0元", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                        Intent intent = new Intent(this, AcquireActivity.class);
+                        intent.putExtra("amount", str);
+                        startActivity(intent); //收款界面
+                        break;
+                    } else {
+                        ToastUtils.showToast(CalculationActivity.this, getResources().getString(R.string.freeze_money));
+                        break;
+                    }
+                }else{
+                    fundAuthPresenter.queryBindInfo(Utilities.getUsernameForLogin(this));
+                }
+
+                break;
+            case R.id.btn_spot://小数点
+                if (this.text.equals("0") || TextUtils.isEmpty(this.text)) {
+                    addText("0.");
+                } else if ((!this.text.contains(".")) || (status == 1 && getTextCount('.') == 1)) {
+                    if (this.text.endsWith("+") || this.text.endsWith("-")) {
+                        addText("0.");
+                    } else {
+                        addText(".");
+                    }
+                }
+//                addText(((Button) view).getText().toString());
+                break;
+            case R.id.btn_submit://点击收款
+                if (StringUtil.isEmpty(text)) {
+                    Toast.makeText(this, getResources().getString(R.string.freeze_money), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                addText("+", false);
+                String str = text;
+                str = Utilities.replaceStrEnd(str, "\\+");
+                str = Utilities.replaceStrEnd(str, "-");
+
+                if (TextUtils.isEmpty(str)) {
+                    ToastUtils.showToast(CalculationActivity.this, getResources().getString(R.string.count_money));
+                    return;
+                }
+
+                BigDecimal sum = new BigDecimal(str);
+                if (Config.isRelease()) {
+                    if (sum.compareTo(new BigDecimal(0.009)) < 0) {
+                        Toast.makeText(this, "收款金额不能小于0.01元", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } else {
+                    if (sum.compareTo(new BigDecimal(0)) < 1) {
+                        Toast.makeText(this, "收款金额不能小于0元", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                if (EnvironmentConfig.isPos() && PosDeviceUtil.NEWLAND_POS_NAME.equals(EnvironmentConfig.getPosType())) {
+                    tradeAmt = str;
+                    this.payMethod = PayMethod.SCAN;
+                    nowPay();
+                } else {
+                    Intent intent = new Intent(this, AcquireActivity.class);
+                    intent.putExtra("amount", str);
+                    startActivity(intent); //收款界面
+
+                }
+                break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(EnvironmentConfig.isPos()){
+            IPosHelper helper = PosDeviceUtil.getPosHelper(EnvironmentConfig.getPosType(),this);
+            helper.init(this);
+        }
+    }
+
+    @Override
+    public void updateModel(String key, Object data) {
+        switch (key) {
+            case "bindInfo": {
+                boolean isBind = false;
+                Map<String, String> respData = (Map<String, String>) data;
+                String respCode = respData.get("respCode");
+                String respDesc = respData.get("respDesc");
+                if ("000000".equals(respCode)) {
+                    String alipayUserId = respData.get("alipayUserId");
+                    String alipayLogonId = respData.get("alipayLogonId");
+                    if (!TextUtils.isEmpty(alipayUserId) && !TextUtils.isEmpty(alipayLogonId)) {
+                        isBind = true;
+                    }
+                    if (!isBind) {
+                        //弹窗给出提示
+                        showUnbindDialog(this);
+                        return;
+                    }
+                    //2.计算金额
+                    if (!TextUtils.isEmpty(text)) {
+                        addText("+", false);
+                        String str = text;
+                        str = Utilities.replaceStrEnd(str, "\\+");
+                        str = Utilities.replaceStrEnd(str, "-");
+
+                        if (TextUtils.isEmpty(str)) {
+                            ToastUtils.showToast(CalculationActivity.this, getResources().getString(R.string.freeze_money));
+                            return;
+                        }
+                        BigDecimal sum = new BigDecimal(str);
+                        if (Config.isRelease()) {
+                            if (sum.compareTo(new BigDecimal(1)) < 0) {
+                                Toast.makeText(this, "冻结金额不能小于1元", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        } else {
+                            if (sum.compareTo(new BigDecimal(0)) < 1) {
+                                Toast.makeText(this, "冻结金额不能小于0元", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                        //第一次点击预授权给出提示。
+
+                        boolean isFirst =  Utilities.getIsFirstUserFundAuth(this);
+                        if (isFirst) {
+                            Utilities.setIsFirstUserFundAuth(CalculationActivity.this,false);
+                            showFirstUserDialog(this,str);
+                            return;
+                        }
+                        Intent intent = new Intent(this, FundAuthAcquireActivity.class);
+                        intent.putExtra("amount", str);
+                        startActivity(intent); //收款界面
+                    } else {
+                        Toast.makeText(this,getResources().getString(R.string.freeze_money),Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                }else{
+                    Toast.makeText(this,respDesc,Toast.LENGTH_SHORT).show();
+                }
+            }
+            case "pay":
+                isInside = true;
+                Map<String, String> respData = (Map<String, String>) data;
+                String respCode = respData.get("respCode");
+                if ("000000".equals(respCode)) {
+                    Map<String, String> map = (Map<String, String>) data;
+                    currentOrderNo = map.get("orderNo");
+                    hidePDialog();
+
+                    Utilities.setOrderNoSet(CalculationActivity.this, currentOrderNo);
+
+                    com.lljjcoder.citylist.Toast.ToastUtils.showShortToast(this, map.get("respDesc"));
+
+                    Intent intent = new Intent(this, AcquireSuccessActivity.class);
+                    intent.putExtra("orderAmount", map.get("orderAmount"));
+                    intent.putExtra("orderDate", map.get("orderTime"));
+                    intent.putExtra("orderNo", map.get("orderNo"));
+                    startActivity(intent);
+                } else {
+                    hidePDialog();
+                }
+            default:
+                break;
+        }
+
+    }
+
+    private void hidePDialog () {
+        if (pDialog != null) {
+            pDialog.dismiss();
+        }
+    }
+
+    private void nowPay() {
+
+        final ICallback failCallback = new ICallback() {
+            @Override
+            public void exec(Object params) {
+                Map<String,String> respMap = (Map<String, String>) params;
+                if(respMap != null) {
+                    if("000017".equals(respMap.get("respCode"))){
+                        //弹出窗口
+//                        dialog.show();
+                    } else {
+                        if(pDialog != null){
+                            pDialog.hide();
+                        }
+                        String respDesc = respMap.get("respDesc");
+                        String payResult = respMap.get("payResult");
+                        if(!TextUtils.isEmpty(respDesc)) {
+                            Toast.makeText(CalculationActivity.this,respDesc, Toast.LENGTH_SHORT).show();
+                        }
+                        if (StringUtil.equals("process", payResult)) {
+                            Toast.makeText(CalculationActivity.this, "用户正在付款...", Toast.LENGTH_SHORT).show();
+//                            showLoading("用户正在付款...");
+                        }
+
+                        Utilities.setOrderNoSet(CalculationActivity.this, respMap.get("orderNo"));
+                    }
+                }
+            }
+        };
+
+        IPosHelper helper = PosDeviceUtil.getPosHelper(EnvironmentConfig.getPosType(),CalculationActivity.this);
+        helper.scanQrcode(null, new PosScanListener() {
+            @Override
+            public void onScanResult(String[] arg0) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (pDialog != null) {
+                            pDialog.show();
+                        } else {
+                            pDialog = ProgressDialog.show(CalculationActivity.this, null, "正在收款...", true, false, new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+
+                                }
+                            });
+                            pDialog.setCanceledOnTouchOutside(false);
+                            pDialog.setCancelable(true);
+                            pDialog.show();
+                        }
+                    }
+                });
+
+                Log.w("scan","onScanResult-----"+arg0[0]);
+                authCode = arg0[0];
+                String goodsList = getIntent().getStringExtra("goodsList");
+                if(!TextUtils.isEmpty(goodsList)){
+                    acquirePresenter.pay(tradeAmt, payMethod,payType, authCode, goodsList, failCallback);
+                }else{
+                    acquirePresenter.pay(tradeAmt, payMethod, payType, authCode, failCallback);
+                }
+                //                                Toast.makeText(AcquireActivity.this,arg0[0],Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFinish() {
+
+//                Intent intent = new Intent(CalculationActivity.this, AcquireActivity.class);
+//                intent.putExtra("amount", tradeAmt);
+//                intent.putExtra("goodsList", getIntent().getStringExtra("goodsList"));
+//                CalculationActivity.this.startActivity(intent); //收款界面
+            }
+
+            @Override
+            public void onFail(final int errorCode, final String errorDesc) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(CalculationActivity.this,errorCode+","+errorDesc,Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
+    }
+
+
+    public void showUnbindDialog(final Context context) {
+        String message = getResources().getString(R.string.unbindAlipay);
+        String positiveBtnMsg = getResources().getString(R.string.to_bind);
+        String negativeBtnMsg = getResources().getString(R.string.dismiss);
+        DialogFactory.showAlertDialog(context, null, message, positiveBtnMsg, negativeBtnMsg, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(context,AccountActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+    public void showFirstUserDialog(final Context context,final String amount) {
+        String message = getResources().getString(R.string.msg_to_fund_auth);
+        String positiveBtnMsg = getResources().getString(R.string.btn_to_fund_auth);
+        String negativeBtnMsg = getResources().getString(R.string.dismiss);
+        DialogFactory.showAlertDialog(context, message, null, positiveBtnMsg, negativeBtnMsg, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Intent intent = new Intent(context,FundAuthAcquireActivity.class);
+                intent.putExtra("amount",amount);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(pDialog!=null){
+            pDialog.dismiss();
+        }
+        unregisterReceiver(receiver);
+    }
+}

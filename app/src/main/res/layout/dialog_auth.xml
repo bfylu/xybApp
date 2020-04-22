@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              xmlns:payadd="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_margin="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="您还未实名认证,认证后绑定银行卡"
+        android:textSize="15sp"
+        android:textColor="@color/color_3"/>
+    <cn.payadd.majia.view.CommonEditText
+        android:id="@+id/et_real_name"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        payadd:edit_text_hint="请输入真实姓名"
+        payadd:right_image_drawable="@mipmap/icon_clear"
+        payadd:right_image_visible="false"
+        android:clickable="true"
+        />
+    <cn.payadd.majia.view.CommonEditText
+        android:id="@+id/et_idCard"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        payadd:edit_text_hint="请输入身份证号码"
+        payadd:right_image_drawable="@mipmap/icon_clear"
+        payadd:right_image_visible="false"
+        android:clickable="true"/>
+    </LinearLayout>
+</LinearLayout>

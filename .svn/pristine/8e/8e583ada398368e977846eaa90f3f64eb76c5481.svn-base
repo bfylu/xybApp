@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "E:\\android\\androidWorkspace\\trunk\\majia\\android\\voiceannouncementlibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\df\\.android\\build-cache\\c8910683406b37aaf7539729585114226c7afffc\\output\\res\\anim\\abc_popup_exit.xml"
+    }
+]

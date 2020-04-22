@@ -1,0 +1,78 @@
+package com.fdsj.credittreasure.wxapi;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
+
+import com.lljjcoder.citylist.Toast.ToastUtils;
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import static com.fdsj.credittreasure.constant.Constants.APP_ID;
+
+/**
+ * Created by lang on 2018/5/16.
+ */
+
+public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
+
+    private String TAG = "WXEntryActivity";
+
+    private IWXAPI api;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        api = WXAPIFactory.createWXAPI(this, APP_ID, true);//appid
+        api.registerApp(APP_ID);
+        api.handleIntent(getIntent(), this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        api.handleIntent(intent, this);
+    }
+
+    @Override
+    public void onReq(BaseReq baseReq) {
+
+    }
+
+    @Override
+    public void onResp(BaseResp baseResp) {
+        Log.i(TAG, "onResp");
+        if (baseResp.getType() == ConstantsAPI.COMMAND_LAUNCH_WX_MINIPROGRAM) {
+            WXLaunchMiniProgram.Resp launchMiniProResp = (WXLaunchMiniProgram.Resp) baseResp;
+            String extraData = launchMiniProResp.extMsg; // 对应JsApi navigateBackApplication中的extraData字段数据
+        }
+
+        switch (baseResp.errCode) {
+            case BaseResp.ErrCode.ERR_OK:
+                ToastUtils.showShortToast(this, "分享成功");
+                finish();
+                break;
+            case BaseResp.ErrCode.ERR_USER_CANCEL:
+                ToastUtils.showShortToast(this, "取消分享");
+                finish();
+                break;
+            case BaseResp.ErrCode.ERR_AUTH_DENIED:
+                ToastUtils.showShortToast(this, "分享失败");
+                finish();
+                break;
+            default:
+                ToastUtils.showShortToast(this, "分享失败 + " + baseResp.errCode);
+                Log.i(TAG, "分享失败 errCode = " + baseResp.errCode);
+                finish();
+                break;
+        }
+    }
+}

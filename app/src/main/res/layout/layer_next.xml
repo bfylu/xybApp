@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_next"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="@dimen/x1080"
+        android:layout_height="wrap_content"
+        android:background="@color/color_f"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingBottom="@dimen/y20"
+        android:paddingLeft="@dimen/x40"
+        android:paddingRight="@dimen/x20"
+        android:paddingTop="@dimen/y20"
+        android:layout_marginTop="@dimen/y20">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/y80"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/mimaguanli"/>
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x80"
+            android:layout_toRightOf="@id/iv"
+            android:text="@string/title_merchant_pwd"
+            android:textColor="@color/color_6"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_20"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/xiangsushou"/>
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:text="@string/click_set_pwd"
+                android:textColor="@color/btn_clickable"
+                android:textSize="@dimen/sp_15"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+    
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="@dimen/dp_142"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:text="@string/next"
+        android:textColor="@color/color_f"
+        android:textSize="@dimen/sp_15"
+        android:background="@drawable/border_white"/>
+</LinearLayout>

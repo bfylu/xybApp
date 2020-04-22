@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pre_order_status">
+        <item>全部</item>
+        <item>待结算</item>
+        <item>已结算</item>
+        <item>处理中</item>
+        <item>已关闭</item>
+    </string-array>
+    <string-array name="settle_type">
+        <item>对私</item>
+        <item>对公</item>
+    </string-array>
+    <string-array name="card_type">
+        <item>储蓄卡</item>
+        <item>信用卡</item>
+    </string-array>
+
+
+</resources>

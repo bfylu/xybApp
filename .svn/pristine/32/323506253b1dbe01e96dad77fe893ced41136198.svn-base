@@ -1,0 +1,135 @@
+package com.fdsj.credittreasure.entity;
+
+import android.text.TextUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * <p>项目名称：MAJIA
+ * <p>描   述： 流水实体类
+ * <p>当前版本： V1.0.0
+ */
+
+public class FlowBean {
+
+    private List<FlowBean.Bean> list = new ArrayList<>();
+
+    private String totalAcquire;
+
+    private String transCount;
+
+    private String totalRefund;
+
+    public List<FlowBean.Bean> getList() {
+        return list;
+    }
+
+    public void setList(List<FlowBean.Bean> list) {
+        this.list = list;
+    }
+
+    public static class Bean {
+        private String orderTime;
+        private double orderAmount;
+        private String payType;
+        private String payMethod;
+        private String orderStatus;
+        private String orderNo;
+        private String bizType;
+        private String orderType;
+
+        public String getOrderType() {
+            return orderType;
+        }
+
+        public void setOrderType(String orderType) {
+            this.orderType = orderType;
+        }
+
+        public String getOrderNo() {
+            return orderNo;
+        }
+
+        public void setOrderNo(String orderNo) {
+            this.orderNo = orderNo;
+        }
+
+        public double getOrderAmount() {
+            return orderAmount;
+        }
+
+        public void setOrderAmount(double orderAmount) {
+            this.orderAmount = orderAmount;
+        }
+
+        public String getOrderStatus() {
+            if (!TextUtils.isEmpty(orderStatus))
+                return orderStatus;
+            return null;
+        }
+
+        public void setOrderStatus(String orderStatus) {
+            this.orderStatus = orderStatus;
+        }
+
+        public String getOrderTime() {
+            return orderTime;
+        }
+
+        public void setOrderTime(String orderTime) {
+            this.orderTime = orderTime;
+        }
+
+        public String getPayMethod() {
+            return payMethod;
+        }
+
+        public void setPayMethod(String payMethod) {
+            this.payMethod = payMethod;
+        }
+
+        public String getPayType() {
+            if (!TextUtils.isEmpty(payType))
+                return payType;
+            return "";
+        }
+
+        public void setPayType(String payType) {
+            this.payType = payType;
+        }
+
+        public String getBizType() {
+            return bizType;
+        }
+
+        public void setBizType(String bizType) {
+            this.bizType = bizType;
+        }
+    }
+
+    public String getTotalAcquire() {
+        return totalAcquire;
+    }
+
+    public String getTransCount() {
+        return transCount;
+    }
+
+    public String getTotalRefund() {
+        return totalRefund;
+    }
+
+    public void setTotalAcquire(String totalAcquire) {
+        this.totalAcquire = totalAcquire;
+    }
+
+    public void setTransCount(String transCount) {
+        this.transCount = transCount;
+    }
+
+    public void setTotalRefund(String totalRefund) {
+        this.totalRefund = totalRefund;
+    }
+}
+

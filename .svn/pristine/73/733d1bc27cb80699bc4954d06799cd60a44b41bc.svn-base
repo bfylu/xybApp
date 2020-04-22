@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_Home"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x40"
+        android:layout_marginRight="@dimen/x40"
+        android:background="#60CBC3"
+        android:paddingBottom="@dimen/y40"
+        android:paddingTop="@dimen/y40">
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/y200"
+            android:layout_marginLeft="@dimen/x10"
+            android:src="@mipmap/userphone" />
+
+        <TextView
+            android:id="@+id/text_store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginTop="@dimen/y50"
+            android:layout_toRightOf="@id/userImage"
+            android:singleLine="true"
+            android:textColor="@color/color_3"
+            android:textSize="14sp"
+            tools:text="" />
+
+        <TextView
+            android:id="@+id/text_nickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_store"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_toRightOf="@id/userImage"
+            android:textColor="@color/color_3"
+            android:textSize="14sp"
+            tools:text="" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/y40"
+        android:layout_marginLeft="@dimen/x40"
+        android:layout_marginRight="@dimen/x40"
+        android:layout_marginTop="@dimen/y20"
+        android:background="@drawable/dotted_line"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/dotted_line"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/saoma_pay"
+                android:textColor="@color/color_3"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"></FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginRight="@dimen/x100"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_weight="1"
+                android:background="@color/color_ec" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pay"
+                android:textColor="@color/color_3"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/x100"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_weight="1"
+                android:background="@color/color_ec" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:paddingLeft="@dimen/x100"
+            android:paddingRight="@dimen/x100"
+            android:paddingTop="@dimen/y60">
+
+
+            <ImageView
+                android:id="@+id/image_zfb"
+                android:layout_width="@dimen/x150"
+                android:layout_height="@dimen/y150"
+                android:layout_alignParentLeft="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/zhifubao" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_zfb"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_marginTop="@dimen/y20"
+                android:text="@string/alipay"
+                android:textColor="@color/color_3"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/image_baidu"
+                android:layout_width="@dimen/x150"
+                android:layout_height="@dimen/y150"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_baidu"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_marginTop="@dimen/y20"
+                android:textColor="@color/color_3"
+                android:textSize="14sp"
+                tools:text="@string/baidu_pay" />
+
+            <ImageView
+                android:layout_width="@dimen/x150"
+                android:layout_height="@dimen/y150"
+                android:layout_alignParentRight="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/statistics_weixin" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/image_baidu"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_marginTop="@dimen/y20"
+                android:text="@string/weixin_pay"
+                android:textColor="@color/color_3"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

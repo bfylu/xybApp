@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f2"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_f2"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y500"
+                android:background="@mipmap/home_background1">
+
+                <TextView
+                    android:id="@+id/text_home_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:singleLine="true"
+                    android:text="0.00"
+                    android:textColor="@color/color_f"
+                    android:textSize="48sp"
+                    android:textStyle="bold"
+                    android:typeface="sans" />
+
+                <TextView
+                    android:id="@+id/text_home_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_home_money"
+                    android:layout_centerInParent="true"
+                    android:text="今日收款(元)"
+                    android:textColor="@color/color_f"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/text_home_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_home_unit"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/y20"
+                    android:singleLine="true"
+                    android:text="交易笔数：0"
+                    android:textColor="@color/color_f"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_home_count"
+                    android:layout_marginLeft="@dimen/x50"
+                    android:layout_marginRight="@dimen/x50"
+                    android:layout_marginTop="@dimen/x10">
+
+                    <Button
+                        android:id="@+id/btn_flow"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/y120"
+                        android:layout_marginRight="@dimen/x25"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_white"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:text="@string/account_statement"
+                        android:textColor="@color/color_f" />
+
+                    <Button
+                        android:id="@+id/btn_receivables"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/y120"
+                        android:layout_marginLeft="@dimen/x25"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_white"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:text="@string/gathering_title"
+                        android:textColor="@color/color_f" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x400"
+                    android:background="@color/color_f"
+                    android:padding="@dimen/x20">
+
+                    <TextView
+                        android:id="@+id/text_home_title_income"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="七天总计(元)"
+                        android:textColor="@color/color_9"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/text_home_income"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/text_home_title_income"
+                        android:layout_marginLeft="@dimen/x50"
+                        android:layout_marginTop="@dimen/x40"
+                        android:text="@string/home_gain"
+                        android:textColor="@color/color_ffa126"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:typeface="sans" />
+
+
+                    <TextView
+                        android:id="@+id/text_home_title_allincome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x200"
+                        android:text="@string/home_seven"
+                        android:textColor="@color/color_9"
+                        android:textSize="14sp" />
+
+                    <lecho.lib.hellocharts.view.LineChartView
+                        android:id="@+id/chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/text_home_title_allincome"
+                        android:layout_marginLeft="@dimen/x100"
+                        android:layout_toRightOf="@id/text_home_income" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y50"
+                    android:background="@color/color_f"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="@dimen/x60"
+                            android:layout_height="@dimen/y60"
+                            android:layout_centerInParent="true"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/index_goods_pay_moneny" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_withdraw"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:background="@drawable/border_bottom_gray"
+                        android:paddingLeft="@dimen/x20"
+                        android:paddingRight="@dimen/x20">
+
+                        <TextView
+                            android:id="@+id/tv_withdraw"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="提    现：D0提现"
+                            android:textColor="@color/color_9"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_f"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="@dimen/x60"
+                            android:layout_height="@dimen/y60"
+                            android:layout_centerInParent="true"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/index_goods_pay_moneny" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_goods_acquire"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:background="@drawable/border_bottom_gray"
+                        android:paddingLeft="@dimen/x20"
+                        android:paddingRight="@dimen/x20">
+
+                        <TextView
+                            android:id="@+id/text_home_title_refund"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="收    款：商品收款"
+                            android:textColor="@color/color_9"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:background="@color/color_f"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="@dimen/x60"
+                            android:layout_height="@dimen/y60"
+                            android:layout_centerInParent="true"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/cashier" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_acquire_scan"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:background="@drawable/border_bottom_gray"
+                        android:paddingLeft="@dimen/x20"
+                        android:paddingRight="@dimen/x20">
+
+                        <TextView
+                            android:id="@+id/text_home_title_scan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="收    款："
+                            android:textColor="@color/color_9"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/text_home_scan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/text_home_title_scan"
+                            android:textColor="@color/color_9"
+                            android:textSize="14sp"
+                            android:text="扫一扫"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_f"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="@dimen/x60"
+                            android:layout_height="@dimen/y60"
+                            android:layout_centerInParent="true"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/location" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:background="@drawable/border_bottom_gray"
+                        android:paddingLeft="@dimen/x20"
+                        android:paddingRight="@dimen/x20">
+
+                        <TextView
+                            android:id="@+id/text_home_title_store"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="门    店："
+                            android:textColor="@color/color_9"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/text_home_store"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/text_home_title_store"
+                            android:textColor="@color/color_9"
+                            android:textSize="14sp"
+                            tools:text="海底捞" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/line_jiesuan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_f"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:paddingBottom="@dimen/y40"
+                    android:paddingTop="@dimen/y40"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="@dimen/x60"
+                            android:layout_height="@dimen/y60"
+                            android:layout_centerInParent="true"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/balance" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/clearing"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:paddingLeft="@dimen/x20"
+                        android:paddingRight="@dimen/x20">
+
+                        <TextView
+                            android:id="@+id/text_home_title_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="结  算"
+                            android:textColor="@color/color_9"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/x60"
+                            android:layout_height="@dimen/y60"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/into" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="gone"
+                android:layout_marginTop="10dp">
+            <ImageView
+                android:id="@+id/iv_loan"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:src="@mipmap/banner"
+
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

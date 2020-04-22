@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/y480"
+              android:layout_gravity="center"
+              android:layout_marginLeft="@dimen/x80"
+              android:layout_marginRight="@dimen/x80"
+              android:background="@color/color_f"
+              android:orientation="vertical"
+    >
+
+
+    <TextView
+        android:id="@+id/tv_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="@dimen/y30"
+        android:gravity="left"
+        android:paddingLeft="@dimen/x40"
+        android:paddingTop="@dimen/y30"
+        android:text="@string/pay_logout"
+        android:textColor="@color/color_Home"
+        android:textSize="16sp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_9"/>
+
+    <EditText
+        android:id="@+id/tv_dialog_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150"
+        android:background="@null"
+        android:gravity="left"
+        android:hint="@string/logout_psd"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/x60"
+        android:paddingRight="20dp"
+        android:paddingTop="@dimen/y50"
+        android:textSize="15sp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_9"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y140"
+        android:background="@color/color_f"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
+
+        <Button
+            android:id="@+id/btn_dialog_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_f"
+            android:text="@string/dismiss"
+            android:textColor="@color/color_Home"
+            android:textSize="16sp"
+            />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:background="@color/color_9"/>
+
+        <Button
+            android:id="@+id/btn_dialog_enter"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_f"
+            android:text="@string/sure"
+            android:textColor="@color/color_Home"
+            android:textSize="16sp"
+            />
+
+
+    </LinearLayout>
+</LinearLayout>

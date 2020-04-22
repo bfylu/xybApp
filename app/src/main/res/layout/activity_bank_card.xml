@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150" />
+    <include
+        android:id="@+id/layout_bankcard"
+        layout="@layout/activity_my_bankcard"
+        android:visibility="gone"/>
+    <include
+        android:id="@+id/layout_bankcard_none"
+        layout="@layout/activity_my_bankcard_none"
+             android:visibility="gone"/>
+</LinearLayout>

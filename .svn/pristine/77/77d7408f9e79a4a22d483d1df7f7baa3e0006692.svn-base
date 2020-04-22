@@ -1,0 +1,255 @@
+package cn.payadd.majia.push;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+
+import com.alibaba.sdk.android.push.MessageReceiver;
+import com.alibaba.sdk.android.push.notification.CPushMessage;
+import com.android.qzs.voiceannouncementlibrary.VoiceUtils;
+import com.fdsj.credittreasure.activities.SettingActivity;
+import com.fdsj.credittreasure.activities.StartActivity;
+import com.fdsj.credittreasure.broadcast.PayPushBroadcastReceiver;
+import com.utils.Utilities;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import cn.payadd.majia.activity.InstallmentDetailActivity;
+import cn.payadd.majia.activity.InstallmentOrderActivity;
+import cn.payadd.majia.config.EnvironmentConfig;
+import cn.payadd.majia.constant.AppService;
+import cn.payadd.majia.constant.OrderType;
+import cn.payadd.majia.face.ICallback;
+import cn.payadd.majia.security.AppSecurity;
+import cn.payadd.majia.task.RequestServerTask;
+import cn.payadd.majia.util.MyLifecycleHandler;
+import cn.payadd.majia.util.StringUtil;
+
+/**
+ * Created by df on 2017/12/21.
+ */
+
+public class NoticeMsgReceiver extends MessageReceiver{
+
+    // 消息接收部分的LOG_TAG
+    private static final String LOG_TAG = "NoticeMsgReceiver";
+
+    @Override
+    public void onNotification(final Context context, String title, String summary, Map<String, String> extraMap) {
+        Log.e(LOG_TAG, "Receive notification, title: " + title + ", summary: " + summary + ", extraMap: " + extraMap);
+        sendToServer(context, AppService.GET_ISMT_NOTICE_COUNT, null, true, new ICallback() {
+            @Override
+            public void exec(Object params) {
+                Map<String,String> map = (Map<String, String>) params;
+                int noticeMsgCount = Integer.valueOf(map.get("ismtNoticeCount"));
+                Utilities.setIsmtNoticeCount(context,noticeMsgCount);
+            }
+        }, null, null);
+
+
+    }
+
+    @Override
+    public void onMessage(Context context, CPushMessage cPushMessage) {
+        Log.e(LOG_TAG, "onMessage , messageId: " + cPushMessage.getMessageId() + ", title: " + cPushMessage.getTitle() + ", content:" + cPushMessage.getContent());
+        try {
+            JSONObject jsonObj = new JSONObject(cPushMessage.getContent());
+            String username = jsonObj.getString("username");
+            String orderType = jsonObj.getString("orderType");
+            String orderAmount = jsonObj.getString("orderAmount");
+            String currentUsername = Utilities.getUsername(context);
+            if (!TextUtils.isEmpty(currentUsername) && currentUsername.equals(username)) {
+                SharedPreferences sp = context.getSharedPreferences(SettingActivity.class.getName(), Context.MODE_PRIVATE);
+                boolean playerPayNotifyRingTone = sp.getBoolean("playerPayNotifyRingTone", true);
+
+                if (playerPayNotifyRingTone) {
+                    if (OrderType.PAY.equals(orderType)) {
+                        if(!TextUtils.isEmpty(orderAmount)){
+                            Play(context,orderAmount);
+                        }
+                    }
+                }
+//                boolean isForeground = MyLifecycleHandler.isApplicationInForeground();
+//                if(isForeground) {
+//                    //前台
+//
+//
+//                } else{
+//                    //后台
+//                }
+                Intent intent = new Intent(PayPushBroadcastReceiver.PAY_RESULT_PUSH_BROADCAST_NAME);
+                Iterator<String> itrs = jsonObj.keys();
+                while (itrs.hasNext()) {
+                    String key = itrs.next();
+                    intent.putExtra(key, jsonObj.getString(key));
+                }
+                context.sendBroadcast(intent);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    private synchronized  void Play(final Context context,final String str) {
+
+        if (VoiceUtils.with(context).GetIsPlay()){
+            System.out.println("正在播放语音 ");
+            new Thread() {
+                @Override
+                public  void run() {
+                    super.run();
+                    try {
+                        Thread.sleep(100);//休眠0.1秒
+                        Play(context,str);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    /**
+                     * 要执行的操作
+                     */
+                }
+            }.start();
+        }else {
+            System.out.println("不冲突");
+            VoiceUtils.with(context).Play(str,true);
+        }
+    }
+    @Override
+    public void onNotificationOpened(Context context, String title, String summary, String extraMap) {
+        Log.e(LOG_TAG, "onNotificationOpened, title: " + title + ", summary: " + summary + ", extraMap:" + extraMap);
+    }
+
+    @Override
+    protected void onNotificationClickedWithNoAction(final Context context, String title, String summary, String extraMap) {
+        Log.e(LOG_TAG, "onNotificationClickedWithNoAction, title: " + title + ", summary: " + summary + ", extraMap:" + extraMap);
+        try {
+            JSONObject extraJson = new JSONObject(extraMap);
+            String msgId = extraJson.getString("id");
+            boolean isNew = extraJson.getBoolean("isNew");
+            String orderNo = extraJson.getString("orderNo");
+
+            Bundle bundle = new Bundle();
+            bundle.putString("id",msgId);
+            bundle.putBoolean("isNew",isNew);
+            bundle.putString(InstallmentDetailActivity.KEY_ORDER_NO,orderNo);
+            bundle.putString("openType","notice");
+
+            Map<String, String> data = new HashMap<>();
+            data.put("id", msgId);
+            //通知已读
+            sendToServer(context, AppService.SIGN_MSG_READ, data, true, new ICallback() {
+                @Override
+                public void exec(Object params) {
+                  Utilities.setIsmtNoticeCount(context,Utilities.getIsmtNoticeCount(context) - 1);
+                }
+            }, null, null);
+
+            //判断程序是否在前台运行，1.程序在前台运行则直接跳转，2.程序在后台运行则先跳转到MainActivity
+            boolean isForeground = MyLifecycleHandler.isApplicationInForeground();
+            if(isForeground) {
+                //前台
+                if(isNew){
+                    Intent intent = new Intent(context, InstallmentOrderActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }else {
+                    Intent intent = new Intent(context, InstallmentDetailActivity.class);
+                    intent.putExtra("orderNo",orderNo);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+
+            } else{
+                //后台
+                Intent intent = new Intent(context, StartActivity.class);
+                intent.putExtras(bundle);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //TODO
+    }
+
+    @Override
+    protected void onNotificationReceivedInApp(Context context, String title, String summary, Map<String, String> extraMap, int openType, String openActivity, String openUrl) {
+        Log.e(LOG_TAG, "onNotificationReceivedInApp, title: " + title + ", summary: " + summary + ", extraMap:" + extraMap + ", openType:" + openType + ", openActivity:" + openActivity + ", openUrl:" + openUrl);
+    }
+
+    @Override
+    protected void onNotificationRemoved(Context context, String messageId) {
+        Log.e(LOG_TAG, "onNotificationRemoved");
+    }
+    private void sendToServer(final Context ctx, String service, Map<String, String> data, boolean encrypt, final ICallback succCallbak, final ICallback failCallback, final ICallback excpCallback){
+        Map<String, String> reqData = new HashMap<>();
+        reqData.put("version", "1.0.0");
+        reqData.put("charset", "UTF-8");
+        reqData.put("platform", "android");
+        reqData.put("service", service);
+        reqData.put("signMethod", "MD5");
+        reqData.put("signature", "");
+        reqData.put("sessionToken", Utilities.getSessionToKen(ctx));
+        // （h5专用，非h5去掉该字段）
+//      reqData.put("loginToken", "");
+        reqData.put("terminalType", EnvironmentConfig.getTerminalType());
+
+        if(data != null) {
+            if (encrypt) {
+                reqData.put("body", AppSecurity.encryptAndSign(data));
+            } else {
+//                JSONObject jsonObj = new JSONObject(data);
+//                String plaintext = jsonObj.toString();
+                reqData.put("body", StringUtil.linkAndEncode(data));
+            }
+        }
+        String content = StringUtil.linkAndEncode(reqData);
+        Log.e("send:",content);
+        RequestServerTask task = new RequestServerTask(new ICallback() {
+            @Override
+            public void exec(Object params) {
+
+                String msg = (String) params;
+
+                if (TextUtils.isEmpty(msg)) {
+                    if (null != excpCallback) {
+                        excpCallback.exec(null);
+                    }
+                    return;
+                }
+                try {
+                    String respMsg = AppSecurity.decryptAndVerify(msg);
+                    Map<String, String> map = StringUtil.separateAndURLDecode(respMsg);
+                    String respCode = map.get("respCode");
+                    if (!"000000".equals(respCode)) {
+                        if(null != failCallback){
+                            failCallback.exec(map);
+                        }
+                    }else {
+                        if (null != succCallbak) {
+                            succCallbak.exec(map);
+                        }
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        task.execute(content);
+    }
+}

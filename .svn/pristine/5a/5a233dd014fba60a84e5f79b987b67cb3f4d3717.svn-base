@@ -1,0 +1,218 @@
+package cn.payadd.majia.fragment;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fdsj.credittreasure.R;
+import com.fdsj.credittreasure.activities.MainActivity;
+import com.utils.Utilities;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import cn.payadd.majia.activity.AgentActivity;
+import cn.payadd.majia.activity.FixedCodeActivity;
+import cn.payadd.majia.activity.GoodsManagerActivity;
+import cn.payadd.majia.activity.IncomeManagerActivity;
+import cn.payadd.majia.activity.MsgNoticeActivity;
+import cn.payadd.majia.adapter.ManageAdapter;
+import cn.payadd.majia.listener.NoItemDoubleClickListener;
+import q.rorbin.badgeview.QBadgeView;
+
+/**
+ * Created by df on 2017/9/11.
+ */
+
+public class ManageFragment extends Fragment{
+    private RelativeLayout rlIncome;
+    private TextView tvIncome;
+    private GridView gvManage;
+    private GridView gvAgency;
+    private List<Map<String, Object>> manageList;
+    private List<Map<String, Object>> agencyList;
+
+    private Map<Integer,QBadgeView> msgViewMap;
+
+    private int noticeMsgCount;
+    private int[] manageResId = {R.mipmap.icon_news, R.mipmap.icon_commodity, R.mipmap
+            .icon_store, R.mipmap.icon_vip, R.mipmap.icon_code, R.mipmap.icon_shop};
+    private String[] manageTexts = {"消息通知", "商品管理", "门店管理", "会员管理", "收款码", "物料商城"};
+    private int[] agencyResId = {R.mipmap.icon_agency,R.mipmap.icon};
+    private String[] agencyTexts = {"代理后台","商户成长贷"};
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View layout = inflater.inflate(R.layout.fragment_manage,
+                container, false);
+        ((MainActivity)getActivity()).setTitleVisible(true);
+        msgViewMap = new HashMap<>();
+        rlIncome = (RelativeLayout) layout.findViewById(R.id.rl_income);
+        gvManage = (GridView) layout.findViewById(R.id.gv_manage);
+        gvAgency = (GridView) layout.findViewById(R.id.gv_agency);
+        tvIncome = (TextView) layout.findViewById(R.id.tv_today_income);
+
+        rlIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                Intent intent = new Intent(getActivity(), IncomeManagerActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+        manageList = new ArrayList<>();
+        for (int i = 0; i < manageResId.length; i++) {
+            Map<String, Object> item = new HashMap<>();
+            item.put("image", manageResId[i]);
+            item.put("text", manageTexts[i]);
+            manageList.add(item);
+        }
+
+
+        ManageAdapter adapter = new ManageAdapter(getActivity(), manageList,gvManage);
+        adapter.setMsgViewData(msgViewMap);
+        adapter.setTabBackgroundColor(R.color.white);
+        gvManage.setAdapter(adapter);
+        gvManage.setOnItemClickListener(new NoItemDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                switch (position) {
+                    case 0:
+                        intent.setClass(getActivity(), MsgNoticeActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        intent.setClass(getActivity(), GoodsManagerActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 4:
+                        intent.setClass(getActivity(), FixedCodeActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        //设置界面顶部图片，不设置默认为星pos主题图片
+//                        NldInstallMent.setmResTitleImg(R.mipmap.logo);
+////通过显示启动启动Arr中的分期Activity
+//                        intent.putExtra("txnAmt", 1000);
+//                        intent.setClassName(getActivity(), "com.newland.starpos.installmentsdk.MainActivity");
+//                        startActivity(intent);
+
+                        break;
+
+
+                    default:
+                        Toast.makeText(getActivity(),"功能暂未开通，敬请期待",Toast.LENGTH_LONG).show();
+                        break;
+                }
+            }
+        });
+        agencyList = new ArrayList<>();
+        for (int i = 0; i < agencyResId.length; i++) {
+            Map<String, Object> item = new HashMap<>();
+            item.put("image", agencyResId[i]);
+            item.put("text", agencyTexts[i]);
+            agencyList.add(item);
+        }
+        ManageAdapter agencyAdapter = new ManageAdapter(getActivity(), agencyList,gvAgency);
+        gvAgency.setAdapter(agencyAdapter);
+        gvAgency.setOnItemClickListener(new NoItemDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                switch (position){
+                    case 0:
+                        intent =  intent.setClass(getActivity(), AgentActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+//                        intent.setClass(getActivity(), NldLoanActivity.class);
+//                        startActivity(intent);
+                        break;
+                }
+            }
+        });
+
+        if(!Utilities.isAgent(getActivity())){
+            agencyList.remove(0);
+            agencyAdapter.updateData(agencyList,false);
+        }
+        return layout;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        String username = Utilities.getUsernameForLogin(getActivity());
+
+    }
+
+    public int getNoticeMsgCount() {
+        return noticeMsgCount;
+    }
+
+    public void setNoticeMsgCount(int noticeMsgCount) {
+        this.noticeMsgCount = noticeMsgCount;
+        noticeMsgBindView(noticeMsgCount,0);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setNoticeMsgCount(Utilities.getIsmtNoticeCount(getActivity()));
+    }
+    private void noticeMsgBindView(int noticeMsgCount,int position){
+        QBadgeView qBadgeView = null;
+        if(noticeMsgCount > 0) {
+            qBadgeView = ((ManageAdapter)gvManage.getAdapter()).getMsgViewData().get(position);
+            if(qBadgeView == null){
+                qBadgeView = new QBadgeView(getActivity());
+                qBadgeView.setBadgeGravity(Gravity.TOP | Gravity.END);
+                qBadgeView.setBadgeNumber(-1);
+                qBadgeView.setBadgePadding(5, true);
+
+            }
+            msgViewMap.put(position,qBadgeView);
+            ((ManageAdapter) gvManage.getAdapter()).notifyDataSetChanged();
+        }else{
+            msgViewMap.remove(position);
+            ((ManageAdapter) gvManage.getAdapter()).notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            ((MainActivity)getActivity()).setTitleVisible(true);
+           getActivity().findViewById(R.id.tv_right).setVisibility(View.GONE);
+            MainActivity activity = (MainActivity) getActivity();
+            tvIncome.setText(activity.getTodayProfitAmount());
+            noticeMsgBindView(noticeMsgCount,0);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        getActivity().findViewById(R.id.tv_right).setVisibility(View.GONE);
+        MainActivity activity = (MainActivity) getActivity();
+        tvIncome.setText(activity.getTodayProfitAmount());
+        super.onStart();
+
+    }
+
+}

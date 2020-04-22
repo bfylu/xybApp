@@ -1,0 +1,164 @@
+package cn.payadd.majia.device.pos.newland;
+
+import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
+
+import com.nld.cloudpos.aidl.AidlDeviceService;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import cn.payadd.majia.device.pos.IPosHelper;
+import cn.payadd.majia.device.pos.PosScanListener;
+
+/**
+ * Created by df on 2017/8/16.
+ */
+
+public class NewLandHelper implements IPosHelper{
+
+    private static NewLandHelper helper;
+
+    public static final String PAYTYPE_SCAN = "1";
+
+    public static final String PAYTYPE_CARD = "0";
+
+    public static final String PAYTYPE_WEIXIN= "11";
+
+    public static final String PAYTYPE_ALIPAY = "12";
+
+    public static final String PROD_CD_CONSUME = "000000";
+
+    public static final String PROD_CD_CONSUME_CANCEL = "200000";
+
+    public static final String PROD_CD_SCAN_PAY = "660000";
+
+    public static final String PROD_CD_SCAN_CANCEL = "680000";
+
+    public static final String PROD_CD_SETTLE = "900000";
+
+    public AidlUtils aidlUtils;
+
+    private Context context;
+
+    public synchronized static NewLandHelper getInstance() {
+        if (null == helper) {
+            helper = new NewLandHelper();
+        }
+
+        return helper;
+    }
+    private NewLandHelper(){
+
+    }
+
+    @Override
+    public void init(Context context) {
+        this.context = context;
+        context.bindService(new Intent("nld_cloudpos_device_service"), serviceConnection,
+                Context.BIND_AUTO_CREATE);
+
+    }
+
+    @Override
+    public boolean printReceipt(List<String> contentList, Context context) {
+        try {
+            aidlUtils.getPrinter();
+            aidlUtils.printText(contentList);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public String getTerminalNo() {
+        String terminalNo = null;
+        try {
+            aidlUtils.getSystemInfo();
+            terminalNo = aidlUtils.getSerialNo();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return terminalNo;
+    }
+
+    @Override
+    public Object payForWeixin(BigDecimal amount) {
+        return null;
+    }
+
+    @Override
+    public Object payForAlipay(BigDecimal amount) {
+        return null;
+    }
+
+    @Override
+    public Object payForCard(BigDecimal amount, String orderNo,Activity activity) {
+        ComponentName component = new ComponentName("com.newland.caishen", "com.newland.caishen.ui.activity.MainActivity");
+        Intent intent = new Intent();
+        intent.setComponent(component);
+        Bundle bundle = new Bundle();
+        bundle.putString("msg_tp",  "0200");
+        bundle.putString("pay_tp", PAYTYPE_CARD);
+        bundle.putString("proc_tp",  "00");
+        bundle.putString("proc_cd", PROD_CD_CONSUME);
+        bundle.putString("amt",     amount.toString());
+        bundle.putString("order_no", orderNo);
+        bundle.putString("appid",     "com.nld.trafficmanage");
+        bundle.putString("time_stamp", String.valueOf(System.currentTimeMillis()));
+        bundle.putString("print_info", "");
+        intent.putExtras(bundle);
+
+        activity.startActivityForResult(intent, 1);
+        return null;
+    }
+
+    @Override
+    public Object payForScan(BigDecimal amount) {
+        return null;
+    }
+
+    @Override
+    public void scanQrcode(String scanType,PosScanListener listener) {
+
+        aidlUtils.frontScan(listener);
+    }
+
+    @Override
+    public void initScanner(){
+        aidlUtils.initScanner();
+    }
+
+    @Override
+    public void closeScan() {
+        aidlUtils.stopScan();
+    }
+
+    @Override
+    public void close(Context context) {
+
+    }
+
+    /**
+     * 服务连接
+     */
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            aidlUtils = new AidlUtils(AidlDeviceService.Stub.asInterface(service), context);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+}

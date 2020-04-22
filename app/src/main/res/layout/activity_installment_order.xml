@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150" />
+
+    <HorizontalScrollView
+        android:id="@+id/hsv_condition"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/border_bottom_all">
+
+            <TextView
+                android:id="@+id/tv_condition_all"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/blue2"
+                android:background="@drawable/border_bottom"
+                android:text="全部"/>
+
+            <TextView
+                android:id="@+id/tv_condition_pending"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="待审核"/>
+
+            <TextView
+                android:id="@+id/tv_condition_pass"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="待签约"/>
+
+            <TextView
+                android:id="@+id/tv_condition_reject"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="已拒绝"/>
+
+            <TextView
+                android:id="@+id/tv_condition_sign_pending"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="签约待确定"/>
+
+            <TextView
+                android:id="@+id/tv_condition_sign_pass"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="已签约"/>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_panel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f0f0f0">
+
+            <TextView
+                android:id="@+id/tv_not_order"
+                android:layout_marginTop="54dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/no_order"
+                android:drawablePadding="20dp"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:text="暂时没有分期订单信息"/>
+
+            <ListView
+                android:id="@+id/lv_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="#f0f0f0"
+                android:dividerHeight="6dp"/>
+
+        </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

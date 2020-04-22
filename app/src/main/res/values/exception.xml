@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exp_code_0001">系统异常</string>
+    <string name="exp_code_0002">加密错误</string>
+    <string name="exp_code_0003">解密错误</string>
+    <string name="exp_code_0004">报文签名错误</string>
+    <string name="exp_code_0005">返回报文为空</string>
+    <string name="exp_code_0010">网络错误</string>
+    <string name="exp_code_0011">网络超时</string>
+    <string name="exp_code_0012">密钥错误</string>
+    <string name="exp_code_1001">请求返回失败</string>
+</resources>

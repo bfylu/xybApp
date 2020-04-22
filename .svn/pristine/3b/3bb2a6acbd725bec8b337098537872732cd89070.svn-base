@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1EA399</color>
+    <color name="colorPrimaryDark">#1EA399</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="color_ff0000">#ff0000</color>
+    <color name="select_text_color">#FF3033</color>
+    <color name="color_ff7920">#ff7920</color>
+    <color name="color_ffa126">#ffa126</color>
+    <color name="color_25af14">#25af14</color>
+
+    <color name="color_6cbe3a">#6cbe3a</color>
+    <color name="color_c7c03b">#c7c03b</color>
+
+    <color name="color_0">#000000</color>
+    <color name="color_3">#333333</color>
+    <color name="color_6">#666666</color>
+    <color name="color_9">#999999</color>
+    <color name="color_c">#cccccc</color>
+    <color name="color_ec">#ececec</color>
+    <color name="color_f2">#f2f2f2</color>
+    <color name="color_fa">#FAFAFA</color>
+    <color name="color_f">#FFFFFF</color>
+    <color name="color_amount">#3197FB</color>
+z
+
+    <color name="color_Home">#1EA399</color>
+    <color name="color_lucency">#00000000</color>
+
+    <color name="black">#000000</color>
+    <color name="black2">#60000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="aquire_pay_method">#666666</color>
+    <color name="acquire_text_selected">#ff9900</color>
+    <color name="blue">#0000FF</color>
+    <color name="blue2">#0AA296</color>
+    <color name="blue3">#4245ff</color>
+    <color name="red">#FF0000</color>
+
+    <color name="separate_bg">#f0f0f0</color>
+
+    <color name="account_info">#666666</color>
+    <color name="account_title">#ffffffff</color>
+    <color name="account_current_merchant">#333333</color>
+    <color name="account_safe_code">#0aa296</color>
+
+    <color name="btn_clickable">#0aa296</color>
+    <color name="selected_color">#0aa296</color>
+    <color name="btn_unclickable">#aaaaaa</color>
+    <color name="btn_cancel">#aaaaaa</color>
+    <color name="btn_text">#fcfcfc</color>
+    <color name="order_status_color">#cc0000</color>
+    <color name="red_2">#cc0000</color>
+    <color name="red_3">#fb3d07</color>
+    <color name="red_4">#da0000</color>
+    <color name="color_success">#359729</color>
+    <color name="color_background">#f0f0f0</color>
+    <color name="color_print_press">#4ad7cc</color>
+    <color name="btn_cancel2">#dfdfdf</color>
+
+
+    <color name="gray1">#bdbdbd</color>
+    <color name="gray2">#cfcfcf</color>
+    <color name="gray3">#838383</color>
+    <color name="gray4">#dfdfdf</color>
+    <color name="gray5">#aaaaaa</color>
+
+    <color name="cyan">#21a6a1</color>
+
+
+</resources>

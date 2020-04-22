@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <android.support.percent.PercentRelativeLayout
+        android:layout_below="@+id/rg_order"
+        android:layout_centerHorizontal="true"
+        app:layout_heightPercent="72%"
+        app:layout_widthPercent="100%"
+        >
+
+        <android.support.percent.PercentRelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:layout_widthPercent="100%"
+            >
+
+            <TextView
+                android:id="@+id/lab_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="消费金额"
+                android:textSize="17sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_below="@+id/lab_amount"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="￥0.00"
+                android:textSize="30sp"
+                app:layout_heightPercent="12%"
+                app:layout_widthPercent="60%"/>
+
+            <ImageView
+                android:id="@+id/iv_installment_qrcode"
+                android:layout_width="210dp"
+                android:layout_height="210dp"
+                android:layout_below="@id/tv_amount"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                />
+        </android.support.percent.PercentRelativeLayout>
+    </android.support.percent.PercentRelativeLayout>
+</android.support.percent.PercentFrameLayout>

@@ -1,0 +1,150 @@
+package cn.payadd.majia.activity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.fdsj.credittreasure.R;
+import com.utils.Config;
+
+import java.util.Map;
+
+import cn.payadd.majia.face.IActivity;
+import cn.payadd.majia.presenter.ReadIdcardPresenter;
+import cn.payadd.majia.util.Validator;
+
+/**
+ * Created by zhengzhen.wang on 2017/6/19.
+ */
+
+public class ReadIdcardActivity extends BaseActivity implements View.OnClickListener, IActivity {
+
+    public static final String LOG_TAG = "ReadIdcardActivity";
+
+    public static final String KEY_INSTALLMENT_TYPE = "installmentType";
+
+    public static final String KEY_AMOUNT = "amount";
+
+    private EditText etApplyRealName, etApplyIdcard;
+
+    private ReadIdcardPresenter realIdcardPresenter;
+
+    private String installmentType;
+
+    private String amount;
+
+    private String realName;
+
+    private String idcard;
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_read_idcard;
+    }
+
+    @Override
+    public void initView() {
+
+        setTitleCenterText("填写信息");
+        setTitleBackButton();
+
+        etApplyRealName = (EditText) findViewById(R.id.et_apply_realname);
+        etApplyIdcard = (EditText) findViewById(R.id.et_apply_idcard);
+        findViewById(R.id.btn_next).setOnClickListener(this);
+
+        if (Config.isPos()) {
+
+            View btnReadIdcard = findViewById(R.id.btn_read_idcard);
+            btnReadIdcard.setVisibility(View.VISIBLE);
+            btnReadIdcard.setOnClickListener(this);
+
+            SharedPreferences sp = getSharedPreferences("raedIdcard", Activity.MODE_PRIVATE);
+            boolean isOne = sp.getBoolean("oneFlag", true);
+            if (isOne) {
+                findViewById(R.id.rl_tip).setVisibility(View.VISIBLE);
+                findViewById(R.id.btn_isee).setOnClickListener(this);
+//                SharedPreferences.Editor editor = sp.edit();
+//                editor.putBoolean("oneFlag", false);
+//                editor.commit();
+            }
+        }
+
+        installmentType = getIntent().getStringExtra(KEY_INSTALLMENT_TYPE);
+        amount = getIntent().getStringExtra(KEY_AMOUNT);
+    }
+
+    @Override
+    public void initData() {
+
+        realIdcardPresenter = new ReadIdcardPresenter(this);
+    }
+
+    @Override
+    protected void initPermission() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.btn_read_idcard: {
+
+                break;
+            }
+
+            case R.id.btn_next: {
+
+                realName = etApplyRealName.getText().toString().trim();
+                idcard = etApplyIdcard.getText().toString().trim();
+
+                if (TextUtils.isEmpty(realName)) {
+                    Toast.makeText(this, "姓名不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(idcard)) {
+                    Toast.makeText(this, "身份证号", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!Validator.checkIdcard(idcard)) {
+                    Toast.makeText(this, "身份证号格式错误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                realIdcardPresenter.applyInstallment(installmentType, amount, realName, idcard);
+
+                break;
+            }
+
+            case R.id.btn_isee: {
+                findViewById(R.id.rl_tip).setVisibility(View.GONE);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void updateModel(String key, Object data) {
+
+        Map<String, String> map = (Map<String, String>) data;
+        String installmentUrl = map.get("installmentUrl");
+        String installmentAmt = map.get("installmentAmt");
+        String orderAmount = map.get("orderAmount");
+        String downPayment = map.get("downPayment");
+
+        Intent intent = new Intent(this, InstallmentPayActivity.class);
+        intent.putExtra(InstallmentPayActivity.KEY_DOWN_PAYMENT, downPayment);
+        intent.putExtra(InstallmentPayActivity.KEY_INSTALLMENT_AMOUNT, installmentAmt);
+        intent.putExtra(InstallmentPayActivity.KEY_INSTALLMENT_URL, installmentUrl);
+        intent.putExtra(InstallmentPayActivity.KEY_ORDER_AMOUNT, orderAmount);
+        startActivity(intent);
+
+    }
+}

@@ -1,0 +1,612 @@
+package cn.payadd.majia.activity;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fdsj.credittreasure.R;
+import com.utils.Config;
+
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import cn.payadd.majia.config.AppConfig;
+import cn.payadd.majia.config.StoreDirConfig;
+import cn.payadd.majia.face.IActivity;
+import cn.payadd.majia.listener.NoDoubleClickListener;
+import cn.payadd.majia.presenter.InstallmentFilePresenter;
+import cn.payadd.majia.task.FileUpdateTask;
+import cn.payadd.majia.util.AppLog;
+import cn.payadd.majia.util.FileFormat;
+import cn.payadd.majia.util.FileUtils;
+import cn.payadd.majia.util.ImageUtil;
+import cn.payadd.majia.view.ZzImageBox;
+
+/**
+ * 商家补充资料
+ * Created by zhengzhen.wang on 2017/6/8.
+ */
+
+public class UploadExtInfoActivity extends BaseActivity implements IActivity, View.OnClickListener {
+
+    public static final String LOG_TAG = "UploadExtInfoActivity";
+
+    public static final String KEY_ORDER_NO = "orderNo";
+
+    public static final int HANDLER_UPLOAD_FINISH = 1;
+
+    public static final int HANDLER_SHOW_IMAGE = 2;
+
+    private static final int REQUEST_SELECT_FILE = 0;
+
+    private static final int REQUEST_CAPTURE_THUMBNAIL = 1;
+
+    private static final int REQUEST_CAPTURE_ORIGINAL = 2;
+
+    public static final String TAG_GOODS_INFO = "goodsInfo";
+    public static final String TAG_VOUCHER = "consumeVoucherPic";
+    public static final String TAG_VOUCHER_1 = "consumeVoucherPic1";
+    public static final String TAG_VOUCHER_2 = "consumeVoucherPic2";
+    public static final String TAG_VOUCHER_3 = "consumeVoucherPic3";
+    public static final String TAG_IDCARD_POSITIVE = "idcard_positive";
+    public static final String TAG_IDCARD_NEGATIVE = "idcard_negative";
+    public static final String TAG_BANKCARD_POSITIVE = "bankcard_positive";
+    public static final String TAG_BANKCARD_NEGATIVE = "bankcard_negative";
+
+    private Map<String, String> tagUrlMap;
+    private Map<String, View> tagViewMap;
+
+    private ExecutorService es = Executors.newSingleThreadExecutor();
+
+    private File captureFile;
+
+    private String orderNo;
+
+    private String tag;
+
+    private List<FileUpdateTask> taskQueue;
+
+    private boolean isUpload;
+    private RelativeLayout uploadViewLayout;
+
+    private InstallmentFilePresenter filePresenter;
+
+    private Map<String, Boolean> flagMap;
+
+    private ZzImageBox imageBox;
+
+    private int deletePosition;
+
+    private int addPosition;
+
+    private List<String> tagArr = null;
+
+    private ProgressDialog progressDialog;
+
+    {
+        tagUrlMap = new HashMap<>();
+        tagUrlMap.put(TAG_VOUCHER_1, AppConfig.getInstallmentUploadInterface() + "/consumeVoucherPic");
+        tagUrlMap.put(TAG_VOUCHER_2, AppConfig.getInstallmentUploadInterface() + "/consumeVoucherPic");
+        tagUrlMap.put(TAG_VOUCHER_3, AppConfig.getInstallmentUploadInterface() + "/consumeVoucherPic");
+
+        flagMap = new HashMap<>();
+        flagMap.put(TAG_VOUCHER, false);
+
+        tagViewMap = new HashMap<>();
+        tagArr = new ArrayList<>();
+        tagArr.add(TAG_VOUCHER_1);
+        tagArr.add(TAG_VOUCHER_2);
+        tagArr.add(TAG_VOUCHER_3);
+        taskQueue = new ArrayList<>();
+    }
+
+    @Override
+    int getLayoutId() {
+        return R.layout.activity_upload_ext_info;
+    }
+
+    @Override
+    void initView() {
+
+        setTitleCenterText("提交补充资料");
+        setTitleBackButton();
+        progressDialog = new ProgressDialog(this);
+        imageBox = (ZzImageBox) findViewById(R.id.zz_image_box);
+        imageBox.setOnImageClickListener(new ZzImageBox.OnImageClickListener() {
+            @Override
+            public void onImageClick(int position,ImageView ivPic,TextView uploadPic,ZzImageBox.ImageEntity entity) {
+                Log.d("ZzImageBox", "image clicked:" + position + "," + entity.getPicFilePath());
+                addPosition = position;
+                if (!TextUtils.isEmpty(entity.getTag())){
+                    tag = entity.getTag();
+                }else{
+                    tag = tagArr.get(0);
+                }
+                captureFile = null;
+                uploadViewLayout = (RelativeLayout) ivPic.getParent();
+                AlertDialog.Builder builder = new AlertDialog.Builder(UploadExtInfoActivity.this);
+                builder.setItems(new String[]{"选择文件", "使用相机拍照"}, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            Intent intent = null;
+                            //系统调用Action属性
+                            if (TAG_VOUCHER_1.equals(tag)||TAG_VOUCHER_2.equals(tag)||TAG_VOUCHER_3.equals(tag)) {
+                                intent= new Intent(Intent.ACTION_GET_CONTENT);
+                                intent.setType("*/*");
+                                //设置文件类型
+                                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                            } else {
+                                intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                intent.setType("image/*");
+                            }
+                            startActivityForResult(intent, REQUEST_SELECT_FILE);
+
+                        } else if (which == 1) {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            captureFile = new File(StoreDirConfig.getTempForUploadDir(), tag + ".jpg");
+                            if (captureFile.exists()) {
+                                captureFile.delete();
+                            }
+                            Uri uri = FileProvider.getUriForFile(
+                                    UploadExtInfoActivity.this,
+                                    getPackageName() + ".fileprovider",
+                                    captureFile);
+                            //为拍摄的图片指定一个存储的路径
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                            // 启动相机
+                            startActivityForResult(intent, REQUEST_CAPTURE_ORIGINAL);
+                        }
+                        dialog.dismiss();
+                    }
+                });
+
+                Dialog dialog = builder.create();
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+            }
+
+            @Override
+            public void onDeleteClick(int position, TextView uploadInfo, ZzImageBox.ImageEntity entity) {
+                if(progressDialog!=null){
+                    progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.show();
+                }
+                String fileName = entity.getTag();
+                filePresenter.deleteConsumeVoucherPic(orderNo,fileName);
+                deletePosition = position;
+                tagArr.add(entity.getTag());
+                Log.d("ZzImageBox", "delete clicked:" + position + "," + entity.getPicFilePath());
+                Log.d("ZzImageBox", "all images\n"+imageBox.getAllImages().toString());
+            }
+
+            @Override
+            public void onAddClick() {
+                imageBox.addView();
+                Log.d("ZzImageBox", "add clicked");
+                Log.d("ZzImageBox", "all images\n"+imageBox.getAllImages().toString());
+            }
+        });
+        findViewById(R.id.btn_submit).setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+
+
+                String tag = (String) v.getTag();
+                if ("disabled".equals(tag)) {
+                    return;
+                }
+                if(progressDialog!=null){
+                    progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.show();
+                }
+                filePresenter.saveSupplementInfo(orderNo, null);
+            }
+        });
+    }
+
+    @Override
+    void initData() {
+
+        orderNo = getIntent().getStringExtra(KEY_ORDER_NO);
+
+        filePresenter = new InstallmentFilePresenter(this);
+
+        filePresenter.showSupplementInfo(orderNo);
+    }
+
+    @Override
+    void initPermission() {
+
+    }
+
+    public void upload(View v) {
+
+        tag = (String) v.getTag();
+        uploadViewLayout = (RelativeLayout) v.getParent();
+        captureFile = null;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setItems(new String[]{"选择文件", "使用相机拍照"}, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    Intent intent = null;
+                    //系统调用Action属性
+                    if (TAG_VOUCHER_1.equals(tag)||TAG_VOUCHER_2.equals(tag)||TAG_VOUCHER_3.equals(tag)) {
+                        intent= new Intent(Intent.ACTION_GET_CONTENT);
+                        intent.setType("*/*");
+                        //设置文件类型
+                        intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    } else {
+                        intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        intent.setType("image/*");
+                    }
+                    startActivityForResult(intent, REQUEST_SELECT_FILE);
+
+                } else if (which == 1) {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    captureFile = new File(StoreDirConfig.getTempForUploadDir(), tag + "_" + System.currentTimeMillis() + ".jpg");
+                    captureFile = new File(StoreDirConfig.getTempForUploadDir(), tag + ".jpg");
+                    if (captureFile.exists()) {
+                        captureFile.delete();
+                    }
+//                    Uri uri = Uri.fromFile(captureFile);
+                    Uri uri = FileProvider.getUriForFile(
+                            UploadExtInfoActivity.this,
+                            getPackageName() + ".fileprovider",
+                            captureFile);
+                    //为拍摄的图片指定一个存储的路径
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                    // 启动相机
+                    startActivityForResult(intent, REQUEST_CAPTURE_ORIGINAL);
+                }
+                dialog.dismiss();
+            }
+        });
+
+        Dialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        tagViewMap.put(tag, uploadViewLayout);
+
+        if (requestCode == REQUEST_SELECT_FILE) {
+
+            if (null == data) {
+                return;
+            }
+            if(progressDialog!=null){
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
+            }
+            Uri uri = data.getData();
+            String path = FileUtils.getPath(this, uri);
+            File file = new File(path);
+            String name = file.getName();
+            File f = null;
+            if (FileFormat.isImage(name)) {
+                int indexOf = name.lastIndexOf(".");
+                String newName = tag + name.substring(indexOf);
+                File newFile = new File(StoreDirConfig.getTempForUploadDir(), newName);
+                ImageUtil.zoomAndCompress(file, newFile);
+                f = newFile;
+            } else {
+                f = file;
+            }
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("orderNo", orderNo);
+            params.put("files", f);
+            FileUpdateTask task = new FileUpdateTask(this, tag, handlerUI);
+            task.setParamsMap(params);
+            task.setActionUrl(tagUrlMap.get(tag));
+            taskQueue.add(task);
+            startUpload();
+            showUploadImage(uploadViewLayout, f);
+
+        } else if (requestCode == REQUEST_CAPTURE_ORIGINAL) {
+            if (null != captureFile && captureFile.exists()) {
+                if(progressDialog!=null){
+                    progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.show();
+                }
+                String name = captureFile.getName();
+                int indexOf = name.lastIndexOf(".");
+                String newName = name.substring(0, indexOf) + "_c" + name.substring(indexOf);
+                File newFile = new File(StoreDirConfig.getTempForUploadDir(), newName);
+                ImageUtil.zoomAndCompress(captureFile, newFile);
+
+                Map<String, Object> params = new HashMap<>();
+                params.put("orderNo", orderNo);
+                params.put("files", newFile);
+                FileUpdateTask task = new FileUpdateTask(this, tag, handlerUI);
+                task.setParamsMap(params);
+                task.setActionUrl(tagUrlMap.get(tag));
+                taskQueue.add(task);
+
+                startUpload();
+                showUploadImage(uploadViewLayout, newFile);
+            }
+        }
+    }
+
+    public void startUpload() {
+
+        if (!isUpload) {
+            if (null != taskQueue && !taskQueue.isEmpty()) {
+                    FileUpdateTask task = taskQueue.remove(0);
+                task.execute(new String[]{});
+            }
+        }
+    }
+
+    private Handler handlerUI = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            switch (msg.what) {
+
+                case HANDLER_UPLOAD_FINISH: {
+                    Map<String, Object> map = (Map<String, Object>) msg.obj;
+                    String uploadStatus = (String) map.get("uploadStatus");
+                    FileUpdateTask task = (FileUpdateTask) map.get("taskObject");
+                    if ("success".equals(uploadStatus)) {
+                        setUploadTip(tagViewMap.get(tag), "上传完成");
+                        flagMap.put(TAG_VOUCHER, true);
+                        if(progressDialog!=null){
+                            progressDialog.hide();
+                        }
+                        tagArr.remove(tag);
+                        checkSubmitStatus();
+                    } else {
+                        setUploadTip(tagViewMap.get(task.getTag()), "上传失败");
+                        if(progressDialog!=null){
+                            progressDialog.hide();
+                        }
+                    }
+
+                    isUpload = false;
+                    if (!taskQueue.isEmpty()) {
+                        startUpload();
+                    }
+                    break;
+                }
+
+                case HANDLER_SHOW_IMAGE: {
+                    Object[] obj = (Object[]) msg.obj;
+                    String fileName = (String) obj[0];
+                    Bitmap bitmap = (Bitmap) obj[1];
+                    String key = (String) obj[2];
+                    File file = ImageUtil.saveBitmapFile(bitmap,fileName, Bitmap.CompressFormat.JPEG);
+                    imageBox.addImage(file.getAbsolutePath(),key);
+                    break;
+                }
+            }
+        }
+    };
+
+
+    /**
+     * 设置上传提示信息
+     * @param v
+     * @param txtInfo
+     */
+    public void setUploadTip(View v, String txtInfo) {
+
+        RelativeLayout rl = (RelativeLayout) v;
+        TextView tv = (TextView) rl.getChildAt(1);
+        tv.setText(txtInfo);
+    }
+
+    public void showUploadImage(View v, File file) {
+
+        if(tag!=null && tag.startsWith("consumeVoucherPic")){
+
+            imageBox.addImage(addPosition,file.getPath(),tag);
+
+
+        }else {
+            RelativeLayout rl = (RelativeLayout) v;
+            ImageView tv = (ImageView) rl.getChildAt(0);
+            Bitmap bitmap = ImageUtil.zoom(file, tv.getWidth(), tv.getHeight());
+            tv.setImageBitmap(bitmap);
+        }
+    }
+
+    public void showUploadImage(ImageView v, File file) {
+
+        Bitmap bitmap = ImageUtil.zoom(file, v.getWidth(), v.getHeight());
+        v.setImageBitmap(bitmap);
+    }
+
+    public void addUploadImage(final String refNo,final String key) {
+
+        AppLog.d(LOG_TAG, "refNo -> " + refNo);
+
+        if (TextUtils.isEmpty(refNo)) {
+            return;
+        }
+
+        es.execute(new Runnable() {
+            @Override
+            public void run() {
+                InputStream input = null;
+                String imgUrl = Config.getPicUrl()+ refNo +"&width=100";
+                try {
+                    URL url = new URL(imgUrl);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoInput(true);
+                    connection.connect();
+                    input = connection.getInputStream();
+                    Bitmap bitmap = BitmapFactory.decodeStream(input);
+                    String fileName = refNo;
+
+                    Message msg = new Message();
+                    msg.what = HANDLER_SHOW_IMAGE;
+                    msg.obj = new Object[]{fileName,bitmap,key};
+                    handlerUI.sendMessage(msg);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                } finally {
+                    if (null != input) {
+                        try {
+                            input.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void updateModel(String key, final Object data) {
+
+        try {
+            if ("ext".equals(key)) {
+
+                try {
+                    JSONObject jsonObj = (JSONObject) data;
+                    JSONObject consumeVoucherPic = jsonObj.getJSONObject("consumeVoucherPic");
+                    Iterator<String> iterator = consumeVoucherPic.keys();
+                    while (iterator.hasNext()){
+                        String string = iterator.next();
+                        String voucherPic = consumeVoucherPic.getString(string);
+                        tagArr.remove(string);
+                        addUploadImage(voucherPic,string);
+                        if (!TextUtils.isEmpty(voucherPic)) {
+                            flagMap.put(TAG_VOUCHER, true);
+                        }
+                    }
+
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+                checkSubmitStatus();
+
+            } else if ("saveContract".equals(key)) {
+                if(progressDialog!=null){
+                    progressDialog.hide();
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("补充资料保存成功").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+            }else if("deleteConsumeVoucher".equals(key)){
+
+                imageBox.removeImage(deletePosition);
+                if(imageBox.isDataEmpty()){
+                    flagMap.put(TAG_VOUCHER,false);
+                }
+                checkSubmitStatus();
+                if(progressDialog!=null){
+                    progressDialog.hide();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void checkSubmitStatus() {
+
+        AppLog.d(LOG_TAG, flagMap.toString());
+        boolean flag = true;
+        Iterator<Boolean> itr = flagMap.values().iterator();
+        while (itr.hasNext()) {
+            if (!itr.next()) {
+                flag = false;
+                break;
+            }
+        }
+
+        Button btn = (Button) findViewById(R.id.btn_submit);
+        if (flag) {
+//            tv.setBackground(getResources().getDrawable(R.mipmap.button_selected));
+            btn.setTextColor(getResources().getColor(R.color.blue2));
+            btn.setTag("enabled");
+        } else {
+//            tv.setBackground(getResources().getDrawable(R.mipmap.button_normal));
+            btn.setTextColor(getResources().getColor(R.color.grgray));
+            btn.setTag("disabled");
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.btn_submit: {
+
+            }
+        }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        if (null != es) {
+            es.shutdownNow();
+        }
+    }
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:wheel="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="@dimen/x650"
+        android:layout_height="@dimen/y480"
+        android:background="#ffffff">
+
+        <com.utils.view.ProgressWheel
+            android:id="@+id/progress_wheel"
+            android:layout_width="@dimen/x150"
+            android:layout_height="@dimen/y150"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y100"
+            wheel:matProg_barColor="#1EA399"
+            wheel:matProg_progressIndeterminate="true" />
+
+        <TextView
+            android:id="@+id/tvLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/progress_wheel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y50"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            tool:text="请稍等..." />
+    </RelativeLayout>
+</LinearLayout>

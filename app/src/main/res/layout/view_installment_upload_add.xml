@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="6dp"
+        android:clickable="true"
+        android:src="@mipmap/contract" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_upload"
+        android:clickable="true"
+        android:tag="contract"
+        android:onClick="upload"
+        android:padding="12dp"
+        android:text="点击上传"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:paddingLeft="240dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:textColor="@color/red"
+            android:clickable="true"
+            android:onClick="deleteContract"
+            android:text="删除" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:padding="12dp"
+            android:onClick="addContract"
+            android:textColor="@color/blue"
+            android:text="添加" />
+
+    </LinearLayout>
+
+</RelativeLayout>

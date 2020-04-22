@@ -1,0 +1,25 @@
+package cn.payadd.majia.fragment.aistore;
+
+import com.fdsj.credittreasure.R;
+import com.fdsj.credittreasure.fragment.BaseFragment;
+
+/**
+ * Created by lang on 2018/6/15.
+ */
+
+public class MsgFragment extends BaseFragment {
+    @Override
+    protected int getLayoutView() {
+        return R.layout.fragment_radar;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+}

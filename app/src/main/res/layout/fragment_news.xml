@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <com.jude.rollviewpager.RollPagerView
+        android:id="@+id/mRollViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y500"
+        app:rollviewpager_play_delay="3000" />
+
+    <RelativeLayout
+        android:id="@+id/relative_inform"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingLeft="@dimen/x40"
+        android:paddingRight="@dimen/x20"
+        android:paddingTop="@dimen/y20">
+
+        <ImageView
+            android:id="@+id/image_inform"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/y80"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/inform" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_toRightOf="@id/image_inform"
+            android:text="@string/news_notice"
+            android:textColor="@color/color_6"
+            android:textSize="14sp" />
+
+
+        <ImageView
+            android:id="@+id/image_inform_into"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/y40"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/into" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/image_inform"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@color/color_ec" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_new_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingLeft="@dimen/x40"
+        android:paddingRight="@dimen/x20"
+        android:paddingTop="@dimen/y20">
+
+        <ImageView
+            android:id="@+id/image_new_notice"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/y80"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/new_notice" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_toRightOf="@id/image_new_notice"
+            android:text="@string/news_product"
+            android:textColor="@color/color_6"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/image_new_notice_into"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/y40"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/into" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/image_new_notice"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@color/color_ec" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_gathering"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingLeft="@dimen/x40"
+        android:paddingRight="@dimen/x20"
+        android:paddingTop="@dimen/y20">
+
+        <ImageView
+            android:id="@+id/image_gathering"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/y80"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/gathering" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_toRightOf="@id/image_gathering"
+            android:text="@string/gather_info"
+            android:textColor="@color/color_6"
+            android:textSize="14sp" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/image_gathering"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@color/color_ec" />
+
+
+        <ImageView
+            android:id="@+id/image_gathering_into"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/y40"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/into" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_operating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingLeft="@dimen/x40"
+        android:paddingRight="@dimen/x20"
+        android:paddingTop="@dimen/y20">
+
+        <ImageView
+            android:id="@+id/image_operating"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/y80"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/operating" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_toRightOf="@id/image_operating"
+            android:text="@string/operate_msg_title"
+            android:textColor="@color/color_6"
+            android:textSize="14sp" />
+
+
+        <ImageView
+            android:id="@+id/image_operating_into"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/y40"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/into" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/image_operating"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@color/color_f" />
+
+    </RelativeLayout>
+
+</LinearLayout>

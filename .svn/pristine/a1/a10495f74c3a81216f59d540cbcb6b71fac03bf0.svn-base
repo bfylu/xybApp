@@ -1,0 +1,81 @@
+package cn.payadd.majia.security;
+
+import android.util.Base64;
+
+import com.fdsj.credittreasure.application.BaseApplication;
+import com.utils.Utilities;
+
+import java.util.Map;
+
+import javax.crypto.SecretKey;
+
+import cn.payadd.majia.util.AppLog;
+import cn.payadd.majia.util.StringUtil;
+
+/**
+ * Created by zhengzhen.wang on 2017/6/7.
+ */
+
+public class AppSecurity {
+
+    private static final String LOG_TAG = "AppSecurity";
+
+    private static SecretKey merKey;
+
+    public static String encryptAndSign(Map<String, String> data) {
+
+//        data.put("signMethod", "MD5");
+//        data.put("signature", getSign(data));
+//        JSONObject jsonObj = new JSONObject(data);
+//        String plaintext = jsonObj.toString();
+        String plaintext = StringUtil.linkAndEncode(data);
+        return encrypt(plaintext);
+    }
+
+    public static String encrypt(String plaintext) {
+
+        AppLog.d(LOG_TAG, "------> 加密");
+        AppLog.d(LOG_TAG, "plaintext -> " + plaintext);
+        DESCipher desCipher = new DESCipher(getMerKey());
+        byte[] b = desCipher.encipher(plaintext);
+        String ciphertext = Base64.encodeToString(b, Base64.DEFAULT);
+        AppLog.d(LOG_TAG, "ciphertext -> " + ciphertext);
+        AppLog.d(LOG_TAG, "加密 ------>");
+        return ciphertext.replaceAll("\r|\n|\t", "");
+    }
+
+    public static String decryptAndVerify(String msg) {
+
+        return decrypt(msg);
+    }
+
+    public static String decrypt(String ciphertext) {
+
+        AppLog.d(LOG_TAG, "------> 解密");
+        AppLog.d(LOG_TAG, "ciphertext -> " + ciphertext);
+        DESCipher desCipher = new DESCipher(getMerKey());
+        String plaintext = new String(desCipher.decipher(Base64.decode(ciphertext, Base64.DEFAULT)));
+        AppLog.d(LOG_TAG, "plaintext -> " + plaintext);
+        AppLog.d(LOG_TAG, "解密 ------>");
+        return plaintext;
+    }
+
+    private static SecretKey getMerKey() {
+
+        String keyStr = Utilities.getMerchantKey(BaseApplication.getAppContext());
+        merKey = DESGeneral.getInstance().generalKey(keyStr.getBytes());
+
+        return merKey;
+    }
+
+    public static String getSign(Map<String, String> data) {
+
+        return null;
+    }
+
+    public static boolean verifySign(Map<String, String> data) {
+
+        return false;
+    }
+
+}

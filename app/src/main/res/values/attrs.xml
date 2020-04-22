@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CommonEditText">
+        <attr name="cet_background" format="reference"/>
+        <attr name="left_text_visible" format="boolean"/>
+        <attr name="left_image_visible" format="boolean"/>
+        <attr name="left_text" format="string"/>
+        <attr name="left_image_drawable" format="reference"/>
+        <attr name="right_image_visible" format="boolean"/>
+        <attr name="right_image_drawable" format="reference"/>
+        <attr name="edit_text_hint" format="string"/>
+        <attr name="bottom_line_visible" format="boolean"/>
+        <attr name="cet_input_mode" format="string" />
+        <attr name="input_mode" format="reference|integer"/>
+    </declare-styleable>
+    <declare-styleable name="ViewTab">
+        <attr name="image_src" format="reference|color"/>
+        <attr name="text" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="ZzImageBox">
+        <attr name="zib_max_line" format="integer" />
+        <attr name="zib_img_size_one_line" format="integer" />
+        <attr name="zib_img_padding" format="dimension|reference" />
+        <attr name="zib_img_default" format="color|reference" />
+        <attr name="zib_img_delete" format="color|reference" />
+        <attr name="zib_img_add" format="color|reference" />
+        <attr name="zib_img_deletable" format="boolean" />
+        <attr name="zib_left_margin" format="dimension|reference" />
+        <attr name="zib_right_margin" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PasswordInputView">
+        <attr name="passwordLength" format="integer"/>
+        <attr name="borderWidth" format="dimension"/>
+        <attr name="borderRadius" format="dimension"/>
+        <attr name="borderColor" format="color"/>
+        <attr name="passwordWidth" format="dimension"/>
+        <attr name="passwordColor" format="color"/>
+        <attr name="passwordBackgroundColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="StepperIndicator">
+        <attr name="stpi_stepCount" format="integer"/>
+        <attr name="stpi_animDuration" format="integer"/>
+
+        <attr name="stpi_circleColor" format="color"/>
+        <attr name="stpi_circleRadius" format="dimension"/>
+        <attr name="stpi_circleStrokeWidth" format="dimension"/>
+
+        <attr name="stpi_indicatorColor" format="color"/>
+        <attr name="stpi_indicatorRadius" format="dimension"/>
+
+        <attr name="stpi_lineColor" format="color"/>
+        <attr name="stpi_lineDoneColor" format="color"/>
+        <attr name="stpi_lineStrokeWidth" format="dimension"/>
+        <attr name="stpi_lineMargin" format="dimension"/>
+    </declare-styleable>
+
+    <!-- 标题模板自定义属性 -->
+    <declare-styleable name="TemplateTitle">
+        <!-- 标题文案 -->
+        <attr name="titleText" format="string"/>
+        <!-- 是否有back按钮 -->
+        <attr name="canBack" format="boolean"/>
+        <!-- back按钮文案 -->
+        <attr name="backText" format="string"/>
+        <!-- 右侧更多功能按钮图片 -->
+        <attr name="moreImg" format="reference"/>
+        <!-- 右侧更多功能按钮文字 -->
+        <attr name="moreText" format="string"/>
+    </declare-styleable>
+
+    <!-- 条形控制控件自定义属性 -->
+    <declare-styleable name="LineControllerView">
+        <!-- 名称 -->
+        <attr name="name" format="string"/>
+        <!-- 内容或当前状态 -->
+        <attr name="content" format="string"/>
+        <!-- 是否是列表中最后一个 -->
+        <attr name="isBottom" format="boolean"/>
+        <!-- 是否可以跳转 -->
+        <attr name="canNav" format="boolean"/>
+        <!-- 是否是开关 -->
+        <attr name="isSwitch" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="ScrollLayout">
+
+        <attr name="minOffset" format="dimension" />
+
+        <attr name="maxOffset" format="dimension" />
+
+        <attr name="exitOffset" format="dimension" />
+
+        <attr name="mode">
+            <flag name="open" value="0x0" />
+            <flag name="close" value="0x1" />
+            <flag name="exit" value="0x2" />
+        </attr>
+
+        <attr name="allowHorizontalScroll" format="boolean"/>
+
+        <attr name="isSupportExit" format="boolean"/>
+
+    </declare-styleable>
+</resources>

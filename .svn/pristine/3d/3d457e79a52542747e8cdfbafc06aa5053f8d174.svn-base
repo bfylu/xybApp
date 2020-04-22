@@ -1,0 +1,542 @@
+package cn.payadd.majia.presenter;
+
+import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.fdsj.credittreasure.application.BaseApplication;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.utils.Utilities;
+
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
+
+import cn.payadd.majia.config.EnvironmentConfig;
+import cn.payadd.majia.exception.BusinessRuntimeException;
+import cn.payadd.majia.face.ICallback;
+import cn.payadd.majia.security.AppSecurity;
+import cn.payadd.majia.task.RequestServerTask;
+import cn.payadd.majia.util.StringUtil;
+
+/**
+ * Created by zhengzhen.wang on 2017/6/12.
+ */
+
+public abstract class BasePresenter {
+
+    protected Context ctx;
+
+    private boolean pending;
+
+    public BasePresenter(Context ctx) {
+
+        this.ctx = ctx;
+    }
+
+    protected void sendToServer(String service, Map<String, String> data, ICallback callback) {
+
+        sendToServer(service, data, true, callback, null, null);
+    }
+
+    protected void sendToServer(String service, Map<String, String> data, ICallback callback, ICallback failCallback) {
+
+        sendToServer(service, data, true, callback, failCallback, null);
+    }
+
+    protected void sendToServer(String service, Map<String, String> data, ICallback callback, ICallback failCallback, ICallback excpCallback) {
+
+        sendToServer(service, data, true, callback, failCallback, excpCallback);
+    }
+
+    protected void sendToServer(String service, Map<String, String> data, boolean encrypt, final ICallback succCallbak, final ICallback failCallback, final ICallback excpCallback) {
+
+        if (pending) {
+            return;
+        }
+        pending = true;
+        try {
+            Map<String, String> reqData = new HashMap<>();
+            reqData.put("version", BaseApplication.getVersionName());
+            reqData.put("charset", "UTF-8");
+            reqData.put("platform", "android");
+            reqData.put("service", service);
+            reqData.put("signMethod", "MD5");
+            reqData.put("signature", "");
+            reqData.put("sessionToken", Utilities.getSessionToKen(ctx));
+            // （h5专用，非h5去掉该字段）
+//            reqData.put("loginToken", "");
+            reqData.put("terminalType", EnvironmentConfig.getTerminalType());
+            if (encrypt) {
+                reqData.put("body", AppSecurity.encryptAndSign(data));
+            } else {
+//                JSONObject jsonObj = new JSONObject(data);
+//                String plaintext = jsonObj.toString();
+                reqData.put("body", StringUtil.linkAndEncode(data));
+            }
+            Log.e("reqData:",reqData.toString());
+            String content = StringUtil.linkAndEncode(reqData);
+
+            Log.e("send:",content);
+            RequestServerTask task = new RequestServerTask(new ICallback() {
+                @Override
+                public void exec(Object params) {
+
+                    Map<String, String> map;
+
+                    String msg = (String) params;
+
+                    if (TextUtils.isEmpty(msg)) {
+                        if (null != excpCallback) {
+                            excpCallback.exec(null);
+                        } else {
+                            Toast.makeText(ctx, "返回报文为空", Toast.LENGTH_LONG).show();
+                        }
+
+                        return;
+                    }
+
+                    String respMsg = AppSecurity.decryptAndVerify(msg);
+                    if (respMsg.contains("=") && respMsg.contains("&")) {
+                        map = StringUtil.separateAndURLDecode(respMsg);
+                    } else {
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<Map<String, String>>() {}.getType();
+                        map = gson.fromJson(respMsg, type);
+                    }
+                    String respCode = map.get("respCode");
+                    String respDesc = map.get("respDesc");
+
+                    if (!"000000".equals(respCode)) {
+                        if (null != failCallback) {
+                            failCallback.exec(map);
+                        } else {
+                            Toast.makeText(ctx, respDesc, Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        if (null != succCallbak) {
+                            succCallbak.exec(map);
+                        }
+                    }
+
+                }
+            });
+            task.execute(content);
+
+        } catch (BusinessRuntimeException e) {
+            e.printStackTrace();
+            Toast.makeText(ctx, e.getErrCode() + "：" + e.getErrMsg(), Toast.LENGTH_LONG).show();
+
+        } finally {
+            pending = false;
+        }
+    }
+    protected void sendJsonToServer(String service, JSONObject data, boolean encrypt, final ICallback succCallbak, final ICallback failCallback, final ICallback excpCallback) {
+
+    }
+
+    protected  void sendUrlToServer(String url, String service, Map<String, String> data
+            , final ICallback succCallback, boolean isDecryption) {
+        sendUrlToServer(url, service, data, true, isDecryption, succCallback, null, null);
+    }
+
+    protected  void sendUrlToServer(String url, String service, Map<String, String> data
+            , final ICallback succCallback, final ICallback failCallback, boolean isDecryption) {
+        sendUrlToServer(url, service, data, false, isDecryption, succCallback, failCallback, null);
+    }
+
+    protected  void sendUrlToServer(String url, String service, Map<String, String> data, final ICallback succCallback
+            , final ICallback failCallback, final ICallback excpCallback, boolean isDecryption) {
+        sendUrlToServer(url, service, data, true, isDecryption, succCallback, failCallback, excpCallback);
+    }
+
+    /**
+     * 请求服务器（带请求地址）
+     * @param url 请求地址
+     * @param service funCode 每个请求都有固定的值
+     * @param data 请求内容
+     * @param encrypt 是否加入请求内容
+     * @param succCallback 成功回调
+     * @param failCallback 失败回调
+     * @param excpCallback
+     */
+    protected void sendUrlToServer(String url, String service, Map<String, String> data, boolean encrypt, final boolean isDecryption
+            , final ICallback succCallback, final ICallback failCallback, final ICallback excpCallback) {
+        Gson gson = new Gson();
+        if (pending) {
+            return;
+        }
+        pending = true;
+        try {
+            Map<String, String> reqData = new HashMap<>();
+            reqData.put("version", BaseApplication.getVersionName());
+            reqData.put("platform", "3");
+            reqData.put("funCode", service);
+            reqData.put("prodCode", "P001");
+            reqData.put("sessionToken", Utilities.getSessionToKen(ctx));
+            reqData.put("body", "");
+            Log.e("reqData:",reqData.toString());
+            String content = gson.toJson(reqData);
+            content = content.replace("\"body\":\"\"", StringUtil.append("\"body\":", gson.toJson(data)));
+            Log.e("send:",content);
+            final RequestServerTask task = new RequestServerTask(url, new ICallback() {
+                @Override
+                public void exec(Object params) {
+                    String respMsg;
+                    Map<String, String> map;
+                    String msg = (String) params;
+
+                    if (TextUtils.isEmpty(msg)) {
+                        if (null != excpCallback) {
+                            excpCallback.exec(null);
+                        } else {
+                            Toast.makeText(ctx, "返回报文为空", Toast.LENGTH_LONG).show();
+                        }
+                        return;
+                    }
+
+                    if (isDecryption) {
+                        respMsg = AppSecurity.decryptAndVerify(msg);
+                    } else {
+                        respMsg = msg;
+                    }
+                    if (respMsg.contains("=") && respMsg.contains("&")) {
+                        map = StringUtil.separateAndURLDecode(respMsg);
+                    } else {
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<Map<String, Object>>() {}.getType();
+                        map = gson.fromJson(respMsg, type);
+                    }
+                    String respCode = map.get("respCode");
+                    String respDesc = map.get("respDesc");
+
+                    if (!"000000".equals(respCode)) {
+                        if (null != failCallback) {
+                            failCallback.exec(map);
+                        } else {
+                            Toast.makeText(ctx, respDesc, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        if (null != succCallback) {
+                            succCallback.exec(map);
+                        }
+                    }
+
+                }
+            }, "application/json");
+            task.execute(content);
+
+        } catch (BusinessRuntimeException e) {
+            e.printStackTrace();
+            Toast.makeText(ctx, e.getErrCode() + "：" + e.getErrMsg(), Toast.LENGTH_LONG).show();
+
+        } finally {
+            pending = false;
+        }
+    }
+
+    protected  void sendUrlTo3Server(String url, String service, Map<String, String> data
+            , final ICallback succCallback, boolean isDecryption) {
+        sendUrlTo3Server(url, service, data, true, isDecryption, succCallback, null, null);
+    }
+
+    protected  void sendUrlTo3Server(String url, String service, Map<String, String> data
+            , final ICallback succCallback, final ICallback failCallback, boolean isDecryption) {
+        sendUrlTo3Server(url, service, data, false, isDecryption, succCallback, failCallback, null);
+    }
+
+    protected  void sendUrlTo3Server(String url, String service, Map<String, String> data, final ICallback succCallback
+            , final ICallback failCallback, final ICallback excpCallback, boolean isDecryption) {
+        sendUrlTo3Server(url, service, data, true, isDecryption, succCallback, failCallback, excpCallback);
+    }
+
+    /**
+     * 请求服务器（带请求地址）
+     * @param url 请求地址
+     * @param service funCode 每个请求都有固定的值
+     * @param data 请求内容
+     * @param encrypt 是否加入请求内容
+     * @param succCallback 成功回调
+     * @param failCallback 失败回调
+     * @param excpCallback
+     */
+    protected void sendUrlTo3Server(String url, String service, Map<String, String> data, boolean encrypt, final boolean isDecryption
+            , final ICallback succCallback, final ICallback failCallback, final ICallback excpCallback) {
+        Gson gson = new Gson();
+        if (pending) {
+            return;
+        }
+        pending = true;
+        try {
+            Map<String, String> reqData = new HashMap<>();
+            reqData.put("version", BaseApplication.getVersionName());
+            reqData.put("platform", "3");
+            reqData.put("funCode", service);
+            reqData.put("prodCode", "P001");
+            reqData.put("sessionToken", Utilities.getSessionToKen(ctx));
+            reqData.put("body", "");
+            Log.e("reqData:",reqData.toString());
+            String content = gson.toJson(reqData);
+            content = content.replace("\"body\":\"\"", StringUtil.append("\"body\":", gson.toJson(data)));
+            Log.e("send:",content);
+            final RequestServerTask task = new RequestServerTask(url, new ICallback() {
+                @Override
+                public void exec(Object params) {
+                    String respMsg;
+                    Map<String, String> map;
+                    String msg = (String) params;
+
+                    if (TextUtils.isEmpty(msg)) {
+                        if (null != excpCallback) {
+                            excpCallback.exec(null);
+                        } else {
+                            Toast.makeText(ctx, "返回报文为空", Toast.LENGTH_LONG).show();
+                        }
+                        return;
+                    }
+
+                    if (isDecryption) {
+                        respMsg = AppSecurity.decryptAndVerify(msg);
+                    } else {
+                        respMsg = msg;
+                    }
+                    if (respMsg.contains("=") && respMsg.contains("&")) {
+                        map = StringUtil.separateAndURLDecode(respMsg);
+                    } else {
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<Map<String, Object>>() {}.getType();
+                        map = gson.fromJson(respMsg, type);
+                    }
+                    String respCode = map.get("respCode");
+                    String respDesc = map.get("respDesc");
+
+                    if (!"000000".equals(respCode)) {
+                        if (null != failCallback) {
+                            failCallback.exec(msg);
+                        } else {
+                            Toast.makeText(ctx, respDesc, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        if (null != succCallback) {
+                            succCallback.exec(msg);
+                        }
+                    }
+
+                }
+            }, "application/json");
+            task.execute(content);
+
+        } catch (BusinessRuntimeException e) {
+            e.printStackTrace();
+            Toast.makeText(ctx, e.getErrCode() + "：" + e.getErrMsg(), Toast.LENGTH_LONG).show();
+
+        } finally {
+            pending = false;
+        }
+    }
+
+
+    protected  void sendUrlTo4Server(String url, String service, Map<String, Object> data
+            , final ICallback succCallback, boolean isDecryption) {
+        sendUrlTo4Server(url, service, data, true, isDecryption, succCallback, null, null);
+    }
+
+    protected  void sendUrlTo4Server(String url, String service, Map<String, Object> data
+            , final ICallback succCallback, final ICallback failCallback, boolean isDecryption) {
+        sendUrlTo4Server(url, service, data, false, isDecryption, succCallback, failCallback, null);
+    }
+
+    protected  void sendUrlTo4Server(String url, String service, Map<String, Object> data, final ICallback succCallback
+            , final ICallback failCallback, final ICallback excpCallback, boolean isDecryption) {
+        sendUrlTo4Server(url, service, data, true, isDecryption, succCallback, failCallback, excpCallback);
+    }
+
+
+    /**
+     * 请求服务器（带请求地址）
+     * @param url 请求地址
+     * @param service funCode 每个请求都有固定的值
+     * @param data 请求内容
+     * @param encrypt 是否加入请求内容
+     * @param succCallback 成功回调
+     * @param failCallback 失败回调
+     * @param excpCallback
+     */
+    protected void sendUrlTo4Server(String url, String service, Map<String, Object> data, boolean encrypt, final boolean isDecryption
+            , final ICallback succCallback, final ICallback failCallback, final ICallback excpCallback) {
+        Gson gson = new Gson();
+        if (pending) {
+            return;
+        }
+        pending = true;
+        try {
+            Map<String, String> reqData = new HashMap<>();
+            reqData.put("version", BaseApplication.getVersionName());
+            reqData.put("platform", "3");
+            reqData.put("funCode", service);
+            reqData.put("prodCode", "P001");
+            reqData.put("sessionToken", Utilities.getSessionToKen(ctx));
+            reqData.put("body", "");
+            Log.e("reqData:",reqData.toString());
+            String content = gson.toJson(reqData);
+            content = content.replace("\"body\":\"\"", StringUtil.append("\"body\":", gson.toJson(data)));
+            Log.e("send:",content);
+            final RequestServerTask task = new RequestServerTask(url, new ICallback() {
+                @Override
+                public void exec(Object params) {
+                    String respMsg;
+                    Map<String, String> map;
+                    String msg = (String) params;
+
+                    if (TextUtils.isEmpty(msg)) {
+                        if (null != excpCallback) {
+                            excpCallback.exec(null);
+                        } else {
+                            Toast.makeText(ctx, "返回报文为空", Toast.LENGTH_LONG).show();
+                        }
+                        return;
+                    }
+
+                    if (isDecryption) {
+                        respMsg = AppSecurity.decryptAndVerify(msg);
+                    } else {
+                        respMsg = msg;
+                    }
+                    if (respMsg.contains("=") && respMsg.contains("&")) {
+                        map = StringUtil.separateAndURLDecode(respMsg);
+                    } else {
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<Map<String, Object>>() {}.getType();
+                        map = gson.fromJson(respMsg, type);
+                    }
+                    String respCode = map.get("respCode");
+                    String respDesc = map.get("respDesc");
+
+                    if (!"000000".equals(respCode)) {
+                        if (null != failCallback) {
+                            failCallback.exec(msg);
+                        } else {
+                            Toast.makeText(ctx, respDesc, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        if (null != succCallback) {
+                            succCallback.exec(msg);
+                        }
+                    }
+
+                }
+            }, "application/json");
+            task.execute(content);
+
+        } catch (BusinessRuntimeException e) {
+            e.printStackTrace();
+            Toast.makeText(ctx, e.getErrCode() + "：" + e.getErrMsg(), Toast.LENGTH_LONG).show();
+
+        } finally {
+            pending = false;
+        }
+    }
+
+    protected  void sendUrl2ToServer(String url, String service, Map<String, String> data, final ICallback succCallback) {
+        sendUrl2ToServer(url, service, data, false, succCallback, null, null);
+    }
+
+    protected  void sendUrl2ToServer(String url, String service, Map<String, String> data, final ICallback succCallback, final ICallback failCallback) {
+        sendUrl2ToServer(url, service, data, false, succCallback, failCallback, null);
+    }
+
+    protected  void sendUrl2ToServer(String url, String service, Map<String, String> data, final ICallback succCallback, final ICallback failCallback, final ICallback excpCallback) {
+        sendUrl2ToServer(url, service, data, false, succCallback, failCallback, excpCallback);
+    }
+    /**
+     * 请求服务器（带请求地址）
+     * @param url 请求地址
+     * @param service 每个请求都有固定的值
+     * @param data 请求内容
+     * @param encrypt 是否加入请求内容
+     * @param succCallback 成功回调
+     * @param failCallback 失败回调
+     * @param excpCallback
+     */
+    protected void sendUrl2ToServer(String url, String service, Map<String, String> data, boolean encrypt, final ICallback succCallback, final ICallback failCallback, final ICallback excpCallback) {
+        if (pending) {
+            return;
+        }
+
+        Gson gson = new Gson();
+
+        pending = true;
+        try {
+            Map<String, String> reqData = new HashMap<>();
+            reqData.put("version", BaseApplication.getVersionName());
+            reqData.put("platform", "android");
+            reqData.put("service", service);
+            reqData.put("sessionToken", Utilities.getSessionToKen(ctx));
+            if (encrypt) {
+                reqData.put("body", AppSecurity.encryptAndSign(data));
+            } else {
+                reqData.put("body", "");
+            }
+            String content = StringUtil.link(reqData);
+
+            String dataStr = AppSecurity.encryptAndSign(data);
+            dataStr = URLEncoder.encode(dataStr, "UTF-8");
+
+            content = content.replace("body=", StringUtil.append("body=", dataStr));
+            Log.e("send:",content);
+            RequestServerTask task = new RequestServerTask(url, new ICallback() {
+                @Override
+                public void exec(Object params) {
+
+                    String msg = (String) params;
+
+                    if (TextUtils.isEmpty(msg)) {
+                        if (null != excpCallback) {
+                            excpCallback.exec(null);
+                        } else {
+                            Toast.makeText(ctx, "返回报文为空", Toast.LENGTH_LONG).show();
+                        }
+                        return;
+                    }
+
+                    String respMsg = AppSecurity.decryptAndVerify(msg);
+                    Map<String, String> map = StringUtil.separateAndURLDecode(respMsg);
+                    String respCode = map.get("respCode");
+                    String respDesc = map.get("respDesc");
+
+                    if (!"000000".equals(respCode)) {
+                        if (null != failCallback) {
+                            failCallback.exec(map);
+                        } else {
+                            Toast.makeText(ctx, respDesc, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        if (null != succCallback) {
+                            succCallback.exec(map);
+                        }
+                    }
+
+                }
+            }/*, "application/x-www-form-urlencoded"*/);
+            task.execute(content);
+
+        } catch (BusinessRuntimeException e) {
+            e.printStackTrace();
+            Toast.makeText(ctx, e.getErrCode() + "：" + e.getErrMsg(), Toast.LENGTH_LONG).show();
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } finally {
+            pending = false;
+        }
+    }
+
+
+
+}

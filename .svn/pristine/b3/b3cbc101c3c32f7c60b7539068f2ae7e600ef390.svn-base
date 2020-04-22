@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 第一层  上部和左部偏移一定距离-->
+
+    <item
+        android:left="@dimen/dp_3"
+        android:top="@dimen/dp_3">
+        <shape>
+            <corners android:radius="@dimen/dp_10"/>
+            <solid android:color="@color/color_ec" />
+            <!-- 描边 -->
+            <stroke
+                android:width="@dimen/dp_1"
+                android:color="@color/color_f2" />
+        </shape>
+    </item>
+    <!-- 第二层 下部和有部偏移一定距离-->
+    <item
+        android:bottom="@dimen/dp_5"
+        android:right="@dimen/dp_5">
+        <shape>
+            <corners android:radius="@dimen/dp_10"/>
+            <solid android:color="@color/color_f" />
+        </shape>
+    </item>
+
+</layer-list>

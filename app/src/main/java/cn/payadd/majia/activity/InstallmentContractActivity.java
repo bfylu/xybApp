@@ -1,0 +1,154 @@
+package cn.payadd.majia.activity;
+
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.util.Log;
+import android.view.View;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
+
+import com.fdsj.credittreasure.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cn.payadd.majia.config.AppConfig;
+import cn.payadd.majia.constant.InstallmentStatus;
+import cn.payadd.majia.face.IActivity;
+import cn.payadd.majia.presenter.InstallmentPresenter;
+
+/**
+ * Created by df on 2017/8/3.
+ */
+
+public class InstallmentContractActivity extends BaseActivity implements IActivity {
+
+    private static String Tag = InstallmentContractActivity.class.getName();
+    private WebView wvContract;
+
+    private Button btnSign;
+    private String contractUrl;
+    private String mOrderNo;
+    private String mStatus;
+    private InstallmentPresenter presenter;
+    private ProgressDialog pDialog;
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_installment_contract;
+    }
+
+    @Override
+    public void initView() {
+        setTitleCenterText("个人消费分期合同");
+        setTitleBackButton();
+        setTitleRightText("分享", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter = new InstallmentPresenter(InstallmentContractActivity.this);
+
+                pDialog = ProgressDialog.show(InstallmentContractActivity.this, null, "请稍等...", true, false, new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+
+                    }
+                });
+                pDialog.setCanceledOnTouchOutside(false);
+                pDialog.setCancelable(true);
+                presenter.shareContract(mOrderNo);
+            }
+        });
+
+        wvContract = (WebView) findViewById(R.id.wv_contract);
+        btnSign = (Button) findViewById(R.id.btn_sign);
+
+        wvContract.getSettings().setJavaScriptEnabled(true);
+        wvContract.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return true;
+            }
+        });
+        btnSign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InstallmentContractActivity.this,
+                        InstallmentSignAreaActivity.class);
+                intent.putExtra("orderNo", mOrderNo);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void initData() {
+        mOrderNo = getIntent().getStringExtra("orderNo");
+        mStatus = getIntent().getStringExtra("status");
+        contractUrl = AppConfig.getInstallmentContractInterface(mOrderNo, this);
+        if (InstallmentStatus.PENDING_SIGN.equals(mStatus)) {
+            btnSign.setText("立即签约");
+            if (InstallmentStatus.SIGN_PENDING.equals(mStatus)) {
+                btnSign.setText("重新签约");
+            }
+        }
+        Log.e(Tag, contractUrl);
+        wvContract.loadUrl(contractUrl);
+
+    }
+
+    private static boolean uninstallSoftware(Context context, String packageName) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            PackageInfo packageInfo = packageManager.getPackageInfo(packageName, PackageManager
+                    .COMPONENT_ENABLED_STATE_DEFAULT);
+            if (packageInfo != null) {
+                return true;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    protected void initPermission() {
+
+    }
+
+    @Override
+    public void updateModel(String key, Object data) {
+        try {
+            if (pDialog != null) {
+                pDialog.hide();
+            }
+            if (key.equals("shareContract")) {
+                JSONObject json = (JSONObject) data;
+                String url = json.getString("shareUrl");
+                Intent share_intent = new Intent();
+                share_intent.setAction(Intent.ACTION_SEND);//设置分享行为
+                share_intent.setType("text/plain");//设置分享内容的类型
+                share_intent.putExtra(Intent.EXTRA_SUBJECT, "分享分期合同");//添加分享内容标题
+                share_intent.putExtra(Intent.EXTRA_TEXT, url);//添加分享内容
+                //创建分享的Dialog
+                share_intent = Intent.createChooser(share_intent,"分享分期合同");
+                startActivity(share_intent);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (pDialog != null) {
+            pDialog.dismiss();
+        }
+    }
+}

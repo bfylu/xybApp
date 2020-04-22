@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CommonEditText">
+        <attr name="cet_background" format="reference"/>
+        <attr name="left_text_visible" format="boolean"/>
+        <attr name="left_image_visible" format="boolean"/>
+        <attr name="left_text" format="string"/>
+        <attr name="left_image_drawable" format="reference"/>
+        <attr name="right_image_visible" format="boolean"/>
+        <attr name="right_image_drawable" format="reference"/>
+        <attr name="edit_text_hint" format="string"/>
+        <attr name="bottom_line_visible" format="boolean"/>
+        <attr name="cet_input_mode" format="string" />
+        <attr name="input_mode" format="reference|integer"/>
+    </declare-styleable>
+    <declare-styleable name="ViewTab">
+        <attr name="image_src" format="reference|color"/>
+        <attr name="text" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="ZzImageBox">
+        <attr name="zib_max_line" format="integer" />
+        <attr name="zib_img_size_one_line" format="integer" />
+        <attr name="zib_img_padding" format="dimension|reference" />
+        <attr name="zib_img_default" format="color|reference" />
+        <attr name="zib_img_delete" format="color|reference" />
+        <attr name="zib_img_add" format="color|reference" />
+        <attr name="zib_img_deletable" format="boolean" />
+        <attr name="zib_left_margin" format="dimension|reference" />
+        <attr name="zib_right_margin" format="dimension|reference" />
+    </declare-styleable>
+</resources>

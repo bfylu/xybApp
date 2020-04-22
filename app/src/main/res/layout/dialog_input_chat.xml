@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/dp_12"
+    android:background="@drawable/shape_dialog_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_55">
+        
+        <RelativeLayout
+            android:id="@+id/rl_icon"
+            android:layout_width="@dimen/dp_55"
+            android:layout_height="@dimen/dp_55"
+            android:padding="@dimen/dp_5">
+            
+            <cn.payadd.majia.view.CircleImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:id="@+id/iv_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/rl_icon"
+            android:layout_toLeftOf="@+id/iv_close"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text=""
+                android:textColor="@color/account_current_merchant"
+                android:textSize="@dimen/sp_16"/>
+
+            <TextView
+                android:id="@+id/tv_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/color_9f99ad"
+                android:textSize="@dimen/sp_14"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_clear"/>
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_chat_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_86"
+        android:layout_marginTop="@dimen/dp_10"
+        android:padding="@dimen/dp_5"
+        android:hint="@string/input_send_msg"
+        android:textSize="@dimen/sp_15"
+        android:textColor="@color/color_9f99ad"
+        android:gravity="top"
+        android:background="@drawable/border_edit_gray"/>
+
+    <Button
+        android:id="@+id/btn_send_msg"
+        android:layout_width="@dimen/dp_218"
+        android:layout_height="@dimen/dp_40"
+        android:text="@string/send_msg"
+        android:textColor="@color/color_f"
+        android:textSize="@dimen/sp_16"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@drawable/shape_ai_btn_enable"/>
+</LinearLayout>

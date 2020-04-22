@@ -1,0 +1,508 @@
+<resources>
+    <string name="app_name">信用商圈</string>
+    <!--<string name="home_string">码夹</string>-->
+    <!--登录 jiawq -->
+    <!--<string name="userName">test1227</string> test0114    qqqqqq-->
+    <!--<string name="passWord">111111</string> 4111611031731401-->
+    <string name="userName"></string>
+    <string name="passWord"></string>
+    <string name="downloadKey"></string>
+
+    <string name="endTitmNoStartTime">结束时间不能小于起始时间</string>
+
+    <string name="startTimeEndTitmNo">起始时间不能大于结束时间</string>
+
+    <string name="no_login">您还未登录</string>
+    <string name="ipt_name">请输入用户名</string>
+    <string name="ipt_psd">请输入密码</string>
+    <string name="ipt_checkcode">请输入验证码</string>
+    <string name="remeber_psd">记住密码</string>
+    <string name="down_key">下载密钥</string>
+    <string name="login">登录</string>
+    <string name="login_out">退出</string>
+    <string name="get_code_again">重新获取</string>
+
+    <!--标题-->
+    <string name="statistics">报表</string>
+    <string name="msg">消息</string>
+    <string name="manage">管理</string>
+    <string name="operate_msg_title">操作信息</string>
+    <string name="gathering_title">收款</string>
+    <string name="pay_info">支付详情</string>
+    <string name="scanner">扫一扫</string>
+    <string name="first">首页</string>
+    <string name="mine">我的</string>
+    <string name="fund_auth">预授权</string>
+    <!--<string name="test1227">test1227</string>-->
+    <!--流水界面-->
+    <string name="collection">已收款(元)</string>
+    <string name="today_amount">今日交易金额</string>
+    <string name="today_num">今日交易笔数</string>
+    <string name="terminal_amount_2">交易金额</string>
+    <string name="deal_amount_2">交易笔数</string>
+    <string name="total_amount">总笔数(笔)</string>
+    <string name="refund">退款(元)</string>
+    <string name="account_statement">流水</string>
+    <string name="all">全部</string>
+    <string name="already_collection">已收款</string>
+    <string name="agency_fund">待收款</string>
+    <string name="pay_method">支付方式：</string>
+    <string name="deal_time">交易时间：</string>
+    <string name="deal_money">金额：</string>
+    <string name="door_man">商家名称：</string>
+    <string name="pay_state">支付状态：</string>
+    <string name="pay_num">支付账号：</string>
+    <string name="pay_type">支付类型：</string>
+    <string name="pay_product">收款产品：</string>
+    <string name="pay_organize">收单机构：</string>
+    <string name="refund_status">退款状态：</string>
+    <string name="refund_type">退款类型：</string>
+    <string name="pay_logout">退款</string>
+    <string name="refund_order">退款单</string>
+    <string name="order_amount">原订单金额</string>
+    <string name="refund_amount">退款金额</string>
+    <string name="refund_amount2">退款金额：</string>
+    <string name="refund_num">退款单号：</string>
+    <string name="refund_date">退款日期：</string>
+    <string name="input_refund_amount">请输入退款金额</string>
+    <string name="refund_amount_not_zero">退款金额不能小于0.01元，请重新输入</string>
+    <string name="refund_amount_too_much">退款金额不能大于原订单金额，请重新输入</string>
+    <string name="must_have_mer_pwd">设置商户管理密码后，才可进行退款操作</string>
+    <string name="i_know">知道了</string>
+    <string name="go_setting">去设置</string>
+    <string name="refund_fail">退款失败</string>
+    <string name="refund_success">退款成功</string>
+    <string name="failure_reason">失败原因：</string>
+    <string name="need_to_make_a_phone_call">交易信息已超过一天，请联系开通联机退货进行退款（餐饮行业暂不支持联机退货）</string>
+    <string name="deal_Was_over_thirty_days">交易信息已超过三十天，已无法退款</string>
+    <string name="contact_now">马上联系</string>
+    <string name="call_phone">呼叫</string>
+    <string name="has_been_set">您已经完成该设置，不需要重复设置</string>
+    <string name="click_set_pwd">点击设置管理密码</string>
+    <string name="click_set_voice">点击设置语音播报</string>
+    <string name="next">下一步</string>
+
+    <!--筛选界面-->
+    <string name="number">操作员号</string>
+    <string name="deal_type">支付类型</string>
+    <string name="start_time">起始时间</string>
+    <string name="end_time">结束时间</string>
+    <string name="choose">筛选</string>
+    <string name="order_number">请输入订单号进行查询</string>
+    <string name="scanner_faile">扫码失败</string>
+
+    <!--结算-->
+    <string name="door">门    店：</string>
+    <string name="order">商户号：</string>
+    <string name="terminal">终端号：</string>
+    <string name="Operator">操  作  员：</string>
+    <string name="clearing_time">上次结算时间：</string>
+    <string name="start_settle_time">结算开始时间：</string>
+    <string name="end_settle_time">结算结束时间：</string>
+    <string name="total_recepits">实收总额：</string>
+    <string name="total_refund">退款总额：</string>
+    <string name="total_deal">交易总额：</string>
+    <string name="deal_with">结算</string>
+    <string name="time">时间：</string>
+    <string name="total">核销总额</string>
+
+
+    <!--密钥下载界面-->
+    <string name="download">下载</string>
+    <string name="PleaseM_Code">请输入您的商户号：</string>
+    <string name="ConfirmMerchantCode">请确认您的商户号</string>
+    <string name="code_suc">密钥下载成功</string>
+    <string name="ple_download">请先下载密钥</string>
+
+    <!--收款-->
+    <string name="smart_sweep">智能扫码</string>
+    <string name="weixin_pay">微信支付</string>
+    <string name="card_pay">银联支付</string>
+    <string name="ali_pay">支付宝支付</string>
+    <string name="alipay">支付宝</string>
+    <string name="unpay">未支付</string>
+    <string name="card">银联</string>
+    <string name="baidu_pay">百度支付</string>
+    <string name="scan_code">请顾客扫描二维码</string>
+    <string name="payment_status">获取支付状态</string>
+    <string name="inpt_money">请输入金额</string>
+    <string name="inpt_wrong">大人，小人出错了,您可以尝试清空</string>
+    <string name="count_0">收款金额必须大于0</string>
+    <string name="count_money">请计算收款金额</string>
+    <string name="freeze_money">请输入金额</string>
+    <string name="gather_info">收款信息</string>
+    <string name="gather_detail">收款详情</string>
+    <string name="gather_money">收款金额：</string>
+    <string name="weixinNotOk">请扫描微信支付收款码</string>
+    <string name="alipayNotOk">请扫描支付宝收款码</string>
+    <string name="unbindAlipay">使用预授权收款方式需要绑定收款人的支付宝账号。</string>
+    <string name="msg_to_fund_auth">预授权收款方式只支持支付宝支付，请让消费者打开支付宝付款码。</string>
+
+    <!--dialog-->
+    <string name="hint">提示</string>
+    <string name="inpt_msg">请先输入内容</string>
+    <string name="no_psd">密码不能为空</string>
+    <string name="no_verify_code">请输入验证码</string>
+    <string name="no_user">用户名不能为空</string>
+    <string name="once_again">再按一次退出程序</string>
+    <string name="no_function">此功能暂未开放</string>
+    <string name="no_order">暂未获取到订单</string>
+    <string name="select_type">请选择支付类型</string>
+    <string name="logout_psd">请输入退款密码</string>
+    <string name="dismiss">取消</string>
+    <string name="sure">确定</string>
+    <string name="to_bind">前往绑定</string>
+    <string name="title_bind_alipay">绑定支付宝账号</string>
+    <string name="btn_to_fund_auth">开始收款</string>
+    <string name="reject_update">本次更新包含了重要内容，取消更新将无法继续正常使用哦，是否继续操作？</string>
+
+    <!--管理页面-->
+    <string name="msg_notice">消息通知</string>
+    <string name="goods_manage">商品管理</string>
+    <string name="store_manage">门店管理</string>
+    <string name="member_manage">会员管理</string>
+    <string name="qr_code">收款码</string>
+    <string name="materials_mall">物料商城</string>
+    <string name="background_agents">代理后台</string>
+    <string name="merchant_loan">商户成长贷</string>
+    <string name="ai_store">AI店铺</string>
+
+    <!--AI店铺-->
+    <string name="radar">雷达</string>
+    <string name="client">客户</string>
+    <string name="real_time_online_population">实时在线人数</string>
+    <string name="potential_buyers">潜在购买人数</string>
+    <string name="client_type">客户类型</string>
+    <string name="client_tag">客户标签</string>
+
+    <!--我的固定码-->
+    <string name="fixcode_title">我的固定码</string>
+    <string name="fixcode_door_name">门店：</string>
+    <string name="fixcode_name">名字：</string>
+    <string name="saoma_pay">扫一扫下面二维码图案，开始付款</string>
+    <string name="fix_benefit">我的收益</string>
+    <string name="fix_manager">门店管理</string>
+
+    <!--支付-->
+    <string name="deal_order">交易单号:</string>
+
+    <!--结算详情-->
+    <string name="settle_info">结算详情</string>
+
+    <!--首页-->
+    <string name="deal_amount">交易笔数：</string>
+    <string name="home_money">营业额(元)</string>
+    <string name="home_total_money">实收总额(元)</string>
+    <string name="home_gain">暂无实收</string>
+    <string name="home_seven">七天实收(元)</string>
+    <string name="home_operate">收营员：</string>
+
+    <!--网络连接-->
+    <string name="net_wrong">网络连接失败</string>
+    <string name="try_net_wrong">网络连接失败,请稍后再试</string>
+
+
+    <!--收款详情-->
+    <string name="collect_time">收款时间</string>
+    <string name="money">金额(元)</string>
+    <string name="pay">支付方式</string>
+    <string name="pay_more">一码多付</string>
+
+    <!--操作信息-->
+    <string name="opt_time">时间</string>
+    <string name="opt_th">事件</string>
+    <string name="opt_man">操作员</string>
+
+    <!--消息界面-->
+    <string name="news_notice">活动通知</string>
+    <string name="news_product">新品上线通知</string>
+
+    <string name="scanOk">收款成功</string>
+    <string name="scanError">收款失败</string>
+
+    <!--收款账号-->
+    <string name="acc_title">收款账号</string>
+    <string name="acc_bind_info">绑定支付宝账号，开始使用预授权方式收款</string>
+    <string name="acc_current_merchant">当前商户：</string>
+    <string name="acc_hint_safe_code">请输入验证码</string>
+    <string name="acc_hint_name">请输入支付宝的商家PID</string>
+    <string name="acc_hint_alipay_no">请输入支付宝账号</string>
+    <string name="acc_btn_safe_code">获取验证码</string>
+    <string name="acc_btn_bind">绑定</string>
+    <string name="acc_btn_update">修改</string>
+    <!--预授权订单-->
+    <string name="title_fund_auth_order">预授权订单</string>
+    <!--我的银行卡-->
+    <string name="title_my_bankcard">我的银行卡</string>
+    <!--收款账号-->
+    <string name="title_account">收款账号</string>
+    <string name="bind_alipay_acc">绑定支付宝账号</string>
+    <string name="tv_receiver">收款商家支付宝uid：</string>
+    <string name="alipay_acc">支付宝账号：</string>
+    <string name="bind_acc_info">绑定成功后预授权收款的金额将自动转入该账号，确认是否无误？</string>
+    <string name="order_status">订单状态：</string>
+    <string name="title_pre_settle">预授权收款结算</string>
+    <string name="freeze_succ">预授权成功</string>
+
+    <!--商户管理密码-->
+    <string name="title_merchant_pwd">商户管理密码</string>
+
+    <!--预授权订单状态-->
+    <string name="title_setting">设置</string>
+    
+    <!-- 语音通报 -->
+    <string name="voice_notification">语音通报设置</string>
+    <string name="voice_need_permissions">稳定的语音通报需要开启权限</string>
+    <string name="permissions_one">1、允许“信用商圈”自启动</string>
+    <string name="permissions_two">2、保护“信用商圈”后台运行</string>
+    <string name="permissions_three">3、忽略电池优化</string>
+    <string name="go_check">去检查</string>
+    <string name="note_phone_setting">注：其他助手软件也可按照同样方法设置</string>
+    <string name="voice_notification_only_succ">播报收款成功</string>
+    <string name="voice_notification_all">播报收款金额</string>
+
+
+    <string name="title_shop">店铺资料</string>
+    <string name="dredge_product">开通产品</string>
+    <string name="title_share">分享小程序</string>
+
+    <string name="print_receipts">小票打印</string>
+    <string name="single_copy">单联</string>
+    <string name="double_copy">二联</string>
+    <string name="three_copy">三联</string>
+    <string name="sign_the_order">签购单</string>
+    <string name="merchant_name">商户名称：</string>
+    <string name="merchant_num">商户编号：</string>
+    <string name="terminal_num">终端编号：</string>
+    <string name="terminal_amount">交易金额：</string>
+    <string name="terminal_date">交易日期：</string>
+    <string name="associated_order">关联单号：</string>
+    <string name="yuan">元</string>
+    <string name="stores_num">门 店 号：</string>
+    <string name="card_num">卡        号：</string>
+    <string name="receive_special">收 单 行：</string>
+    <string name="card_issuers">发 卡 行：</string>
+    <string name="period_of_validity">有 效 期：</string>
+    <string name="transaction_type">交易类型：</string>
+    <string name="date_and_time">日期时间：</string>
+    <string name="rmb">RMB </string>
+    <string name="note">备注：</string>
+    <string name="order_num">订单号：</string>
+    <string name="goods_type">产品类型：</string>
+    <string name="pay_service_support">PAY+ 服务支持：</string>
+    <string name="merchant_copy">商户存根        MERCHANT COPY</string>
+    <string name="customer_copy">持卡人存根        CUSTOMER COPY</string>
+    <string name="customer_sign">持卡人签名</string>
+    <string name="customer_confirm">本人确认以上交易，同意将其计入本卡账户</string>
+    <string name="service_num">400-833-6055</string>
+
+    <string name="current_user">当前用户：</string>
+
+    <string name="set_merchant_pwd">设置商户管理密码</string>
+    <string name="forget_pwd">忘记密码</string>
+    <string name="input_old_merchant_pwd">请输入旧的商户管理密码</string>
+    <string name="input_new_merchant_pwd">请输入新的商户管理密码</string>
+    <string name="input_merchant_pwd_again">请再次输入商户管理密码</string>
+    <string name="reset_merchant_pwd">重置商户管理密码</string>
+    <string name="change_merchant_pwd">修改商户管理密码</string>
+    <string name="merchant_pwd_remind">商户管理密码用于退款和银行卡管理，请牢记您的密码！</string>
+    <string name="two_input_are_inconsistent">密码不一致，请重新输入</string>
+    <string name="input_img_code">请输入图形验证码，再获取短信验证码</string>
+
+    <string name="shop_order">线上商城订单</string>
+    <string name="all_order">所有订单</string>
+    <string name="protection_order">维权订单</string>
+    <string name="obligation">待付款</string>
+    <string name="wait_send">待发货</string>
+    <string name="is_send">已发货</string>
+    <string name="is_done">已完成</string>
+    <string name="is_closed">已关闭</string>
+    <string name="wait_buyer_deal">待买家处理</string>
+    <string name="agree_refund">同意退款</string>
+    <string name="repeal_protection">维权撤销</string>
+    <string name="close_order">关闭订单</string>
+    <string name="close_reason">关闭理由：</string>
+    <string name="close_cause">关闭理由:</string>
+
+    <!-- 线上商城订单相关 -->
+    <string name="total_price">合计￥</string>
+    <string name="close">关闭</string>
+    <string name="send_out">发货</string>
+    <string name="input_express_num">输入快递单号</string>
+    <string name="choose_express_company">请输入或选择物流公司</string>
+    <string name="choice">选择</string>
+    <string name="write_express_info">填写物流信息</string>
+    <string name="no_need_no_write">无需发货则不用填写 物流相关信息</string>
+    <string name="refunding">退款中</string>
+    <string name="shop_order_num">订单编号:</string>
+    <string name="talk_order_date">下单日期:</string>
+    <string name="pay_way">支付方式:</string>
+    <string name="first_payment">首付金额:</string>
+    <string name="instalment_detail">分期详情</string>
+    <string name="instalment_amount">分期金额:</string>
+    <string name="staging_num">分期期数:</string>
+    <string name="pay_time">支付时间:</string>
+    <string name="express_way">快递方式:</string>
+    <string name="waybill_num">运单编号:</string>
+    <string name="goods_amount">商品金额</string>
+    <string name="real_payment">实付：</string>
+    <string name="goods_price">商品金额：</string>
+    <string name="freight">运费</string>
+    <string name="copy">复制</string>
+    <string name="detail">详情</string>
+    <string name="order_detail">订单详情</string>
+    <string name="copied">已复制至剪切板</string>
+    <string name="consignee">收货人：</string>
+    <string name="multiply">×</string>
+    <string name="installment">分期付款</string>
+    <string name="wx_and_grade">积分+微信支付</string>
+    <string name="choose_close_reason">请选择或填写关闭理由</string>
+    <string name="free_freight">(免运费)</string>
+
+    <!-- 线上商城退款相关 -->
+    <string name="refuse_refund">拒绝退款</string>
+    <string name="deal_refund">退款处理</string>
+    <string name="refuse_refund_remind">建议您与买家协商后，在确定时候确定拒绝退款。如您拒绝退款后，买家可修改退款申请协议重新发起退款，也可以直接发起维权申请，将会由信用商圈介入处理。</string>
+    <string name="input_refuse_reason">请填写您的拒绝理由</string>
+    <string name="refuse_apply">拒绝申请</string>
+    <string name="wait_merchant_deal_refund">等待商家处理退款申请</string>
+    <string name="merchant_agree_refund">商家同意退款，等待银行打款</string>
+    <string name="merchant_agree">如您同意：</string>
+    <string name="merchant_agree_send_address">申请将达成并发送退货地址给买家</string>
+    <string name="merchant_refuse">如您拒绝：</string>
+    <string name="merchant_refuse_again">买家需要重新修改退款申请或申请维权</string>
+    <string name="merchant_deal_time_front">若您在</string>
+    <string name="merchant_deal_time_back">内未处理，则视为默认同意退款申请</string>
+    <string name="buyer_phone">买家电话</string>
+    <string name="process_mode">处理方式</string>
+    <string name="goods_state">货物状态</string>
+    <string name="application_date">申请时间</string>
+    <string name="refund_reason">退款原因</string>
+    <string name="refund_order_no">退款编号</string>
+    <string name="see_all_record">查看完整协商记录</string>
+    <string name="refuse_buyer_application">拒绝买家申请</string>
+    <string name="agree_buyer_application">同意买家申请</string>
+    <string name="agree_buyer_refund">同意给买家退款</string>
+    <string name="filter_vcode">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+
+    <!-- chat activity -->
+    <string name="chat_image">图片</string>
+    <string name="chat_file">文件</string>
+    <string name="chat_photo">拍摄</string>
+    <string name="chat_video">小视频</string>
+    <string name="chat_press_talk">按住 说话</string>
+    <string name="chat_release_send">松开 结束</string>
+    <string name="chat_up_finger">手指上滑，取消发送</string>
+    <string name="chat_audio_too_short">录音过短，请重试</string>
+    <string name="chat_audio_too_long">录音过长，请重试</string>
+    <string name="chat_video_too_short">录制过短，请重试</string>
+    <string name="chat_resend">重新发送</string>
+    <string name="chat_pullback">撤回</string>
+    <string name="chat_pullback_not_support">改会话不支持消息撤回</string>
+    <string name="chat_del">删除</string>
+    <string name="chat_save">保存</string>
+    <string name="chat_file_too_large">文件过大，发送失败</string>
+    <string name="chat_file_not_exist">文件不存在，发送失败</string>
+    <string name="chat_image_preview_title">图片预览</string>
+    <string name="chat_image_preview_send">发送</string>
+    <string name="chat_image_preview_load_err">图片加载失败</string>
+    <string name="chat_image_preview_ori">原图发送</string>
+    <string name="chat_typing">对方正在输入…</string>
+    <string name="chat_content_bad">内容含有敏感词</string>
+
+    <!-- message -->
+    <string name="summary_image">[图片]</string>
+    <string name="summary_voice">[语音]</string>
+    <string name="summary_video">[小视频]</string>
+    <string name="summary_file">[文件]</string>
+    <string name="summary_friend_add">请求添加好友</string>
+    <string name="summary_friend_added">我已添加</string>
+    <string name="summary_friend_add_me">请求添加</string>
+    <string name="summary_friend_recommend">推荐添加</string>
+    <string name="summary_me">我</string>
+    <string name="summary_group_apply">申请加群</string>
+    <string name="summary_group_invite">邀请</string>
+    <string name="summary_group_add">加入群</string>
+    <string name="summary_agree">同意</string>
+    <string name="summary_disagree">拒绝</string>
+    <string name="summary_invite_person">邀请人</string>
+    <string name="summary_handle_person">处理人</string>
+    <string name="summary_group_admin_change">管理员变更</string>
+    <string name="summary_group_info_change">群资料变更</string>
+    <string name="summary_group_mem_change">群成员变更</string>
+    <string name="summary_group_mem_add">加入群</string>
+    <string name="summary_group_mem_quit">退出群</string>
+    <string name="summary_group_mem_kick">被踢出群</string>
+    <string name="summary_group_mem_modify">资料变更</string>
+
+    <!-- time -->
+    <string name="time_yesterday">昨天</string>
+    <string name="time_day">日</string>
+    <string name="time_month">月</string>
+    <string name="time_year">年</string>
+    <string name="time_more">99+</string>
+    <string name="title_activity_group_chat_setting">GroupChatSettingActivity</string>
+
+    <string name="conversation_system_friend">新朋友</string>
+    <string name="file_not_found">未找到文件，请稍后重试</string>
+    <string name="default_group_name">默认分组</string>
+
+    <!-- Add newfri activity -->
+    <string name="title_new_fri">新朋友</string>
+    <string name="newfri_agree">同意</string>
+    <string name="newfri_reject">拒绝</string>
+    <string name="newfri_do">操作</string>
+    <string name="newfri_disagree">已拒绝</string>
+    <string name="newfri_accept">已接受</string>
+    <string name="newfri_wait">等待验证</string>
+    <string name="kick_logout">你的账号已在其他终端登录,重新登录</string>
+    <string name="login_error">登录失败，请稍后重试</string>
+    <string name="login_succ">登录成功</string>
+    <string name="tls_expire">账号登录已过期，请重新登录</string>
+    <string name="send_msg">发送消息</string>
+    <string name="input_send_msg">请输入发送消息</string>
+    <string name="last_active_time">最后活动时间:</string>
+
+    <!--客户-->
+    <string name="last_active_time_2">最后活动时间</string>
+    <string name="client_detail">客户详情</string>
+    <string name="client_dynamic">访客动态</string>
+    <string name="add_tags">添加标签</string>
+    <string name="add_record">添加记录</string>
+    <string name="send_msg_2">发消息</string>
+    <string name="view_count">浏览次数：</string>
+    <string name="phone_num">手机：</string>
+
+    <string name="no_phone_num">暂无电话号码</string>
+    <string name="confirm_call_phone">确认拨打：</string>
+    <string name="just_now">刚刚</string>
+    <string name="minutes_ago">分钟以前</string>
+    <string name="client_num">共0名客户</string>
+
+    
+    <!--开通小程序商铺-->
+    <string name="open_my_mini_pro">开通我的小程序</string>
+    <string name="open_mini_pro_now">立即免费开通</string>
+    <string name="not_open">暂不开通</string>
+    <string name="opened_successfully">开通成功</string>
+    <string name="wechat_friend">微信好友</string>
+    <string name="promo_code">推广码</string>
+    <string name="share">分享</string>
+    <string name="save_local">保存本地</string>
+    <string name="send_image_to_friend">将图片发送给好友，吸引客流获得返利</string>
+
+    <string name="open_mini_pro_success">成功开通小程序电商门店</string>
+    <string name="open_success">开通成功</string>
+    <string name="next_to_do">接下来，您可以：</string>
+    <string name="manage_mini_pro_shop">管理小程序门店吸引顾客</string>
+    <string name="upload_goods">马上上传商品开始赚钱</string>
+    <string name="ai_manage_client">通过AI雷达管理客户</string>
+    <string name="manage_now">立即管理</string>
+    <string name="enter_now">立即进入</string>
+    <string name="enter_ai_shop">进入AI店铺</string>
+
+    <string name="have_mini_pro_shop">免费拥有自己的小程序门店</string>
+    <string name="share_us">分享信用商圈海量流量</string>
+    <string name="ai_manage">用AI技术来管理您的客户</string>
+    <string name="recommend">推荐客户返利获得分润</string>
+</resources>

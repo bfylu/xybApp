@@ -1,0 +1,130 @@
+package cn.payadd.majia.activity.aistore;
+
+import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.fdsj.credittreasure.R;
+import com.fdsj.credittreasure.activities.BaseActivity;
+import com.utils.StatusBarUtils;
+
+import butterknife.BindView;
+import cn.payadd.majia.fragment.aistore.ClientFragment;
+import cn.payadd.majia.fragment.aistore.MsgFragment;
+import cn.payadd.majia.fragment.aistore.RadarFragment;
+
+/**
+ * Created by lang on 2018/6/15.
+ */
+
+public class AIStoreMainActivity extends BaseActivity implements View.OnClickListener {
+
+    @BindView(R.id.iv_radar)
+    ImageView ivRadar;
+    @BindView(R.id.tv_radar)
+    TextView tvRadar;
+
+    @BindView(R.id.iv_msg)
+    ImageView ivMsg;
+    @BindView(R.id.tv_msg)
+    TextView tvMsg;
+
+    @BindView(R.id.iv_client)
+    ImageView ivClient;
+    @BindView(R.id.tv_client)
+    TextView tvClient;
+
+    private RadarFragment radarFragment;
+    private MsgFragment msgFragment;
+    private ClientFragment clientFragment;
+    private Fragment currentFragment;
+
+    @Override
+    protected int getLayoutView() {
+        return R.layout.activity_ai_store_main;
+    }
+
+    @Override
+    public void initView() {
+        setBackOnclick();
+    }
+
+    @Override
+    protected void initData() {
+        fragmentManager = getSupportFragmentManager();
+
+        if (null == radarFragment) {
+            radarFragment = new RadarFragment();
+        }
+
+        if (null == msgFragment) {
+            msgFragment = new MsgFragment();
+        }
+
+        if (null == clientFragment) {
+            clientFragment = new ClientFragment();
+        }
+
+        currentFragment = radarFragment;
+        setBottom(1);
+        switchFragment(currentFragment);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rl_radar:
+                if (radarFragment == null) {
+                    radarFragment = new RadarFragment();
+                }
+                setBottom(1);
+                currentFragment = radarFragment;
+                break;
+            case R.id.rl_msg:
+                if (msgFragment == null) {
+                    msgFragment = new MsgFragment();
+                }
+                setBottom(2);
+                currentFragment = msgFragment;
+                break;
+            case R.id.rl_client:
+                if (clientFragment == null) {
+                    clientFragment = new ClientFragment();
+                }
+                setBottom(3);
+                currentFragment = clientFragment;
+                break;
+        }
+        switchFragment(currentFragment);
+    }
+
+    public void setBottom(int r) {
+        ivRadar.setImageResource(r == 1 ? R.mipmap.icon_leida_yellow : R.mipmap.icon_leida_gray);
+        tvRadar.setTextColor(getResources().getColor(r == 1 ? R.color.croci : R.color.color_9));
+
+        ivMsg.setImageResource(r == 2 ? R.mipmap.icon_message_yellow : R.mipmap.icon_message_gray);
+        tvMsg.setTextColor(getResources().getColor(r == 2 ? R.color.croci : R.color.color_9));
+
+        ivClient.setImageResource(r == 3 ? R.mipmap.icon_mine_yellow : R.mipmap.icon_mine_gray);
+        tvClient.setTextColor(getResources().getColor(r == 3 ? R.color.croci : R.color.color_9));
+
+        switch (r) {
+            case 1:
+                super.setCenterText(getResources().getString(R.string.radar));
+                StatusBarUtils.setColor(this, getResources().getColor(R.color.ai_store_title));//更改状态栏背景颜色
+                super.setActionBarBackgroundColor(R.color.ai_store_title);
+                break;
+            case 2:
+                super.setCenterText(getResources().getString(R.string.msg));
+                StatusBarUtils.setColor(this, getResources().getColor(R.color.ai_store_title));//更改状态栏背景颜色
+                super.setActionBarBackgroundColor(R.color.ai_store_title);
+                break;
+            case 3:
+                super.setCenterText(getResources().getString(R.string.client));
+                StatusBarUtils.setColor(this, getResources().getColor(R.color.ai_store_title));//更改状态栏背景颜色
+                super.setActionBarBackgroundColor(R.color.ai_store_title);
+                break;
+        }
+    }
+}

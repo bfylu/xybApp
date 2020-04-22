@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_open_result"
+                    android:layout_width="@dimen/dp_38"
+                    android:layout_height="@dimen/dp_38"
+                    android:src="@mipmap/icon5"/>
+
+                <TextView
+                    android:id="@+id/tv_open_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:text="@string/open_mini_pro_success"
+                    android:textColor="@color/color_3"
+                    android:textSize="@dimen/sp_15"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_45"
+                android:text="@string/next_to_do"
+                android:textSize="@dimen/sp_15"
+                android:textColor="@color/color_3"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_70"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginLeft="@dimen/dp_45"
+                android:layout_marginRight="@dimen/dp_45"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_9"
+                    android:textSize="@dimen/sp_15"
+                    android:text="@string/manage_mini_pro_shop"/>
+
+                <Button
+                    android:id="@+id/btn_manage_now"
+                    android:layout_width="@dimen/dp_86"
+                    android:layout_height="@dimen/dp_38"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:text="@string/manage_now"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/color_f"
+                    android:background="@drawable/shape_btn_enable"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0.5"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12"
+                android:background="@color/color_f2"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_70"
+                android:layout_marginLeft="@dimen/dp_45"
+                android:layout_marginRight="@dimen/dp_45"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_9"
+                    android:textSize="@dimen/sp_15"
+                    android:text="@string/upload_goods"/>
+
+                <Button
+                    android:id="@+id/btn_enter_now"
+                    android:layout_width="@dimen/dp_86"
+                    android:layout_height="@dimen/dp_38"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:text="@string/enter_now"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/color_f"
+                    android:background="@drawable/shape_btn_enable"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0.5"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12"
+                android:background="@color/color_f2"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_70"
+                android:layout_marginLeft="@dimen/dp_45"
+                android:layout_marginRight="@dimen/dp_45"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_9"
+                    android:textSize="@dimen/sp_15"
+                    android:text="@string/manage_mini_pro_shop"/>
+
+                <Button
+                    android:id="@+id/btn_enter_ai_shop"
+                    android:layout_width="@dimen/dp_86"
+                    android:layout_height="@dimen/dp_38"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:text="@string/enter_ai_shop"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/color_f"
+                    android:background="@drawable/shape_btn_enable"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0.5"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12"
+                android:background="@color/color_f2"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

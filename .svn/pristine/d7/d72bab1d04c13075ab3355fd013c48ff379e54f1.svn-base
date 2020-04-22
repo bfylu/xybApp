@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f2">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150" />
+
+    <RelativeLayout
+        android:id="@+id/relative_play"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_f"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingBottom="@dimen/y20"
+        android:paddingLeft="@dimen/x40"
+        android:paddingRight="@dimen/x20"
+        android:paddingTop="@dimen/y20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="收款成功语音提醒"
+            android:textColor="@color/color_6"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/img_player_pay_notify_ring_tone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_on"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0.5"
+        android:background="@color/color_f2"/>
+
+    <RelativeLayout
+        android:id="@+id/relative_installment_push"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_f"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingBottom="@dimen/y20"
+        android:paddingLeft="@dimen/x40"
+        android:paddingRight="@dimen/x20"
+        android:paddingTop="@dimen/y20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="接收分期消息推送"
+            android:textColor="@color/color_6"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/iv_receive_installment_push"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_on"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0.5"
+        android:background="@color/color_f2"/>
+
+    <RelativeLayout
+        android:id="@+id/relative_print_type"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/color_f"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:visibility="gone"
+        android:paddingBottom="@dimen/y20"
+        android:paddingLeft="@dimen/x40"
+        android:paddingRight="@dimen/x20"
+        android:paddingTop="@dimen/y20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/print_receipts"
+            android:textColor="@color/color_6"
+            android:textSize="@dimen/sp_14" />
+
+        <ImageView
+            android:id="@+id/iv_into"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/y40"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/into"/>
+
+        <TextView
+            android:id="@+id/tv_print_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/iv_into"
+            android:text="@string/single_copy"
+            android:textColor="@color/color_6"
+            android:textSize="@dimen/sp_14"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/SignOut"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y120"
+        android:layout_marginLeft="@dimen/x100"
+        android:layout_marginRight="@dimen/x100"
+        android:layout_marginTop="@dimen/y130"
+        android:background="@drawable/border_white_background_white_radius"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="@string/login_out"
+        android:textColor="@color/color_Home"
+        android:textSize="16sp" />
+
+</LinearLayout>

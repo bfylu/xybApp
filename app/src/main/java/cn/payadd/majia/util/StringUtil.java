@@ -1,0 +1,751 @@
+package cn.payadd.majia.util;
+
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * 
+ * StringUtil 字符串工具类
+ * 
+ * @author shenbin 2015-1-3 下午2:06:57
+ */
+public class StringUtil {
+
+	/**
+	 * dp转换成px
+	 */
+	public static int dp2px(Context context, float dpValue){
+		float scale = context.getResources().getDisplayMetrics().density;
+		return (int) (dpValue * scale + 0.5f);
+	}
+
+	/**
+	 * px转换成dp
+	 */
+	public static int px2dp(Context context, float pxValue){
+		float scale = context.getResources().getDisplayMetrics().density;
+		return (int) (pxValue / scale + 0.5f);
+	}
+
+	/**
+	 * 校验银行卡卡号
+	 * 
+	 * @param cardId
+	 * @return
+	 */
+	public static boolean checkBankCard(String cardId) {
+		char bit = getBankCardCheckCode(cardId
+				.substring(0, cardId.length() - 1));
+		if (bit == 'N') {
+			return false;
+		}
+		return cardId.charAt(cardId.length() - 1) == bit;
+	}
+
+	/**
+	 * 从不含校验位的银行卡卡号采用 Luhm 校验算法获得校验位
+	 * 
+	 * @param nonCheckCodeCardId
+	 * @return
+	 */
+	public static char getBankCardCheckCode(String nonCheckCodeCardId) {
+		if (nonCheckCodeCardId == null
+				|| nonCheckCodeCardId.trim().length() == 0
+				|| !nonCheckCodeCardId.matches("\\d+")) {
+			// 如果传的不是数据返回N
+			return 'N';
+		}
+		char[] chs = nonCheckCodeCardId.trim().toCharArray();
+		int luhmSum = 0;
+		for (int i = chs.length - 1, j = 0; i >= 0; i--, j++) {
+			int k = chs[i] - '0';
+			if (j % 2 == 0) {
+				k *= 2;
+				k = k / 10 + k % 10;
+			}
+			luhmSum += k;
+		}
+		return (luhmSum % 10 == 0) ? '0' : (char) ((10 - luhmSum % 10) + '0');
+	}
+
+	public static boolean issEmail(String email) {
+		boolean isExist = false;
+
+		Pattern p = Pattern.compile("\\w+@(\\w+.)+[a-z]{2,3}");
+		Matcher m = p.matcher(email);
+		boolean b = m.matches();
+		if (b) {
+			isExist = true;
+		}
+		return isExist;
+	}
+
+	/**
+	 * 判断是否为数字
+	 * 
+	 * @param str
+	 *            字符串
+	 * @return 是：true
+	 */
+	public static boolean isNumeric(String str) {
+		for (int i = str.length(); --i >= 0;) {
+			int chr = str.charAt(i);
+			if (chr < 48 || chr > 57)
+				return false;
+		}
+		return true;
+	}
+	/*public static boolean isNumeric(String str) {
+		Pattern pattern = Pattern.compile("[0-9]*");
+		Matcher isNum = pattern.matcher(str);
+		if( !isNum.matches() ){
+			return false;
+		}
+		return true;
+	}*/
+
+	/**
+	 * 转义
+	 * 
+	 * @param src
+	 *            字符串
+	 * @return 字符串
+	 */
+	public static String escape(String src) {
+		int i;
+		char j;
+		StringBuffer tmp = new StringBuffer();
+		for (i = 0; i < src.length(); i++) {
+			j = src.charAt(i);
+			if (j == '\'') {
+				tmp.append("\\");
+			} else if (j == '\\') {
+				tmp.append("\\");
+			}
+			tmp.append(j);
+		}
+		return tmp.toString();
+	}
+
+	/**
+	 * 将不定数的几个对象拼接在一起。要求对象重写过toString方法
+	 * 
+	 * @param param
+	 *            不定数的对象
+	 * @return 拼接好的字符串
+	 */
+	public static String append(Object... param) {
+		if (param.length == 0) {
+			return "";
+		}
+		StringBuffer sb = new StringBuffer();
+		for (Object temp : param) {
+			sb.append(temp);
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 判断字符串是否为null和空
+	 * 
+	 * @param param
+	 *            字符串
+	 * @return 既不为空也不为null时，返回false
+	 */
+	public static boolean isEmpty(String param) {
+		if (param != null && !("".equals(param)) && !("null".equals(param))) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * 判断字符串是否为null和空
+	 * 
+	 * @param param
+	 *            字符串
+	 * @return 为空或null时，返回false
+	 */
+	public static boolean isNotEmpty(String param) {
+		return !isEmpty(param);
+	}
+
+	/**
+	 * 
+	 * @Title: toString
+	 * @Description: 将对象转化为String
+	 * @param o
+	 *            传入的对象
+	 * @return String 转化好的字符串
+	 */
+	public static String toString(Object o) {
+		if (o == null) {
+			return "";
+		} else {
+			return o.toString();
+		}
+	}
+
+	/**
+	 *
+	 * @Title: toFloat
+	 * @Description: 将对象转化为Float
+	 * @param o
+	 *            传入的对象
+	 * @return double 转化好的数字
+	 */
+	public static float toFloat(Object o) {
+		if (o == null || isEmpty(o.toString())) {
+			return 0;
+		} else {
+			return Float.valueOf(o.toString());
+		}
+	}
+
+	/**
+	 * 
+	 * @Title: toInt
+	 * @Description: 将对象转化为String
+	 * @param o
+	 *            传入的对象
+	 * @return int 转化好的数字
+	 */
+	public static int toInt(Object o) {
+		if (o == null || isEmpty(o.toString())) {
+			return 0;
+		} else {
+			double result = Double.valueOf(o.toString());
+			return (int)result;
+		}
+	}
+	
+	public static String toIntString(Object o){
+		int result = toInt(o);
+		return append(result);
+	}
+
+	/**
+	 * 
+	 * @Title: toLong
+	 * @Description: 将对象转化为String
+	 * @param o
+	 *            传入的对象
+	 * @return long 转化好的数字
+	 */
+	public static long toLong(Object o) {
+		if (o == null || isEmpty(o.toString())) {
+			return 0;
+		} else {
+			return Long.valueOf(o.toString());
+		}
+	}
+
+	/**
+	 * 
+	 * @Title: toDouble
+	 * @Description: 将对象转化为String
+	 * @param o
+	 *            传入的对象
+	 * @return double 转化好的数字
+	 */
+	public static double toDouble(Object o) {
+		if (o == null || isEmpty(o.toString())) {
+			return 0;
+		} else {
+			return Double.valueOf(o.toString());
+		}
+	}
+
+	/**
+	 * 将数字字符串转为保留2位小数的double
+	 * @param str
+	 * @return
+	 */
+	public static double decimal2Double(String str) {
+		DecimalFormat df = new DecimalFormat("#################0.00");
+		if (StringUtil.isEmpty(str)) {
+			return 0;
+		}
+		return StringUtil.toDouble(df.format(StringUtil.toDouble(str)));
+	}
+
+	/**
+	 * 将数字字符串转为保留2位小数的字符串
+	 * @param str
+	 * @return
+	 */
+	public static String decimal2String(String str) {
+		DecimalFormat df = new DecimalFormat("#################0.00");
+		if (StringUtil.isEmpty(str)) {
+			return "";
+		}
+		return df.format(StringUtil.toDouble(str));
+	}
+
+	/**
+	 * 将list转化为object数组
+	 * 
+	 * @param paramList
+	 *            参数的list
+	 * @return Object[] 参数的数组
+	 */
+	public static Object[] listToArray(List<Object> paramList) {
+		Object[] o = new Object[paramList.size()];
+		for (int i = 0; i < paramList.size(); i++) {
+			o[i] = paramList.get(i);
+		}
+		return o;
+	}
+
+	/**
+	 * 在String两边加上 %
+	 * 
+	 * @param param
+	 *            需要加百分号的String
+	 * @return 加好百分号的String
+	 */
+	public static String likeString(String param) {
+		return append("%", param, "%");
+	}
+
+	/**
+	 * 将html转换为code
+	 * 
+	 * @param s
+	 *            字符串
+	 * @return 字符串
+	 */
+	public static final String htmlToCode(String s) {
+		if (s == null) {
+			return "";
+		} else {
+			s = s.replace("\n\r", "<br>&nbsp;&nbsp;");
+			s = s.replace("\r\n", "<br>&nbsp;&nbsp;");
+			s = s.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+			s = s.replace(" ", "&nbsp;");
+			s = s.replace("\"", "\\" + "\"");
+			return s;
+		}
+	}
+
+	/**
+	 * 随机字符串
+	 * 
+	 * @param length
+	 *            字符串长度
+	 * @return 生成的随机字符串
+	 */
+	public static String randomString(int length) {
+		Random randGen = null;
+		char[] numbersAndLetters = null;
+		if (length < 1) {
+			return null;
+		}
+		if (randGen == null) {
+			randGen = new Random();
+			numbersAndLetters = ("0123456789abcdefghijklmnopqrstuvwxyz"
+					+ "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ").toCharArray();
+		}
+		char[] randBuffer = new char[length];
+		for (int i = 0; i < randBuffer.length; i++) {
+			randBuffer[i] = numbersAndLetters[randGen.nextInt(71)];
+		}
+		return new String(randBuffer);
+	}
+
+	/**
+	 * 判断str1和str2是否相同
+	 *
+	 * @param str1 str1
+	 * @param str2 str2
+	 * @return true or false
+	 */
+	public static boolean equals(String str1, String str2) {
+		return str1 == str2 || str1 != null && str1.equals(str2);
+	}
+
+	/**
+	 * 判断str1和str2是否相同(不区分大小写)
+	 *
+	 * @param str1 str1
+	 * @param str2 str2
+	 * @return true or false
+	 */
+	public static boolean equalsIgnoreCase(String str1, String str2) {
+		return str1 != null && str1.equalsIgnoreCase(str2);
+	}
+
+	/**
+	 * 判断字符串str1是否包含字符串str2
+	 *
+	 * @param str1 源字符串
+	 * @param str2 指定字符串
+	 * @return true源字符串包含指定字符串，false源字符串不包含指定字符串
+	 */
+	public static boolean contains(String str1, String str2) {
+		return str1 != null && str1.contains(str2);
+	}
+
+	/**
+	 * 随机数字
+	 * 
+	 * @param length
+	 *            字符串长度
+	 * @return 生成的随机数字
+	 */
+	public static String randomNumber(int length) {
+		Random randGen = null;
+		char[] numbers = null;
+		if (length < 1) {
+			return null;
+		}
+		if (randGen == null) {
+			randGen = new Random();
+			numbers = "0123456789".toCharArray();
+		}
+		char[] randBuffer = new char[length];
+		for (int i = 0; i < randBuffer.length; i++) {
+			randBuffer[i] = numbers[randGen.nextInt(10)];
+		}
+		return new String(randBuffer);
+	}
+
+	/**
+	 * md5加密
+	 * 
+	 * @param plainText
+	 *            要加密的字符串
+	 * @return 加密好的字符串
+	 */
+	public static String md(String plainText) {
+		StringBuffer buf = new StringBuffer("");
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(plainText.getBytes());
+			byte[] b = md.digest();
+			int i;
+			for (int offset = 0; offset < b.length; offset++) {
+				i = b[offset];
+				if (i < 0)
+					i += 256;
+				if (i < 16)
+					buf.append("0");
+				buf.append(Integer.toHexString(i));
+			}
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return buf.toString().substring(8, 18);
+	}
+
+	/**
+	 * 模糊查询包装
+	 * 
+	 * @param param
+	 *            模糊查询关键字
+	 * @return 包装好的模糊查询字段
+	 */
+	public static String likeSearch(String param) {
+		if (isEmpty(param)) {
+			return "";
+		}
+		return StringUtil.append("%", param, "%");
+	}
+
+	/**
+	 * 去除字符串最后一个字符
+	 * 
+	 * @param param
+	 *            参数
+	 * @return 结果
+	 */
+	public static String trimLast(String param) {
+		if (isEmpty(param)) {
+			return "";
+		}
+		String result = param.substring(0, param.length() - 1);
+		return result;
+	}
+
+	/**
+	 * 判断手机号码的合理性
+	 * 
+	 * @param param
+	 *            参数
+	 * @return 结果
+	 */
+	public static boolean isPhone(String param) {
+		
+		boolean isFlag = false;
+		if (param.length() == 11) {
+			isFlag = true;
+		}
+		return isFlag;
+	}
+	/**
+     * 检测邮箱地址是否合法
+     * @param email
+     * @return true合法 false不合法
+     */
+    public static boolean isAEmail(String email) {
+    	if (null==email || "".equals(email)) return false;  
+	    Pattern p =  Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");//复杂匹配
+	    Matcher m = p.matcher(email);
+	    return m.matches();
+    }
+    /**
+     * 是否有效的密码
+     * @return 不是返回true
+     */
+    public static boolean isNotValidePwd(String pwd){
+    	if (isEmpty(pwd)) {
+    		return true;
+    	} else {
+    		if (pwd.length() < 6 || pwd.length() > 20) {
+				return true;
+			}
+    	}
+    	return false;
+    }
+
+	/**
+	 * 检查APP是否安装
+	 * @param context
+	 * @param packageName
+     * @return
+     */
+	public static boolean checkApkExist(Context context, String packageName) {
+		if (packageName == null || "".equals(packageName))
+			return false;
+		try {
+			ApplicationInfo info = context.getPackageManager().getApplicationInfo(packageName,
+					PackageManager.GET_UNINSTALLED_PACKAGES);
+			return true;
+		} catch (PackageManager.NameNotFoundException e) {
+			return false;
+		}
+	}
+
+	/**
+	 * 去除掉字符串中的特殊字符
+	 * @param url
+	 */
+	public static String trimStr(String url){
+		String substring = null;
+		substring = url.replaceAll("[^\\w]", "");
+		return substring;
+	}
+
+	/**去掉匹配任何不可见字符，包括空格、制表符、换页符等等。等价于[ \f\n\r\t\v]和<和>和\和~
+	 * @param str
+	 * @return
+	 */
+	public static String trim(String str){
+
+		String a =  str.replaceAll("[\\s*|<*|>*|~*|\\\\*|{*|}*]", "");
+		return a;
+	}
+
+	/**
+	 * 把map转成 key=value&key=value 开形式
+	 * @param map
+	 * @return
+	 */
+	public static String link(Map<String, String> map) {
+
+		return link(map, null);
+	}
+
+	/**
+	 *
+	 * @param map
+	 * @return
+	 */
+	public static String linkAndEncode(Map<String, String> map) {
+
+		return link(map, "UTF-8");
+	}
+
+	/**
+	 *
+	 * @param map
+	 * @return
+	 */
+	public static String linkAndEncode2(Map<String, String> map) {
+
+		return link2(map, "UTF-8");
+	}
+
+	/**
+	 *
+	 * @param map
+	 * @param enc URLEncode编码字符
+	 * @return
+	 */
+	public static String link(Map<String, String> map, final String enc) {
+
+		StringBuilder sb = new StringBuilder();
+
+		try {
+			for (String key : map.keySet()) {
+				String value = map.get(key);
+				if (null != enc && null != value) {
+					value = URLEncoder.encode(value, enc);
+				}
+				sb.append("&").append(key).append("=").append(value);
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		return sb.length() > 0 ? sb.substring(1) : sb.toString();
+	}
+
+	/**
+	 *
+	 * @param map
+	 * @param enc URLEncode编码字符
+	 * @return
+	 */
+	public static String link2(Map<String, String> map, final String enc) {
+
+		StringBuilder sb = new StringBuilder();
+
+		try {
+			for (String key : map.keySet()) {
+				String value = map.get(key);
+				if (null != enc && null != value) {
+					value = URLEncoder.encode(value, enc);
+				}
+				sb.append(",").append(key).append(":").append(value);
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+//		Gson gson = new Gson();
+
+		return sb.length() > 0 ? sb.substring(1) : sb.toString();
+//		return gson.toJson(map);
+	}
+
+	/**
+	 *
+	 * @param str
+	 * @return
+	 */
+	public static Map<String, String> separate(String str) {
+
+		return separate(null, str, null);
+	}
+
+	/**
+	 *
+	 * @param str
+	 * @return
+	 */
+	public static Map<String, String> separateAndURLDecode(String str) {
+
+		return separate(null, str, "UTF-8");
+	}
+
+	/**
+	 *
+	 * @param str
+	 * @param enc URLDecode解码字符
+	 * @return
+	 */
+	public static Map<String, String> separate(String str, final String enc) {
+
+		return separate(null, str, enc);
+	}
+
+	/**
+	 *
+	 * @param map 可以传入map对像，用来排序，如果不传，则创建新的HashMap
+	 * @param str
+	 * @param enc URLDecode解码字符
+	 * @return
+	 */
+	public static Map<String, String> separate(Map<String, String> map, String str, final String enc) {
+
+		if (null == map) {
+			map = new HashMap<String, String>();
+		}
+
+		String[] seq = str.split("&");
+		try {
+			for (String tmp : seq) {
+
+				int index = tmp.indexOf("=");
+				if (index != -1) {
+					String str1 = tmp.substring(0, index);
+					String str2 = tmp.substring(index + 1);
+					if (null == enc) {
+						map.put(str1, str2);
+					} else {
+						map.put(str1, URLDecoder.decode(str2, enc));
+					}
+				}
+
+//				String[] split = tmp.split("=");
+//				if (split.length == 2) {
+//					if (null != enc) {
+//						map.put(split[0], URLDecoder.decode(split[1], enc));
+//					} else {
+//						map.put(split[0], split[1]);
+//					}
+//				}
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		return map;
+	}
+
+	public static final boolean isAmount(String str) {
+		String isAmount = "^[0-9]{1,}(?:.[0-9]{0,2})?$";
+		Pattern pattern = Pattern.compile(isAmount); // 判断小数点后2位的数字的正则表达式
+		Matcher match = pattern.matcher(str);
+		if (match.matches()) {
+			return true;
+		}
+		return false;
+	}
+
+	/***
+	 * 获取url 指定name的value;
+	 * @param url
+	 * @param name
+	 * @return
+	 */
+	public static String getValueByName(String url, String name) {
+		String result = "";
+		int index = url.indexOf("?");
+		String temp = url.substring(index + 1);
+		String[] keyValue = temp.split("&");
+		for (String str : keyValue) {
+			if (str.contains(name)) {
+				result = str.replace(name + "=", "");
+				break;
+			}
+		}
+		return result;
+	}
+}

@@ -1,0 +1,123 @@
+package cn.payadd.majia.activity;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fdsj.credittreasure.R;
+
+import org.w3c.dom.Text;
+
+import java.util.Map;
+
+import cn.payadd.majia.adapter.BankCardAdapter;
+import cn.payadd.majia.face.IActivity;
+import cn.payadd.majia.face.ICallback;
+import cn.payadd.majia.presenter.BankCardPresenter;
+import cn.payadd.majia.util.BankCardUtil;
+import cn.payadd.majia.view.CommonDialog;
+
+/**
+ * Created by df on 2017/9/14.
+ */
+
+public class BankCardDetailActivity extends BaseActivity implements View.OnClickListener,IActivity{
+
+    private TextView tvBankName,tvCardNo;
+    private ImageView ivBankIcon;
+    private Button btnUnBind;
+    private RelativeLayout rlBankCard;
+
+    private String mBankCardId;
+    private BankCardPresenter presenter;
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_bankcard_detail;
+    }
+
+    @Override
+    public void initView() {
+        setTitleBackButton();
+        setTitleCenterText("银行卡详情");
+
+        tvBankName = (TextView) findViewById(R.id.tv_bank_name);
+        tvCardNo = (TextView) findViewById(R.id.tv_card_no);
+        ivBankIcon = (ImageView) findViewById(R.id.iv_bank_icon);
+        rlBankCard = (RelativeLayout) findViewById(R.id.rl_bank_card);
+        btnUnBind = (Button) findViewById(R.id.btn_unbind);
+        btnUnBind.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void initData() {
+        Bundle bundle = getIntent().getBundleExtra("bankCard");
+        tvBankName.setText(bundle.getString("bankName"));
+        tvCardNo.setText(BankCardUtil.bankCardFormat(bundle.getString("cardNo")));
+        int iconResId = bundle.getInt("bankLogo");
+        int background = bundle.getInt("background");
+        if(iconResId == 0){
+//            ivBankIcon.setImageResource(R.mipmap.xyb_logo);
+        }else{
+            ivBankIcon.setImageResource(iconResId);
+        }
+        if(background == 0){
+            rlBankCard.setBackground(ContextCompat.getDrawable(this,R.drawable.shape_bankcard_red));
+        }else{
+            rlBankCard.setBackground(ContextCompat.getDrawable(this,background));
+        }
+        mBankCardId = bundle.getString("id");
+        presenter = new BankCardPresenter(this);
+    }
+
+    @Override
+    protected void initPermission() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        final CommonDialog commonDialog = new CommonDialog(this,"您正在进行解除绑定银行卡的操作，是否继续操作？", null, "确定", "取消");
+        commonDialog.showDialog();
+        commonDialog.setOnDiaLogListener(new CommonDialog.OnDialogListener() {
+            @Override
+            public void dialogListener(String btnType, View customView, DialogInterface
+                    dialogInterface, int which) {
+                if(btnType.equals("positive")){
+                    presenter.unbind(mBankCardId, new ICallback() {
+                        @Override
+                        public void exec(Object params) {
+                            Map<String,String> respData = (Map<String, String>) params;
+                            String respDesc = respData.get("respDesc");
+                            Toast.makeText(BankCardDetailActivity.this,respDesc,Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else if(btnType.equals("negative")){
+                    commonDialog.dismiss();
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void updateModel(String key, Object data) {
+        if(key.equals("unbind")){
+            Map<String,String> respData = (Map<String, String>) data;
+            String respCode = respData.get("respCode");
+            if(respCode.equals("000000")){
+                Intent intent = new Intent(this,MyBankCardActivity.class);
+                intent.putExtra("type","check");
+                startActivity(intent);
+                finish();
+            }
+        }
+    }
+}

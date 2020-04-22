@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/line_action"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_Home">
+
+        <RelativeLayout
+            android:id="@+id/relative_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:id="@+id/title_back"
+                android:layout_width="@dimen/x80"
+                android:layout_height="@dimen/y80"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/back"
+                android:scaleType="centerInside"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/title_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="@color/color_f"
+                android:textSize="18sp"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/relative_title_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp" >
+
+            <ImageView
+                android:id="@+id/image_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/color_f"
+                android:textSize="14sp"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/tv_extend"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="汇总单"
+                android:textColor="@color/color_f"
+                android:textSize="14sp"
+                android:layout_toLeftOf="@+id/tv_right"
+                android:layout_marginRight="15dp"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

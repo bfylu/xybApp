@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/address_visible"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/userimgInfo"
+        android:layout_width="@dimen/x350"
+        android:layout_height="@dimen/y306"
+        android:src="@mipmap/zanwu" />
+
+    <TextView
+        android:id="@+id/usertitleInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y71"
+        android:text="信息查询失败"
+        android:textColor="#999999"
+        android:textSize="13sp" />
+
+</LinearLayout>

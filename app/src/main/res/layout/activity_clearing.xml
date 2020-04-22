@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f2"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150" />
+
+    <com.fdsj.credittreasure.widgtes.SwipeRefreshWebView
+        android:id="@+id/swipeRefreshWebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <!--<ScrollView-->
+    <!--android:scrollbars="none"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/color_f"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="@dimen/y40"-->
+    <!--android:paddingLeft="@dimen/x40"-->
+    <!--android:paddingRight="@dimen/x40"-->
+    <!--android:paddingTop="@dimen/y40">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/door"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="@string/door"-->
+    <!--android:textSize="16sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_door"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/x40"-->
+    <!--android:layout_toRightOf="@+id/door"-->
+    <!--android:text="哈哈" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="@dimen/y40"-->
+    <!--android:paddingLeft="@dimen/x40"-->
+    <!--android:paddingRight="@dimen/x40"-->
+    <!--android:paddingTop="@dimen/y40">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/order"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="@string/order"-->
+    <!--android:textSize="16sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_order"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/x40"-->
+    <!--android:layout_toRightOf="@+id/order"-->
+    <!--android:text="789456123654" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="@dimen/y40"-->
+    <!--android:paddingLeft="@dimen/x40"-->
+    <!--android:paddingRight="@dimen/x40"-->
+    <!--android:paddingTop="@dimen/y40">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/terminal"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="@string/terminal"-->
+    <!--android:textSize="16sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_terminal"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/x40"-->
+    <!--android:layout_toRightOf="@+id/terminal"-->
+    <!--android:text="2021" />-->
+
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="@dimen/y40"-->
+    <!--android:paddingLeft="@dimen/x40"-->
+    <!--android:paddingRight="@dimen/x40"-->
+    <!--android:paddingTop="@dimen/y40">-->
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/Operator"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="@string/Operator"-->
+    <!--android:textSize="16sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_Operator"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/x40"-->
+    <!--android:layout_toRightOf="@+id/Operator"-->
+    <!--android:text="学校" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="@dimen/y40"-->
+    <!--android:paddingLeft="@dimen/x40"-->
+    <!--android:paddingRight="@dimen/x40"-->
+    <!--android:paddingTop="@dimen/y40">-->
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/clearing_time"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="@string/clearing_time"-->
+    <!--android:textSize="16sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_clearing_time"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/x40"-->
+    <!--android:layout_toRightOf="@+id/clearing_time"-->
+    <!--android:text="2016/1/23 18:56:12" />-->
+    <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="@dimen/y30"-->
+    <!--android:background="@color/color_f"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="@dimen/y40"-->
+    <!--android:paddingLeft="@dimen/x40"-->
+    <!--android:paddingRight="@dimen/x40"-->
+    <!--android:paddingTop="@dimen/y40">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/total_recepits"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="@string/total_recepits"-->
+    <!--android:textSize="16sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_total_recepits"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/x40"-->
+    <!--android:layout_toRightOf="@+id/total_recepits"-->
+    <!--android:text="0.00"-->
+    <!--android:textColor="@color/color_ff0000" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="@dimen/y40"-->
+    <!--android:paddingLeft="@dimen/x40"-->
+    <!--android:paddingRight="@dimen/x40"-->
+    <!--android:paddingTop="@dimen/y40">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/total_refund"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="@string/total_refund"-->
+    <!--android:textSize="16sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_total_refund"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/x40"-->
+    <!--android:layout_toRightOf="@+id/total_refund"-->
+    <!--android:text="0.00"-->
+    <!--android:textColor="@color/color_ff0000" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="@dimen/y40"-->
+    <!--android:paddingLeft="@dimen/x40"-->
+    <!--android:paddingRight="@dimen/x40"-->
+    <!--android:paddingTop="@dimen/y40">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/total_deal"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="@string/total_deal"-->
+    <!--android:textSize="16sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_total_deal"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/x40"-->
+    <!--android:layout_toRightOf="@+id/total_deal"-->
+    <!--android:text="0.00"-->
+    <!--android:textColor="@color/color_ff0000" />-->
+
+    <!--</RelativeLayout>-->
+
+    <!--<Button-->
+    <!--android:id="@+id/btn_choose"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/y120"-->
+    <!--android:layout_marginBottom="@dimen/y20"-->
+    <!--android:layout_marginLeft="@dimen/x160"-->
+    <!--android:layout_marginRight="@dimen/x160"-->
+    <!--android:layout_marginTop="@dimen/y30"-->
+    <!--android:background="@drawable/border_home_background_red"-->
+    <!--android:text="@string/deal_with"-->
+    <!--android:textColor="@color/color_f"-->
+    <!--android:textSize="16sp" />-->
+    <!--</LinearLayout>-->
+
+    <!--&lt;!&ndash;<android.support.v7.widget.RecyclerView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/recycler_view"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="@color/color_f"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginTop="@dimen/x50" />&ndash;&gt;-->
+    <!--<include-->
+    <!--android:id="@+id/item_clearing"-->
+    <!--layout="@layout/item_clearing"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content" />-->
+    <!--</LinearLayout>-->
+    <!--</ScrollView>-->
+</LinearLayout>

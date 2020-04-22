@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_f"
+    android:foreground="?android:attr/selectableItemBackground"
+
+    android:paddingLeft="@dimen/x20"
+    android:paddingRight="@dimen/x20"
+    android:paddingTop="@dimen/y20">
+
+    <ImageView
+        android:id="@+id/image_pay"
+        android:layout_width="@dimen/x120"
+        android:layout_height="@dimen/y120"
+        android:src="@mipmap/zhifubao" />
+
+    <TextView
+        android:id="@+id/tv_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_toRightOf="@id/image_pay"
+        android:textColor="@color/color_6"
+        android:textSize="12sp"
+        tools:text="产品类型：码夹" />
+
+
+    <ImageView
+        android:id="@+id/image_into"
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/y50"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/x30"
+        android:src="@mipmap/into" />
+
+    <TextView
+        android:id="@+id/tv_flow_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x40"
+        android:layout_marginRight="@dimen/x20"
+        android:layout_toLeftOf="@id/image_into"
+        android:layout_toRightOf="@id/tv_pay"
+        android:gravity="right"
+        android:singleLine="true"
+        android:text="金额：1880000元"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/tv_flow_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_flow_money"
+        android:layout_marginRight="@dimen/x20"
+        android:layout_marginTop="@dimen/y20"
+        android:layout_toLeftOf="@id/image_into"
+        android:singleLine="true"
+        android:text="已支付"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_title_flow_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_flow_money"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginTop="@dimen/y20"
+        android:layout_toLeftOf="@id/tv_flow_state"
+        android:text="状态："
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_flow_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_pay"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginTop="@dimen/y20"
+        android:layout_toLeftOf="@id/tv_title_flow_state"
+        android:layout_toRightOf="@id/image_pay"
+        android:gravity="left"
+        android:singleLine="true"
+        android:textSize="12sp"
+        tools:text="交易时间：2016/12/24" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/tv_title_flow_state"
+        android:layout_marginTop="20px"
+        android:background="@color/color_ec"
+        />
+</RelativeLayout>

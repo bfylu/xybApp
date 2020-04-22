@@ -1,0 +1,135 @@
+package com.utils;
+
+
+import android.app.Application;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+
+/**
+ * 编译前需要确认 ENVIROMENT 和 TERMINAL_TYPE 是否正确
+ */
+public class Config {
+
+    public static Application application;
+    /**
+     * 开发阶段
+     */
+    private static final String DEVEL = "devel";
+    /**
+     * 内部测试阶段
+     */
+    private static final String TEST = "test";
+    /**
+     * 正式版
+     */
+    private static final String RELEASE = "release";
+
+    private static final String TERMINAL_POS = "pos";
+
+    private static final String TERMINAL_MOBILE = "mobile";
+
+
+    public static String getServerInterface() {
+        if (Config.isDevel()) {
+            return "http://dev-lm.payadd.cn/mpos/majia";
+        } else if (Config.isTest()) {
+//            return "http://192.168.1.123:10014/majia";
+            return "http://192.168.1.41:10019/majia";
+        } else if (Config.isRelease()) {
+            return "https://mpos.payadd.cn/majia";
+        }
+        return null;
+    }
+
+    public static String getH5Statistics() {
+        if (Config.isDevel()) {
+            return "http://dev-lm.payadd.cn/mpos/html/account1.html";
+        } else if (Config.isTest()) {
+            return "http://mpos-test.payadd.cn/html/account1.html";
+        } else if (Config.isRelease()) {
+            return "http://mpos.payadd.cn/html/account1.html";
+        }
+        return null;
+    }
+
+    public static String getRefGoodsDetailUrl(){
+        if (Config.isDevel()) {
+            return "http://web-test.payadd.cn/app-h5/html/goods/appGoodsDetails.html";
+        } else if (Config.isTest()) {
+            return "http://web-test.payadd.cn/app-h5/html/goods/appGoodsDetails.html";
+        } else if (Config.isRelease()) {
+            return "http://app.payadd.cn/html/goods/appGoodsDetails.html";
+        }
+        return null;
+    }
+
+    public static String getPicUrl() {
+        if (Config.isDevel()) {
+            return "http://192.168.1.123:18180/file/image/view?refNo=";
+        } else if (Config.isTest()) {
+            return "http://192.168.1.123:18180/file/image/view?refNo=";
+        } else if (Config.isRelease()) {
+            return "http://file.payadd.cn/image/view?refNo=";
+        }
+        return null;
+    }
+
+    public static String getH5Account() {
+        if (Config.isDevel()) {
+            return "http://dev-lm.payadd.cn/mpos/html/count.html?username=%s&sessionToken=%s&platform=android&loginToken=%s";
+        } else if (Config.isTest()) {
+            return "http://mpos-test.payadd.cn/html/count.html?username=%s&sessionToken=%s&platform=android&loginToken=%s";
+        } else if (Config.isRelease()) {
+            return "http://mpos.payadd.cn/html/count.html?username=%s&sessionToken=%s&platform=android&loginToken=%s";
+        }
+        return null;
+    }
+
+
+    public static boolean isDevel() {
+        String deviceType = getMetaValue("run.env");
+        return deviceType.equals(DEVEL);
+    }
+
+    public static boolean isTest() {
+        String deviceType = getMetaValue("run.env");
+        return deviceType.equals(TEST);
+    }
+
+    public static boolean isRelease() {
+
+        String deviceType = getMetaValue("run.env");
+        return deviceType.equals(RELEASE);
+    }
+
+    public static String getTerminalType() {
+
+        return  getMetaValue("device.type");
+    }
+
+    public static boolean isPos() {
+
+        String deviceType = getMetaValue("device.type");
+        return TERMINAL_POS.equals(deviceType);
+    }
+
+    public static boolean isMobile() {
+
+        String deviceType = getMetaValue("device.type");
+        return TERMINAL_MOBILE.equals(deviceType);
+    }
+
+    private static String getMetaValue(String metaKey){
+        PackageManager manager = application.getPackageManager();
+        ApplicationInfo appInfo = null;
+        try {
+            appInfo = manager.getApplicationInfo(application.getPackageName(),
+                    PackageManager.GET_META_DATA);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return appInfo.metaData.getString(metaKey);
+    }
+
+
+}

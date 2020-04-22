@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true" android:drawable="@mipmap/icon_qrcode_selected" android:color="@color/aquire_text_paymethod" />
+    <!--<item android:state_pressed="false" android:drawable="@mipmap/icon_qrcode_normal" />-->
+    <item android:state_selected="true" android:drawable="@mipmap/icon_qrcode_selected" android:color="@color/aquire_text_paymethod" />
+    <item android:state_selected="false" android:drawable="@mipmap/icon_qrcode_normal" android:color="@color/aquire_pay_method" />
+    <item android:drawable="@mipmap/icon_qrcode_normal" android:color="@color/aquire_pay_method" />
+
+</selector>

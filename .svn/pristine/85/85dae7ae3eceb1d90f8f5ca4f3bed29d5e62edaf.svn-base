@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CommonEditText">
+        <attr name="cet_background" format="reference"/>
+        <attr name="left_text_visible" format="boolean"/>
+        <attr name="left_image_visible" format="boolean"/>
+        <attr name="left_text" format="string"/>
+        <attr name="left_image_drawable" format="reference"/>
+        <attr name="right_image_visible" format="boolean"/>
+        <attr name="right_image_drawable" format="reference"/>
+        <attr name="edit_text_hint" format="string"/>
+        <attr name="bottom_line_visible" format="boolean"/>
+        <attr name="cet_input_mode" format="string" />
+        <attr name="input_mode" format="reference|integer"/>
+    </declare-styleable>
+    <declare-styleable name="ViewTab">
+        <attr name="image_src" format="reference|color"/>
+        <attr name="text" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="ZzImageBox">
+        <attr name="zib_max_line" format="integer" />
+        <attr name="zib_img_size_one_line" format="integer" />
+        <attr name="zib_img_padding" format="dimension|reference" />
+        <attr name="zib_img_default" format="color|reference" />
+        <attr name="zib_img_delete" format="color|reference" />
+        <attr name="zib_img_add" format="color|reference" />
+        <attr name="zib_img_deletable" format="boolean" />
+        <attr name="zib_left_margin" format="dimension|reference" />
+        <attr name="zib_right_margin" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PasswordInputView">
+        <attr name="passwordLength" format="integer"/>
+        <attr name="borderWidth" format="dimension"/>
+        <attr name="borderRadius" format="dimension"/>
+        <attr name="borderColor" format="color"/>
+        <attr name="passwordWidth" format="dimension"/>
+        <attr name="passwordColor" format="color"/>
+        <attr name="passwordBackgroundColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="StepperIndicator">
+        <attr name="stpi_stepCount" format="integer"/>
+        <attr name="stpi_animDuration" format="integer"/>
+
+        <attr name="stpi_circleColor" format="color"/>
+        <attr name="stpi_circleRadius" format="dimension"/>
+        <attr name="stpi_circleStrokeWidth" format="dimension"/>
+
+        <attr name="stpi_indicatorColor" format="color"/>
+        <attr name="stpi_indicatorRadius" format="dimension"/>
+
+        <attr name="stpi_lineColor" format="color"/>
+        <attr name="stpi_lineDoneColor" format="color"/>
+        <attr name="stpi_lineStrokeWidth" format="dimension"/>
+        <attr name="stpi_lineMargin" format="dimension"/>
+    </declare-styleable>
+</resources>

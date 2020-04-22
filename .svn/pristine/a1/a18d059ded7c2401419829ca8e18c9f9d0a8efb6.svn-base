@@ -1,0 +1,369 @@
+package cn.payadd.majia.util;
+
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
+
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import cn.payadd.majia.config.StoreDirConfig;
+
+/**
+ * Created by wangzhengzhen on 16-2-22.
+ */
+public class ImageUtil {
+
+    private static final String LOG_TAG = "ImageUtil";
+
+    /**
+     * 压缩图片
+     * @param bitmap
+     * @param quality 图片质量 0-100
+     * @param save
+     * @return
+     */
+    public static boolean compress(Bitmap bitmap, int quality, File save) {
+
+        boolean flag = false;
+
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(save));
+            flag = bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bos);
+            bos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return flag;
+    }
+
+    public static File saveBitmapFile(Bitmap bitmap, String fileName,Bitmap.CompressFormat fileType){
+        File file=new File(StoreDirConfig.getDownloadDir(),fileName);//将要保存图片的路径
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(fileType, 100, bos);
+            bos.flush();
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+
+    /**
+     * Try to return the absolute file path from the given Uri
+     *
+     * @param context
+     * @param uri
+     * @return the file path or null
+     */
+    public static String getRealFilePath(final Context context, final Uri uri ) {
+        if ( null == uri ) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if ( scheme == null )
+            data = uri.getPath();
+        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+            data = uri.getPath();
+        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
+            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore
+                    .Images.ImageColumns.DATA }, null, null, null );
+            if ( null != cursor ) {
+                if ( cursor.moveToFirst() ) {
+                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
+                    if ( index > -1 ) {
+                        data = cursor.getString( index );
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
+    }
+    /**
+     * 压缩图片（质量压缩）
+     *
+     * @param bitmap
+     */
+    public static File compressImage(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > 500) {  //循环判断如果压缩后图片是否大于500kb,大于继续压缩
+            baos.reset();//重置baos即清空baos
+            options -= 10;//每次都减少10
+            bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            long length = baos.toByteArray().length;
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss",Locale.getDefault());
+        Date date = new Date(System.currentTimeMillis());
+        String filename = format.format(date);
+        File file = new File(Environment.getExternalStorageDirectory(), filename + ".png");
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            try {
+                fos.write(baos.toByteArray());
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        recycleBitmap(bitmap);
+        return file;
+    }
+
+    public static void recycleBitmap(Bitmap... bitmaps) {
+        if (bitmaps == null) {
+            return;
+        }
+        for (Bitmap bm : bitmaps) {
+            if (null != bm && !bm.isRecycled()) {
+                bm.recycle();
+            }
+        }
+    }
+
+    /**
+     * 默认质量压缩
+     * @param bitmap
+     * @param save
+     * @return
+     */
+    public static boolean compress(Bitmap bitmap, File save) {
+
+        return compress(bitmap, 80, save);
+    }
+
+    /**
+     *
+     * @param src
+     * @param save
+     * @return
+     */
+    public static boolean compress(File src, File save) {
+
+        Bitmap bitmap = BitmapFactory.decodeFile(src.getPath());
+        return compress(bitmap, 80, save);
+    }
+
+    /**
+     * 缩小再压缩
+     * @param src
+     * @param save
+     * @return
+     */
+    public static boolean zoomAndCompress(File src, File save) {
+
+        Bitmap bitmap = zoom(src);
+        return compress(bitmap, 80, save);
+    }
+
+    /**
+     * 缩小图片
+     * @param src
+     * @param width 限制宽度
+     * @param height 限制高度
+     */
+    public static Bitmap zoom(File src,  int width, int height) {
+
+        if (! src.exists()) {
+
+            return null;
+        }
+
+        BitmapFactory.Options opts =  new  BitmapFactory.Options();
+        opts.inJustDecodeBounds = true;
+        Bitmap bitmap = BitmapFactory.decodeFile(src.getPath(), opts);
+
+        int srcW = opts.outWidth;
+        int srcH = opts.outHeight;
+
+        float scaleRate = 1;
+
+        if (srcW > srcH) {
+            // 横拍
+            if (srcW <= width) {
+                opts.inJustDecodeBounds = false;
+                bitmap = BitmapFactory.decodeFile(src.getPath(), opts);
+                return bitmap;
+            } else {
+                scaleRate = ((float) width / (float) srcW);
+            }
+
+        } else {
+            // 竖拍
+            if (srcH <= height) {
+                opts.inJustDecodeBounds = false;
+                bitmap = BitmapFactory.decodeFile(src.getPath(), opts);
+                return bitmap;
+            } else {
+                scaleRate = ((float) width / (float) srcH);
+            }
+        }
+
+//        opts.inSampleSize = (int) scaleRate;
+        opts.inJustDecodeBounds = false;
+        bitmap = BitmapFactory.decodeFile(src.getPath(), opts);
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleRate, scaleRate);
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, srcW, srcH, matrix, true);
+
+        return bitmap;
+    }
+
+    public static Bitmap zoom(Bitmap srcBM,  int width, int height) {
+
+        int srcW = srcBM.getWidth();
+        int srcH = srcBM.getHeight();
+
+        float scaleRate = 1;
+
+        if (srcW > srcH) {
+            // 横拍
+            if (srcW <= width) {
+                return srcBM;
+            } else {
+                scaleRate = ((float) width / (float) srcW);
+            }
+
+        } else {
+            // 竖拍
+            if (srcH <= height) {
+                return srcBM;
+            } else {
+                scaleRate = ((float) width / (float) srcH);
+            }
+        }
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleRate, scaleRate);
+        Bitmap newBM = Bitmap.createBitmap(srcBM, 0, 0, srcW, srcH, matrix, true);
+
+        return newBM;
+    }
+
+    /**
+     * 默认分辩率缩小
+     * @param src
+     * @return
+     */
+    public static Bitmap zoom(File src) {
+
+        return zoom(src, 2048, 2048);
+    }
+
+    public static Bitmap zoom(Bitmap bm) {
+
+        return zoom(bm, 2048, 2048);
+    }
+
+    public static String imageToBase64(File f) {
+
+        String base64Img = "";
+        InputStream is = null;
+        ByteArrayOutputStream baos = null;
+        try {
+            is = new FileInputStream(f);
+            baos = new ByteArrayOutputStream();
+            byte[] b = new byte[4096];
+            int count = -1;
+            while ((count = is.read(b)) != -1) {
+                baos.write(b, 0, count);
+            }
+            base64Img = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != baos) {
+                    baos.close();
+                }
+                if (null != is) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return base64Img;
+    }
+
+    public static Uri getImageStreamFromExternal(String imageName) {
+        File externalPubPath = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES
+        );
+
+        File picPath = new File(externalPubPath, imageName);
+        Uri uri = null;
+        if(picPath.exists()) {
+            uri = Uri.fromFile(picPath);
+        }
+
+        return uri;
+    }
+
+    //保存文件到指定路径
+    public static boolean saveImageToGallery(Context context, Bitmap bmp,String fileName,int quality) {
+
+        // 首先保存图片
+
+        String storePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures";
+        File appDir = new File(storePath);
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        File file = new File(appDir, fileName);
+
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            //通过io流的方式来压缩保存图片
+            boolean isSuccess = bmp.compress(Bitmap.CompressFormat.PNG, quality, fos);
+            fos.flush();
+            fos.close();
+
+            //把文件插入到系统图库
+            //MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), fileName, null);
+            //保存图片后发送广播通知更新数据库
+            Uri uri = Uri.fromFile(file);
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
+            if (isSuccess) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+}

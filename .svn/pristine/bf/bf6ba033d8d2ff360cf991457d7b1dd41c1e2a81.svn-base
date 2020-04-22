@@ -1,0 +1,281 @@
+package cn.payadd.majia.activity;
+
+import android.content.Intent;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fdsj.credittreasure.Interface.iActivities.ILogin;
+import com.fdsj.credittreasure.R;
+import com.fdsj.credittreasure.activities.MainActivity;
+import com.fdsj.credittreasure.application.BaseApplication;
+import com.fdsj.credittreasure.utils.DialogFactory;
+import com.jakewharton.rxbinding.view.RxView;
+import com.utils.LogUtil;
+import com.utils.SharedPreferenceTool;
+import com.utils.Utilities;
+
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import cn.payadd.majia.presenter.LoginPresenter;
+import cn.payadd.majia.task.DownloadImageTask;
+import cn.payadd.majia.view.CommonDialog;
+import rx.functions.Action1;
+
+/**
+ * Created by df on 2017/9/1.
+ */
+
+public class LoginActivity extends BaseActivity implements View.OnClickListener, ILogin {
+
+    private EditText etUsername, etPassword, etCheckCode;
+
+    private Button btnLogin;
+
+    private ImageView ivUserClear, ivPasswordClear, ivCheckCode;
+
+    private CheckBox cbPassword;
+
+    private RelativeLayout rlCheckCode;
+
+    private TextView tvRegister, tvForget;
+    LoginPresenter presenter;
+    private boolean isVerify = false;
+    private String verifyCodeUrl;
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_login2;
+    }
+
+    @Override
+    public void initView() {
+        etUsername = (EditText) findViewById(R.id.et_username);
+        etPassword = (EditText) findViewById(R.id.et_password);
+        etCheckCode = (EditText) findViewById(R.id.et_check_code);
+
+        ivUserClear = (ImageView) findViewById(R.id.iv_user_clear);
+        ivPasswordClear = (ImageView) findViewById(R.id.iv_password_clear);
+        ivCheckCode = (ImageView) findViewById(R.id.iv_check_code);
+        cbPassword = (CheckBox) findViewById(R.id.checkBox);
+        btnLogin = (Button) findViewById(R.id.btn_login);
+
+        tvRegister = (TextView) findViewById(R.id.tv_register);
+        tvForget = (TextView) findViewById(R.id.tv_forget);
+        rlCheckCode = (RelativeLayout) findViewById(R.id.rl_check_code);
+
+        ivUserClear.setOnClickListener(this);
+        ivPasswordClear.setOnClickListener(this);
+        ivCheckCode.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
+        cbPassword.setOnClickListener(this);
+        tvRegister.setOnClickListener(this);
+        tvForget.setOnClickListener(this);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        boolean checkboxIsCheck = SharedPreferenceTool.getInstance().GetSaveShareBoolean(this,
+                "User", "checkboxPassword");//, checkboxPassword.isChecked());
+        cbPassword.setChecked(checkboxIsCheck);
+        presenter = new LoginPresenter(this);
+        setTitle("登录");
+        etUsername.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (etUsername.getText().toString().isEmpty()) {
+                    ivUserClear.setVisibility(View.GONE);
+                } else {
+                    ivUserClear.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (etPassword.getText().toString().isEmpty()) {
+                    ivPasswordClear.setVisibility(View.GONE);
+                } else {
+                    ivPasswordClear.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void initData() {
+        String userName = Utilities.getUsernameForLogin(this);
+        if (!TextUtils.isEmpty(userName)) {
+            etUsername.setText(userName);
+        }
+        String passWord = Utilities.getPassWord(this);
+        if (!TextUtils.isEmpty(userName)) {
+            etPassword.setText(passWord);
+        }
+        RxView.clicks(btnLogin).throttleFirst(3, TimeUnit.SECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        String userName = etUsername.getText().toString().trim();//获取账号
+                        if (!TextUtils.isEmpty(userName)) {
+                            String passWord = etPassword.getText().toString().trim();//获取密码
+                            if (!TextUtils.isEmpty(passWord)) {
+                                if (isVerify == true) {
+                                    String verifyCode = etCheckCode.getText().toString().trim();
+                                    if (!TextUtils.isEmpty(verifyCode)) {
+                                        presenter.userLogin("", userName, passWord, LoginActivity
+                                                        .this,
+                                                true, verifyCode);//登录
+                                    } else {
+                                        CommonDialog commonDialog = new CommonDialog
+                                                (LoginActivity.this
+                                                        , getResources().getString(R.string.no_verify_code)
+                                                        , getResources()
+                                                .getString(R.string.hint)
+                                                        , null
+                                                        , null);
+                                        commonDialog.showDialog();
+                                    }
+                                } else {
+                                    presenter.userLogin("", userName, passWord, LoginActivity.this,
+                                            true);//登录
+                                }
+
+                            } else {
+                                Toast.makeText(LoginActivity.this,getResources().getString(R.string.hint),Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(LoginActivity.this,getResources().getString(R.string.no_user),Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    @Override
+    protected void initPermission() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_login:
+
+                break;
+            case R.id.iv_user_clear:
+                etUsername.setText("");
+                break;
+            case R.id.iv_password_clear:
+                etPassword.setText("");
+                break;
+            case R.id.iv_check_code:
+                new DownloadImageTask(ivCheckCode, etUsername.getText().toString().trim())
+                        .execute(verifyCodeUrl);
+                break;
+            case R.id.checkBox:
+                SharedPreferenceTool.getInstance().SaveShare(LoginActivity.this
+                        , "User"
+                        , "checkboxPassword"
+                        , cbPassword.isChecked());
+                LogUtil.info("CheckBoxPassWord", cbPassword.isChecked() + "");
+                break;
+            case R.id.tv_register: {
+                Intent intent = new Intent(this, RegisterActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.tv_forget: {
+                Intent intent = new Intent(this, ResetPasswordActivity.class);
+                startActivity(intent);
+                break;
+            }
+        }
+    }
+
+    /**
+     * 登录成功回调
+     */
+    @Override
+    public void userLogin(String loginToken, String username, String usernameForLogin, String passWord,
+                          String mobilePhone, String nickName, String shopName, String welCome,
+                          String sessionToken, String mposKey, String showMerName, String email,
+                          String agentFlag, String isAuth,String ismtNoticeCount,String merCode,String goodSelectionUrl, String appSecurity) {
+        Utilities.setUserInfo(this, loginToken, username, usernameForLogin, passWord,
+                mobilePhone, nickName, shopName, welCome, sessionToken, mposKey, showMerName,
+                cbPassword.isChecked(), email, agentFlag, isAuth,ismtNoticeCount,merCode,goodSelectionUrl, appSecurity);
+        BaseApplication.setMerchantKey(mposKey);
+        BaseApplication.setSessionToKen(sessionToken);
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    @Override
+    public void userLoginError(String message, Map<String, String> respData) {
+        if (respData != null) {
+            String respCode = respData.get("respCode");
+            if (respCode.equals("000066") || respCode.equals("000034")) {
+                isVerify = true;
+                rlCheckCode.setVisibility(View.VISIBLE);
+                verifyCodeUrl = respData.get("verifyCodeUrl");
+                new DownloadImageTask(ivCheckCode, etUsername.getText().toString().trim())
+                        .execute(verifyCodeUrl);
+
+            }
+        }
+        DialogFactory.showAlertDialog(this, getResources().getString(R.string.hint), message);
+    }
+
+    private long exitTime;// 退出时间
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                //ToastUtils.showToast(this, getResources().getString(R.string.once_again));
+                Toast.makeText(this,getResources().getString(R.string.once_again),Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+//                Intent intent = new Intent(Intent.ACTION_MAIN);
+//                intent.addCategory(Intent.CATEGORY_HOME);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+//                android.os.Process.killProcess(android.os.Process.myPid());
+//                System.exit(0);
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+}

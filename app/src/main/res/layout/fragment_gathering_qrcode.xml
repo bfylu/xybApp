@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<ImageView-->
+        <!--android:id="@+id/image_getCode"-->
+        <!--android:layout_width="@dimen/x700"-->
+        <!--android:layout_height="@dimen/y700"-->
+        <!--android:layout_marginLeft="@dimen/x190"-->
+        <!--android:layout_marginTop="@dimen/y340"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:src="@mipmap/de" />-->
+
+
+        <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_width="@dimen/x700"
+            android:layout_height="@dimen/y700"
+            android:layout_marginLeft="@dimen/x190"
+            android:layout_marginTop="@dimen/y490"
+            android:layout_weight="4"
+            android:background="@mipmap/shoukan" />
+
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y490"
+            android:background="@mipmap/c">
+
+            <LinearLayout
+                android:id="@+id/line_action"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y150"
+                android:background="@mipmap/b"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/relative_title_back"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/title_back"
+                        android:layout_width="@dimen/x60"
+                        android:layout_height="@dimen/y60"
+                        android:layout_centerInParent="true"
+                        android:onClick="onClick"
+                        android:src="@mipmap/back" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5">
+
+                    <TextView
+                        android:id="@+id/title_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:singleLine="true"
+                        android:text="@string/gathering_title"
+                        android:textColor="@color/color_f"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/relative_title_register"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/image_right"
+                        android:layout_width="@dimen/x80"
+                        android:layout_height="@dimen/y80"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY" />
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/title_register"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:text="未知"-->
+                    <!--android:textColor="@color/color_f"-->
+                    <!--android:textSize="12sp" />-->
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y120"
+                android:layout_below="@id/line_action"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/text_Intelligence"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/pay_more"
+                    android:textColor="@color/color_f"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/text_wx"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/weixin_pay"
+                    android:textColor="@color/color_f"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/text_alipay"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/alipay"
+                    android:textColor="@color/color_f"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/text_unionpay"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/card"
+                    android:textColor="@color/color_f"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y220"
+                android:layout_below="@id/line"
+                android:paddingTop="@dimen/y20">
+
+                <TextView
+                    android:id="@+id/tv_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y100"
+                    android:gravity="center"
+                    android:text="@string/scan_code"
+                    android:textColor="@color/color_f" />
+
+                <TextView
+                    android:id="@+id/text_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y100"
+                    android:layout_below="@+id/tv_code"
+                    android:gravity="center"
+                    android:text="500.00"
+                    android:textColor="@color/color_f"
+                    android:textSize="22sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="@dimen/x190"
+            android:layout_height="@dimen/y700"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="@dimen/y490"
+            android:background="@mipmap/d" />
+
+        <RelativeLayout
+            android:layout_width="@dimen/x190"
+            android:layout_height="@dimen/y700"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/y490"
+            android:background="@mipmap/de" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/header"
+            android:layout_marginTop="@dimen/y700"
+            android:background="@mipmap/f"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y100"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/color_f"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <include
+                android:id="@+id/gathering_bottom"
+                layout="@layout/gathering_qrcode_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</FrameLayout>

@@ -1,0 +1,176 @@
+package com.utils;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+public class SharedPreferenceTool {
+
+    private SharedPreferenceTool() {
+    }
+
+    private static SharedPreferenceTool single = null;
+
+    public static SharedPreferenceTool getInstance() {
+        if (single == null) {
+            synchronized (SharedPreferenceTool.class) {
+                if (single == null) {
+                    single = new SharedPreferenceTool();
+                }
+            }
+        }
+        return single;
+    }
+
+
+    /**
+     * 多键值对保存修改
+     *
+     * @param context
+     * @param key
+     * @param map
+     */
+    public void SaveShare(Context context, String key, Map<String, String> map) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        Editor editor = sharedPreferences.edit();//获取编辑器
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            editor.putString(entry.getKey(), entry.getValue());
+        }
+        editor.commit();//提交修改
+    }
+
+    /**
+     * 单键值对保存修改
+     *
+     * @param context
+     * @param key
+     * @param EKey
+     * @param Value
+     */
+    public void SaveShare(Context context, String key, String EKey, String Value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        Editor editor = sharedPreferences.edit();//获取编辑器
+        editor.putString(EKey, Value);
+        editor.commit();//提交修改
+    }
+
+    public void SaveShare(Context context, String key, String EKey, Boolean Value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        Editor editor = sharedPreferences.edit();//获取编辑器
+        editor.putBoolean(EKey, Value);
+        editor.commit();//提交修改
+    }
+
+    /**
+     * 单键值对保存修改
+     *
+     * @param context
+     * @param key
+     * @param EKey
+     * @param Value
+     */
+    public void SaveShare(Context context, String key, String EKey, int Value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        Editor editor = sharedPreferences.edit();//获取编辑器
+        editor.putInt(EKey, Value);
+        editor.commit();//提交修改
+    }
+
+    /**
+     * 单键值对保存修改
+     *
+     * @param context
+     * @param key
+     * @param EKey
+     * @param Value
+     */
+    public void SaveShareAdd(Context context, String key, String EKey, String Value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_APPEND);//追加MODE_APPEND
+        Editor editor = sharedPreferences.edit();//获取编辑器
+        editor.putString(EKey, Value);
+        editor.commit();//提交修改
+    }
+
+    /**
+     * Set类型保存修改
+     *
+     * @param context
+     * @param key
+     * @param EKey
+     * @param value
+     */
+    public void SaveShareSet(Context context, String key, String EKey, String value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_APPEND);
+
+        Set<String> keySet = sharedPreferences.getStringSet(EKey, new HashSet<String>());
+        keySet = new HashSet (keySet);
+        keySet.add(value);
+
+        Editor editor = sharedPreferences.edit();//获取编辑器
+        editor.putStringSet(EKey, keySet);
+        editor.commit();//提交修改
+    }
+
+    /**
+     * 键值读取
+     *
+     * @param context
+     * @param key
+     * @param EKey
+     * @return
+     */
+    public String getSaveShare(Context context, String key, String EKey) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(EKey, null);
+    }
+
+    public boolean GetSaveShareBoolean(Context context, String key, String EKey) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(EKey, false);
+    }
+    public boolean GetSaveShareBoolean(Context context, String key, String EKey, boolean defaultValue) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(EKey, defaultValue);
+    }
+
+    public String getSaveShare(Context context, String key, String EKey, String defaultValue) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(EKey, defaultValue);
+    }
+
+    public int getSaveShareInt(Context context, String key, String EKey) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(EKey, 0);
+    }
+
+    public int getSaveShareInt(Context context, String key, String EKey, int defaultNum) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(EKey, defaultNum);
+    }
+
+    public Set<String> getSaveShareSet(Context context, String key, String EKey) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        return sharedPreferences.getStringSet(EKey, new HashSet<String>());
+    }
+
+
+    //删除单条对象数据
+    public void removeObjectPre(Context context, String per_name, String key) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(per_name, Context.MODE_PRIVATE);
+        Editor editor = sharedPreferences.edit();//获取编辑器
+        editor.remove(key);
+        editor.commit();
+    }
+
+    //删除所有
+    public void removeObjectPre(Context context, String per_name) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(per_name, Context.MODE_PRIVATE);
+        Editor editor = sharedPreferences.edit();//获取编辑器
+        editor.clear();
+        editor.commit();
+    }
+}

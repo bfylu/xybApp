@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+
+            <View
+                android:id="@+id/view_line_2"
+                android:layout_width="3dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/selected_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/view_line_2"
+                android:text="收款产品"
+                android:textColor="@color/color_3"
+                android:textSize="16sp" />
+
+
+        </RelativeLayout>
+
+        <TableLayout
+            android:id="@+id/table_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <TableRow android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/product_all"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_choose"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="全部"
+                    android:textColor="@drawable/selector_text_color2"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/product_majia"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_choose"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="码夹APP"
+                    android:textColor="@drawable/selector_text_color2"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/product_qrcode"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_choose"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="固定收款码"
+                    android:textColor="@drawable/selector_text_color2"
+                    android:textSize="14sp" />
+
+            </TableRow>
+
+            <TableRow android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/product_box"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_choose"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="派派小盒"
+                    android:textColor="@drawable/selector_text_color2"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/product_pos"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_choose"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="POS机"
+                    android:textColor="@drawable/selector_text_color2"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/product_pcclient"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_choose"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="收银机"
+                    android:textColor="@drawable/selector_text_color2"
+                    android:textSize="14sp" />
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/product_pre_credit"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_choose"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:text="预授信收款"
+                    android:textColor="@drawable/selector_text_color2"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:textColor="@drawable/selector_text_color2"
+                    android:textSize="14sp" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+
+            <View
+                android:id="@+id/view_line_6"
+                android:layout_width="3dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/selected_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/view_line_6"
+                android:text="日期范围"
+                android:textColor="@color/color_3"
+                android:textSize="16sp" />
+
+
+        </RelativeLayout>
+
+        <TableLayout
+            android:id="@+id/table_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/date_today"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_choose"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="今天"
+                    android:textColor="@drawable/selector_text_color2"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/date_yesterday"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_choose"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="昨天"
+                    android:textColor="@drawable/selector_text_color2"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/date_month"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_choose"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="上个月"
+                    android:textColor="@drawable/selector_text_color2"
+                    android:textSize="14sp" />
+            </TableRow>
+        </TableLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始日期"
+                android:textColor="@color/color_3"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_start_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_start_time"
+                android:background="@null"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="请选择开始日期"
+                android:lines="1"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/et_start_time"
+                android:layout_marginRight="6dp"
+                android:src="@mipmap/back_edit" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/tv_start_time"
+                android:layout_marginTop="5dp"
+                android:background="@color/btn_unclickable" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="结束日期"
+                android:textColor="@color/color_3"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_end_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_end_time"
+                android:background="@null"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="请选择结束日期"
+                android:lines="1"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/et_end_time"
+                android:layout_marginRight="6dp"
+                android:src="@mipmap/back_edit" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/tv_end_time"
+                android:layout_marginTop="5dp"
+                android:background="@color/btn_unclickable" />
+        </RelativeLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_preview"
+        android:layout_width="200dp"
+        android:layout_height="44dp"
+        android:text="打印预览"
+        android:background="@drawable/selector_btn_press"
+        android:textColor="@color/account_title"
+        android:gravity="center"
+        android:layout_gravity="center"
+        />
+    </LinearLayout>
+</LinearLayout>

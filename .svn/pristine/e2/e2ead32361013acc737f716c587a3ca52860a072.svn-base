@@ -1,0 +1,680 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tool="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_f2"
+              android:orientation="vertical"
+              android:focusable="true"
+              android:focusableInTouchMode="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y500"
+        android:background="@mipmap/user_background">
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/y200"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_marginTop="@dimen/y60"
+            android:src="@mipmap/userphone" />
+
+        <TextView
+            android:id="@+id/text_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_marginTop="@dimen/y130"
+            android:layout_toRightOf="@id/userImage"
+            android:textColor="@color/color_f"
+            android:textSize="16sp"
+            tools:text="test"/>
+
+        <TextView
+            android:id="@+id/text_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_toRightOf="@id/userImage"
+            android:textColor="@color/color_f"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:text=""/>
+        <!--android:text="电话：13739992388"-->
+    </RelativeLayout>
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/relative_shopOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_f"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="@dimen/y20"
+                android:paddingLeft="@dimen/x40"
+                android:paddingRight="@dimen/x20"
+                android:paddingTop="@dimen/y20">
+
+                <ImageView
+                    android:id="@+id/image_shopOrder"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/y80"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/my_icon_online_shop" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x80"
+                    android:layout_toRightOf="@+id/image_shopOrder"
+                    android:text="线上商城订单"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/into" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/x50"
+                    android:textColor="@color/color_9"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0.5"
+                android:background="@color/color_f2"/>
+
+            <RelativeLayout
+                android:id="@+id/relative_earnings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_f"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="@dimen/y20"
+                android:paddingLeft="@dimen/x40"
+                android:paddingRight="@dimen/x20"
+                android:paddingTop="@dimen/y20">
+
+                <ImageView
+                    android:id="@+id/image_earnings"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/y80"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/earnings" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x80"
+                    android:layout_toRightOf="@id/image_earnings"
+                    android:text="线下分期订单"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:id="@+id/image_inform_into"
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/into" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/x50"
+                    android:layout_toLeftOf="@id/image_inform_into"
+                    android:textColor="@color/color_9"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0.5"
+                android:background="@color/color_f2"/>
+
+            <!--<RelativeLayout-->
+            <!--android:id="@+id/relative_manage"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/color_f"-->
+            <!--android:foreground="?android:attr/selectableItemBackground"-->
+            <!--android:paddingBottom="@dimen/y20"-->
+            <!--android:paddingLeft="@dimen/x40"-->
+            <!--android:paddingRight="@dimen/x20"-->
+            <!--android:paddingTop="@dimen/y20">-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/image_manage"-->
+            <!--android:layout_width="@dimen/x80"-->
+            <!--android:layout_height="@dimen/y80"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:src="@mipmap/manage" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="@dimen/x80"-->
+            <!--android:layout_toRightOf="@id/image_manage"-->
+            <!--android:text="@string/fix_manager"-->
+            <!--android:textColor="@color/color_6"-->
+            <!--android:textSize="14sp" />-->
+
+
+            <!--<ImageView-->
+            <!--android:id="@+id/image_manage_into"-->
+            <!--android:layout_width="@dimen/x40"-->
+            <!--android:layout_height="@dimen/y40"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:src="@mipmap/into" />-->
+
+
+            <!--</RelativeLayout>-->
+            <RelativeLayout
+                android:id="@+id/relative_fund_auth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_f"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="@dimen/y20"
+                android:paddingLeft="@dimen/x40"
+                android:paddingRight="@dimen/x20"
+                android:paddingTop="@dimen/y20">
+
+                <ImageView
+                    android:id="@+id/image_fund_auth"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/y80"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_yushouquan"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x80"
+                    android:layout_toRightOf="@id/image_fund_auth"
+                    android:text="@string/title_fund_auth_order"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+                <ImageView
+                    android:id="@+id/image_fund_auth_into"
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/into" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/color_f2"/>
+
+            <RelativeLayout
+                android:id="@+id/relative_my_bankcard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_f"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="@dimen/y20"
+                android:paddingLeft="@dimen/x40"
+                android:paddingRight="@dimen/x20"
+                android:paddingTop="@dimen/y20"
+                android:layout_marginTop="@dimen/y20">
+
+                <ImageView
+                    android:id="@+id/image_my_bankcard"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/y80"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/my_bank_card"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x80"
+                    android:layout_toRightOf="@id/image_my_bankcard"
+                    android:text="@string/title_my_bankcard"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+                <ImageView
+                    android:id="@+id/image_my_bankcard_into"
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/into" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0.5"
+                android:background="@color/color_f2"/>
+
+            <RelativeLayout
+                android:id="@+id/relative_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_f"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="@dimen/y20"
+                android:paddingLeft="@dimen/x40"
+                android:paddingRight="@dimen/x20"
+                android:paddingTop="@dimen/y20">
+
+                <ImageView
+                    android:id="@+id/image_account"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/y80"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_account"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x80"
+                    android:layout_toRightOf="@id/image_account"
+                    android:text="@string/title_account"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+                <ImageView
+                    android:id="@+id/image_account_into"
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/into" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0.5"
+                android:background="@color/color_f2"/>
+
+            <RelativeLayout
+                android:id="@+id/relative_merPwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_f"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="@dimen/y20"
+                android:paddingLeft="@dimen/x40"
+                android:paddingRight="@dimen/x20"
+                android:paddingTop="@dimen/y20">
+
+                <ImageView
+                    android:id="@+id/image_merPwd"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/y80"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/mimaguanli"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x80"
+                    android:layout_toRightOf="@id/image_merPwd"
+                    android:text="@string/title_merchant_pwd"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+                <ImageView
+                    android:id="@+id/image_merPwd_into"
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/into" />
+            </RelativeLayout>
+            <!--<RelativeLayout-->
+            <!--android:id="@+id/relative_fixcode"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/color_f"-->
+            <!--android:foreground="?android:attr/selectableItemBackground"-->
+            <!--android:paddingBottom="@dimen/y20"-->
+            <!--android:paddingLeft="@dimen/x40"-->
+            <!--android:paddingRight="@dimen/x20"-->
+            <!--android:paddingTop="@dimen/y20">-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/image_fixcode"-->
+            <!--android:layout_width="@dimen/x80"-->
+            <!--android:layout_height="@dimen/y80"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:src="@mipmap/fixcode" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="@dimen/x80"-->
+            <!--android:layout_toRightOf="@id/image_fixcode"-->
+            <!--android:text="@string/fixcode_title"-->
+            <!--android:textColor="@color/color_6"-->
+            <!--android:textSize="14sp" />-->
+
+
+            <!--<ImageView-->
+            <!--android:id="@+id/image_fixcode_into"-->
+            <!--android:layout_width="@dimen/x40"-->
+            <!--android:layout_height="@dimen/y40"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:src="@mipmap/into" />-->
+
+
+            <!--</RelativeLayout>-->
+            <RelativeLayout
+                android:id="@+id/relative_dredge_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y20"
+                android:background="@color/color_f"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="@dimen/y20"
+                android:paddingLeft="@dimen/x40"
+                android:paddingRight="@dimen/x20"
+                android:paddingTop="@dimen/y20">
+
+                <ImageView
+                    android:id="@+id/image_dredge_product"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/y80"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/open_product" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x80"
+                    android:layout_toRightOf="@+id/image_dredge_product"
+                    android:text="@string/dredge_product"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/into"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0.5"
+                android:background="@color/color_f2"/>
+
+            <RelativeLayout
+                android:id="@+id/relative_shop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_f"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="@dimen/y20"
+                android:paddingLeft="@dimen/x40"
+                android:paddingRight="@dimen/x20"
+                android:paddingTop="@dimen/y20">
+
+                <ImageView
+                    android:id="@+id/image_shop"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/y80"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/shop_information" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x80"
+                    android:layout_toRightOf="@+id/image_shop"
+                    android:text="@string/title_shop"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/into"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y20"
+                android:background="@color/color_f"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="@dimen/y20"
+                android:paddingLeft="@dimen/x40"
+                android:paddingRight="@dimen/x20"
+                android:paddingTop="@dimen/y20">
+
+                <ImageView
+                    android:id="@+id/image_setting"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/y80"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_setting" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x80"
+                    android:layout_toRightOf="@id/image_setting"
+                    android:text="@string/title_setting"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/into"
+                    android:id="@+id/imageView" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0.5"
+                android:background="@color/color_f2"/>
+
+            <RelativeLayout
+                android:id="@+id/relative_voiceNotification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_f"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="@dimen/y20"
+                android:paddingLeft="@dimen/x40"
+                android:paddingRight="@dimen/x20"
+                android:paddingTop="@dimen/y20">
+
+                <ImageView
+                    android:id="@+id/image_voiceNotification"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/y80"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/yuyinbobao" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x80"
+                    android:layout_toRightOf="@id/image_voiceNotification"
+                    android:text="@string/voice_notification"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/into" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0.5"
+                android:background="@color/color_f2"/>
+
+            <RelativeLayout
+                android:id="@+id/relative_download"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_f"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="@dimen/y20"
+                android:paddingLeft="@dimen/x40"
+                android:paddingRight="@dimen/x20"
+                android:paddingTop="@dimen/y20">
+
+                <ImageView
+                    android:id="@+id/image_download"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/y80"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/app_download" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x80"
+                    android:layout_toRightOf="@id/image_download"
+                    android:text="关于我们"
+                    android:textColor="@color/color_6"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/into"
+                    />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/SignOut"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/y120"-->
+    <!--android:layout_marginLeft="@dimen/x100"-->
+    <!--android:layout_marginRight="@dimen/x100"-->
+    <!--android:layout_marginTop="@dimen/y220"-->
+    <!--android:background="@drawable/border_white_background_white_radius"-->
+    <!--android:foreground="?android:attr/selectableItemBackground">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:text="@string/login_out"-->
+    <!--android:textColor="@color/color_Home"-->
+    <!--android:textSize="16sp" />-->
+
+    <!--</RelativeLayout>-->
+
+</LinearLayout>

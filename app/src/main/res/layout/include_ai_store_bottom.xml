@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y175"
+    android:background="@color/color_f"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/rl_radar"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:onClick="onClick">
+        <LinearLayout
+            android:id="@+id/ll_radar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp_4"
+            android:paddingRight="@dimen/dp_4"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+        <ImageView
+            android:id="@+id/iv_radar"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/icon_leida_gray"/>
+
+        <TextView
+            android:id="@+id/tv_radar"
+            style="@style/tab_menu_text"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/radar"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_msg"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:onClick="onClick">
+        <LinearLayout
+            android:id="@+id/ll_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp_4"
+            android:paddingRight="@dimen/dp_4"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_msg"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/icon_message_gray" />
+
+            <TextView
+            android:id="@+id/tv_msg"
+            style="@style/tab_menu_text"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/msg"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_msgUnread"
+            android:layout_width="@dimen/dp_6"
+            android:layout_height="@dimen/dp_6"
+            android:layout_toRightOf="@+id/ll_msg"
+            android:layout_above="@+id/ll_msg"
+            android:visibility="gone"
+            android:src="@mipmap/point1"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_client"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:onClick="onClick">
+
+    <LinearLayout
+            android:id="@+id/ll_client"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp_4"
+            android:paddingRight="@dimen/dp_4"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+        <ImageView
+            android:id="@+id/iv_client"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/icon_mine_gray" />
+
+        <TextView
+            android:id="@+id/tv_client"
+            style="@style/tab_menu_text"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/client" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
